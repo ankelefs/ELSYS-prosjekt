@@ -1,5 +1,3 @@
 3 Ways to run a Taspberry Pi Program og Script at Startup: https://www.makeuseof.com/how-to-run-a-raspberry-pi-program-script-at-startup/
 
 Executing Shell Commands with Python: https://stackabuse.com/executing-shell-commands-with-python/
-
-test-setning
