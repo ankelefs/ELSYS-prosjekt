@@ -2,8 +2,9 @@
 import time
 import os
 
+time.sleep(15) # Buffer for å sikre internett-tilgang FØR "git pull"
 os.system("cd /home/pi/Documents/elsys-prosjekt")
-time.sleep(10) # Vil teste om Raspberry Pi-en klarer en pull-request fra GitHub etter 10 s
 os.system("git pull")
 
-# KAN VÆRE AT DENNE FILEN MÅ LAGRES LOKALT PÅ EPLEPAIEN
+time.sleep(10) # Buffer før datainnsamling
+# os.system("python3 *adresse til program*")
