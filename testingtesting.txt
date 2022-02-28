@@ -1,3 +1,4 @@
 Dette er en test-fil.
 
 TEST 1
+TEST 2
