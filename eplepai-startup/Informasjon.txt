@@ -1,3 +1,23 @@
-3 Ways to run a Taspberry Pi Program og Script at Startup: https://www.makeuseof.com/how-to-run-a-raspberry-pi-program-script-at-startup/
+---- 3 Ways to run a Taspberry Pi Program og Script at Startup: https://www.makeuseof.com/how-to-run-a-raspberry-pi-program-script-at-startup/
 
-Executing Shell Commands with Python: https://stackabuse.com/executing-shell-commands-with-python/
+---- Executing Shell Commands with Python: https://stackabuse.com/executing-shell-commands-with-python/
+
+---- Automatisk kjøring av program/script ved oppstart: ----
+1)  Det finnes en fil lokalt på Eplepaien hvor vi kan skrive inn en kommando som kjører et python-script.
+    Kjør 
+
+        sudo nano /etc/rc.local
+
+    for å endre filen.
+
+2)  Skriv inn
+
+        python3 *full adresse til programmet*
+
+    og lagre.
+
+3)  Da skal scriptet som det refereres til kjøres ved oppstart. NB! Kjører dette etter internettilkobling? Og 
+    må det lagres lokalt?
+
+---- Automatisk git pull ved oppstart: ----
+Vi vil at Eplepaien skal hente nyeste kode fra GitHub ved oppstart. Vi vil at scriptet startup.py skal kjøres ved oppstart. Per nå (28. feb.) er denne filen i GitHub. Det kan hende at denne filen skal ligge en plass lokalt på Eplepaien for at det skal fungere.
