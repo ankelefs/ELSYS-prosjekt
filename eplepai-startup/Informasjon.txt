@@ -2,6 +2,8 @@
 
 ---- Executing Shell Commands with Python: https://stackabuse.com/executing-shell-commands-with-python/
 
+---- Scheduled Running of Script with Cron: https://bc-robotics.com/tutorials/setting-cron-job-raspberry-pi/
+
 ---- Automatisk kjøring av program/script ved oppstart: ----
 1)  Det finnes en fil lokalt på Eplepaien hvor vi kan skrive inn en kommando som kjører et python-script.
     Kjør 
