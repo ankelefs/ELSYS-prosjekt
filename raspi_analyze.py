@@ -36,7 +36,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
     return y
 
 # Import data from bin file
-sample_period, data = raspi_import('-30.bin')
+sample_period, data = raspi_import('samples.bin')
 
 #data = signal.detrend(data, axis=0)  # removes DC component for each channel
 sample_period *= 1e-6  # change unit to micro seconds
