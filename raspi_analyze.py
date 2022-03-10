@@ -66,6 +66,7 @@ plt.ylabel("Power [dB]")
 plt.plot(freq, 20*np.log10(np.abs(spectrum))) # get the power spectrum
 
 plt.show()
+plt.savefig('fig.png')
 
 
 #Dataene fra de forskjellige mikrofonene
