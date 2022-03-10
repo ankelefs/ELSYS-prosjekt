@@ -1,0 +1,8 @@
+{% load static %}
+<section id="chart-container">
+    <canvas id="sensor-chart" data-url="{% url 'chart' %}"></canvas>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="{% static 'chart.js' %}"></script>

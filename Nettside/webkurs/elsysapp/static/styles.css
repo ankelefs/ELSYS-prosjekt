@@ -1,0 +1,119 @@
+h1.aksel {
+   font-size: 80px;    
+}
+
+#mikke {
+    color: red;
+    
+}
+
+.aksel:hover{
+    color: gray;
+}
+
+body {
+    background-color: rgb(215, 248, 252);
+  }
+
+  .header {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer { 
+    background-color: #333;
+    padding: 20px;
+    text-align: center;
+   }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+    text-align: center;
+  }
+
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .topnav b {
+    float: left;
+    display: block;
+    color: #eb4e4e;
+    text-align: center;
+    padding: 50px 30px;
+    text-decoration: none;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+
+  h1 {
+    color: rgb(0, 0, 0);
+    font-size: 400%;
+    text-align: center;
+  }
+
+
+  h3 {
+    color: rgb(236, 220, 220);
+    font-size: 100%;
+    text-align: left;
+  }
+
+
+  /* Create three unequal columns that floats next to each other */
+  .column {
+    float: left;
+    padding: 5%;
+  }
+
+/* Left and right column */
+  .column.side {
+    width: 25%;
+  }
+
+  /* Middle column */
+  .column.middle {
+    width: 50%;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+  .column.side, .column.middle {
+    width: 100%;
+  }
+
+  h2 {
+    color: rgb(0, 0, 0);
+    text-align: center;
+  }
+
+}
+
+
+.coulum1 {
+    float: left;
+    width: 50%;
+}
+
+.coulum2 {
+    float: right;
+    width: 50%;
+}
