@@ -57,7 +57,7 @@ plt.subplot(2, 1, 1)
 plt.title("Time domain signal")
 plt.xlabel("Time [us]")
 plt.ylabel("Voltage")
-plt.plot(t, data[:,1])
+plt.plot(t, data)
 
 plt.subplot(2, 1, 2)
 plt.title("Power spectrum of signal")
@@ -128,56 +128,56 @@ plt.show()
 
 #så krysskorelasjon mellom dataen og finn største verdi
 
-mic_12 = np.correlate(mic_1, mic_2, 'full')
-mic_13 = np.correlate(mic_1, mic_3, 'full')
-mic_23 = np.correlate(mic_2, mic_3, 'full')
-mic_11 = np.correlate(mic_1, mic_1, 'full')
+# mic_12 = np.correlate(mic_1, mic_2, 'full')
+# mic_13 = np.correlate(mic_1, mic_3, 'full')
+# mic_23 = np.correlate(mic_2, mic_3, 'full')
+# mic_11 = np.correlate(mic_1, mic_1, 'full')
 
-fig = plt.figure()
-ax1 = fig.add_subplot(411)
-ax1.xcorr(mic_1, mic_2, usevlines=True, maxlags=29)
-ax1.grid(True)
+# fig = plt.figure()
+# ax1 = fig.add_subplot(411)
+# ax1.xcorr(mic_1, mic_2, usevlines=True, maxlags=29)
+# ax1.grid(True)
 
-ax2 = fig.add_subplot(412)
-ax2.xcorr(mic_1, mic_3, usevlines=True, maxlags=29)
-ax2.grid(True)
+# ax2 = fig.add_subplot(412)
+# ax2.xcorr(mic_1, mic_3, usevlines=True, maxlags=29)
+# ax2.grid(True)
 
-ax3 = fig.add_subplot(413)
-ax3.xcorr(mic_2, mic_3, usevlines=True, maxlags=29)
-ax3.grid(True)
+# ax3 = fig.add_subplot(413)
+# ax3.xcorr(mic_2, mic_3, usevlines=True, maxlags=29)
+# ax3.grid(True)
 
 
-ax3 = fig.add_subplot(414)
-ax3.xcorr(mic_1, mic_1, usevlines=True, maxlags=29)
-ax3.grid(True)
+# ax3 = fig.add_subplot(414)
+# ax3.xcorr(mic_1, mic_1, usevlines=True, maxlags=29)
+# ax3.grid(True)
 
-plt.show()
+# plt.show()
 
-max_11 = np.argmax(mic_11)
-max_1 = np.argmax(mic_12) - max_11
-max_2 = np.argmax(mic_13) - max_11
-max_3 = np.argmax(mic_23) - max_11
+# max_11 = np.argmax(mic_11)
+# max_1 = np.argmax(mic_12) - max_11
+# max_2 = np.argmax(mic_13) - max_11
+# max_3 = np.argmax(mic_23) - max_11
 
-print(max_1)
-print(max_2)
-print(max_3)
-print(max_11)
+# print(max_1)
+# print(max_2)
+# print(max_3)
+# print(max_11)
 
-t_delta_1 = max_1/31250
-t_delta_2 = max_2/31250
-t_delta_3 = max_3/31250
+# t_delta_1 = max_1/31250
+# t_delta_2 = max_2/31250
+# t_delta_3 = max_3/31250
 
-#mattematisk formel for vinkel basert på matten
-d = 0.055
-c = 343
-#cos(vinkel) = (t_delta * c)/d
-vinkel_1 = math.degrees(np.arccos((t_delta_1*c)/d))
-vinkel_2 = math.degrees(np.arccos((t_delta_2*c)/d))
-vinkel_3 = math.degrees(np.arccos((t_delta_3*c)/d))
+# #mattematisk formel for vinkel basert på matten
+# d = 0.055
+# c = 343
+# #cos(vinkel) = (t_delta * c)/d
+# vinkel_1 = math.degrees(np.arccos((t_delta_1*c)/d))
+# vinkel_2 = math.degrees(np.arccos((t_delta_2*c)/d))
+# vinkel_3 = math.degrees(np.arccos((t_delta_3*c)/d))
 
-vinkel = math.degrees(np.arctan2(np.sqrt(3)*(max_1 + max_2),(max_1 - max_2 - 2*max_3)))
+# vinkel = math.degrees(np.arctan2(np.sqrt(3)*(max_1 + max_2),(max_1 - max_2 - 2*max_3)))
 
-print(vinkel_1)
-print(vinkel_2)
-print(vinkel_3)
-print(vinkel)
+# print(vinkel_1)
+# print(vinkel_2)
+# print(vinkel_3)
+# print(vinkel)
