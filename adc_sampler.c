@@ -34,7 +34,7 @@ channel ADC without need for any input to initiate sampling.
 #include <math.h>
 
 /////// USER SHOULD MAKE SURE THESE DEFINES CORRESPOND TO THEIR SETUP ///////
-#define ADCS 5      // Number of connected MCP3201.
+#define ADCS 1      // Number of connected MCP3201.
 
 #define OUTPUT_DATA argv[2] // path and filename to dump buffered ADC data
 
