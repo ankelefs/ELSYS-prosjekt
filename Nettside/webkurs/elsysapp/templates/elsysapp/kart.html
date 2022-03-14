@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,36 +26,37 @@
       <h1>Støymålinger i Trondheim</h1>
     </div>
     <div class="topnav">
-      <a href="">Hjem</a>
-      <a href="diagram">Diagram</a>
-      <a href="kart">Kart</a>
+      <a href="/elsysapp/">Hjem</a>
+      <a href="/elsysapp/diagram">Diagram</a>
+      <a href="">Kart</a>
     </div>
 
     <div class="row">
       <div class="column side">
-        <h2>Side</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+        <h2> </h2>
+        <p> </p>
       </div>
       
       <div class="column middle">
-        <h2>Om denne nettsiden</h2>
-        <p>Nettsiden viser støymålinger gjort i Trondheim. Dette har blitt målt med systemet Senbox. Her vises diagrammer som viser bakgrunnen for støyen på gitt område, og kart over punkter der Senbox er tatt i bruk.</p>
-      </div>
-
-      <div class="column side">
-        <h2>Side</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+        <h2>Kart over Senbox i Trondheim</h2>
+        <div class="mapouter"><div class="gmap_canvas">
+            <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=trondheim&t=&z=11&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+            <a href="https://fmovies-online.net">fmovies</a>
+            <br>
+            <style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}</style>
+            <a href="https://www.embedgooglemap.net">create a map with google maps</a>
+            <style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style>
+        </div></div>
       </div>
 
       <div class="column side">
         <h2> </h2>
         <p> </p>
       </div>
+   
 
-      <div class="column middle">
-        <h2>Første måling</h2>
-        {% include "elsysapp/chart.html" %}
-      </div>
+
+    
 
 
     </div>

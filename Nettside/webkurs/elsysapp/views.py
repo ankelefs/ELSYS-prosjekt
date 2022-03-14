@@ -50,3 +50,11 @@ def chart(request):
         'labels': labels,
         'data': data,
     })
+
+def diagram(request):
+    context = {} # Tom dictionary som blir brukt senere!
+    return render(request, "elsysapp/diagram.html", context)
+
+def kart(request):
+    context = {} # Tom dictionary som blir brukt senere!
+    return render(request, "elsysapp/kart.html", context)
