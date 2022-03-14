@@ -11,7 +11,7 @@ from scipy.signal import butter, lfilter, freqz
 
 
 
-def raspi_import(path, channels=5):
+def raspi_import(path, channels=1):
     """
     Import data produced using adc_sampler.c.
     Returns sample period and ndarray with one column per channel.
@@ -71,9 +71,9 @@ plt.savefig('fig.png')
 
 #Dataene fra de forskjellige mikrofonene
 
-mic_1 = scipy.signal.detrend(data[2000:,2])
-mic_2 = scipy.signal.detrend(data[2000:,3])
-mic_3 = scipy.signal.detrend(data[2000:,4])
+mic_1 = scipy.signal.detrend(data[2000:,0])
+#mic_2 = scipy.signal.detrend(data[2000:,3])
+#mic_3 = scipy.signal.detrend(data[2000:,4])
 
 
 #Først båndpassfilter over data
@@ -97,8 +97,8 @@ plt.grid()
 plt.show()
 
 filter_1 = butter_lowpass_filter(mic_1, cutoff, fs, order)
-filter_2 = butter_lowpass_filter(mic_2, cutoff, fs, order)
-filter_3 = butter_lowpass_filter(mic_3, cutoff, fs, order)
+#filter_2 = butter_lowpass_filter(mic_2, cutoff, fs, order)
+#filter_3 = butter_lowpass_filter(mic_3, cutoff, fs, order)
 
 t2 = t[2000:]
 plt.subplot(3, 1, 1)
@@ -108,19 +108,19 @@ plt.xlabel('Time [sec]')
 plt.grid()
 plt.legend()
 
-plt.subplot(3, 1, 2)
-plt.plot(t2, mic_2, 'b-', label='data')
-plt.plot(t2, filter_2, 'g-', linewidth=2, label='filtered data')
-plt.xlabel('Time [sec]')
-plt.grid()
-plt.legend()
+#plt.subplot(3, 1, 2)
+#plt.plot(t2, mic_2, 'b-', label='data')
+#plt.plot(t2, filter_2, 'g-', linewidth=2, label='filtered data')
+#plt.xlabel('Time [sec]')
+#plt.grid()
+#plt.legend()
 
-plt.subplot(3, 1, 3)
-plt.plot(t2, mic_3, 'b-', label='data')
-plt.plot(t2, filter_3, 'g-', linewidth=2, label='filtered data')
-plt.xlabel('Time [sec]')
-plt.grid()
-plt.legend()
+#plt.subplot(3, 1, 3)
+#plt.plot(t2, mic_3, 'b-', label='data')
+#plt.plot(t2, filter_3, 'g-', linewidth=2, label='filtered data')
+#plt.xlabel('Time [sec]')
+#plt.grid()
+#plt.legend()
 
 plt.show()
 
