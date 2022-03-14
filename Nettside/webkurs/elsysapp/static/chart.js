@@ -14,7 +14,7 @@ $(function () {
             labels: data.labels,
             datasets: [{
               label: 'Sensoraktivitet',
-              backgroundColor: 'green',
+              backgroundColor: 'black',
               data: data.data
             }]          
           },
