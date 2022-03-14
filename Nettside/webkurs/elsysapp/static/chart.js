@@ -13,7 +13,7 @@ $(function () {
           data: {
             labels: data.labels,
             datasets: [{
-              label: 'Sensoraktivitet',
+              label: 'Støymåling i dB.',
               backgroundColor: 'black',
               data: data.data
             }]          
@@ -23,10 +23,7 @@ $(function () {
             legend: {
               position: 'top',
             },
-            title: {
-              display: true,
-              text: 'Sensoraktivitet'
-            }
+            
           }
         });
 
