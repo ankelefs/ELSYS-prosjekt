@@ -36,10 +36,10 @@ channel ADC without need for any input to initiate sampling.
 /////// USER SHOULD MAKE SURE THESE DEFINES CORRESPOND TO THEIR SETUP ///////
 #define ADCS 1      // Number of connected MCP3201.
 
-#define OUTPUT_DATA argv[2] // path and filename to dump buffered ADC data
+#define OUTPUT_DATA "samples.bin" // path and filename to dump buffered ADC data
 
 /* RPi PIN ASSIGNMENTS */
-#define MISO1 12    // ADC 1 MISO (BCM 4 aka GPIO 4).
+#define MISO1 16    // ADC 1 MISO (BCM 4 aka GPIO 4).
 
 
 #define MOSI 19     // GPIO for SPI MOSI (BCM 10 aka GPIO 10 aka SPI_MOSI). MOSI not in use here due to single ch. ADCs, but must be defined anyway.
