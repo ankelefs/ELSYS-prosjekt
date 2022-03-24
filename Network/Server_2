@@ -1,0 +1,131 @@
+package main
+
+import (
+	"bytes"
+	"fmt"
+	"io"
+	"log"
+	"net"
+	"os"
+	"strings"
+)
+
+const BUFFER_SIZE = 1024
+const PORT = "7005"
+
+func main() {
+
+	fmt.Println("start listening")
+
+	server, error := net.Listen("tcp", "localhost:"+PORT)
+	if error != nil {
+		fmt.Println("There was an error starting the server" + error.Error())
+		return
+	}
+
+	//infinate loop
+	for {
+
+		connection, error := server.Accept()
+		if error != nil {
+			fmt.Println("There was am error with the connection" + error.Error())
+			return
+		}
+		fmt.Println("connected")
+		//handle the connection, on it's own thread, per connection
+		go connectionHandler(connection)
+	}
+}
+
+func connectionHandler(connection net.Conn) {
+	buffer := make([]byte, BUFFER_SIZE)
+
+	_, error := connection.Read(buffer)
+	if error != nil {
+		fmt.Println("There is an error reading from connection", error.Error())
+		return
+	}
+	fmt.Println("command recieved: " + string(buffer))
+
+	//loop until disconntect
+
+	cleanedBuffer := bytes.Trim(buffer, "\x00")
+	cleanedInputCommandString := strings.TrimSpace(string(cleanedBuffer))
+	arrayOfCommands := strings.Split(cleanedInputCommandString, " ")
+
+	fmt.Println(arrayOfCommands[0])
+	if arrayOfCommands[0] == "get" {
+		sendFileToClient(arrayOfCommands[1], connection)
+	} else if arrayOfCommands[0] == "send" {
+		fmt.Println("getting a file")
+
+		getFileFromClient(arrayOfCommands[1], connection)
+
+	} else {
+		_, error = connection.Write([]byte("bad command"))
+	}
+
+}
+
+func sendFileToClient(fileName string, connection net.Conn) {
+	var currentByte int64 = 0
+	fmt.Println("send to client")
+	fileBuffer := make([]byte, BUFFER_SIZE)
+
+	//file to read
+	file, err := os.Open(strings.TrimSpace(fileName)) // For read access.
+	if err != nil {
+
+		log.Fatal(err)
+	}
+	var err2 error
+
+	//read file until there is an error
+	for {
+
+		_, err2 = file.ReadAt(fileBuffer, currentByte)
+		currentByte += BUFFER_SIZE
+		fmt.Println(fileBuffer)
+		connection.Write(fileBuffer)
+
+		if err2 == io.EOF {
+			break
+		}
+	}
+
+	file.Close()
+	return
+
+}
+
+func getFileFromClient(fileName string, connection net.Conn) {
+
+	var currentByte int64 = 0
+
+	fileBuffer := make([]byte, BUFFER_SIZE)
+
+	var err error
+	file, err := os.Create(strings.TrimSpace(fileName))
+	if err != nil {
+		log.Fatal(err)
+	}
+	connection.Write([]byte("get " + fileName))
+	for err == nil || err != io.EOF {
+
+		connection.Read(fileBuffer)
+
+		cleanedFileBuffer := bytes.Trim(fileBuffer, "\x00")
+
+		_, err = file.WriteAt(cleanedFileBuffer, currentByte)
+		if len(string(fileBuffer)) != len(string(cleanedFileBuffer)) {
+			break
+		}
+		currentByte += BUFFER_SIZE
+
+	}
+
+	connection.Close()
+	file.Close()
+	return
+
+}

@@ -36,6 +36,7 @@ func main() {
 
 // Handles incoming requests.
 func handleRequest(conn net.Conn) {
+
 	// Make a buffer to hold incoming data.
 	buf := make([]byte, 1024)
 	// Read the incoming connection into the buffer.
@@ -45,6 +46,7 @@ func handleRequest(conn net.Conn) {
 	}
 	// Send a response back to person contacting us.
 	conn.Write([]byte("Message received."))
+	fmt.Print(string(buf))
 	// Close the connection when you're done with it.
 	conn.Close()
 }
