@@ -48,7 +48,7 @@ func connectionHandler(connection net.Conn) {
 	fmt.Println("command recieved: " + string(buffer))
 
 	//loop until disconntect
-
+	//Her er det en feil!!!!!!!!!!
 	cleanedBuffer := bytes.Trim(buffer, "\x00")
 	cleanedInputCommandString := strings.TrimSpace(string(cleanedBuffer))
 	arrayOfCommands := strings.Split(cleanedInputCommandString, " ")
@@ -73,6 +73,7 @@ func sendFileToClient(fileName string, connection net.Conn) {
 	fileBuffer := make([]byte, BUFFER_SIZE)
 
 	//file to read
+	//Siste feilen er her ooooog.....
 	file, err := os.Open(strings.TrimSpace(fileName)) // For read access.
 	if err != nil {
 
@@ -82,7 +83,7 @@ func sendFileToClient(fileName string, connection net.Conn) {
 
 	//read file until there is an error
 	for {
-
+		//Tror det er feil her!!!!!
 		_, err2 = file.ReadAt(fileBuffer, currentByte)
 		currentByte += BUFFER_SIZE
 		fmt.Println(fileBuffer)
