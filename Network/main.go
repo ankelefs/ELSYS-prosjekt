@@ -58,7 +58,7 @@ func main() {
 
 	msgConn(conn)
 
-	listener, err := net.Listen("tcp", ":8080")
+	listener, err := net.Listen("tcp", ":34933")
 	check(err)
 	defer listener.Close()
 
