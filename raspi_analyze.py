@@ -49,6 +49,17 @@ t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
 freq = np.fft.fftfreq(n=num_of_samples, d=sample_period)
 spectrum = np.fft.fft(data, axis=0)  # takes FFT of all channels
 
+'#########Kode som finner mest fremtredende frekvens i fft-bilde###########'
+
+mostProminentFreq = np.argmax(spectrum) #Variabelen holder posisjonen i arrayet til den frekvensen som er mest fremtredende.
+print('Mest fremtredende Frekvens:',freq[mostProminentFreq])
+print(mostProminentFreq)
+print('Amplitude til mest fremtredende frekvens: ', (20*np.log10(np.abs(2*(spectrum[mostProminentFreq]))))-60, 'dB')
+
+print(num_of_samples)
+
+'########################################################################'
+
 
 # Plot the results in two subplots
 # NOTICE: This lazily plots the entire matrixes. All the channels will be put into the same plots.
