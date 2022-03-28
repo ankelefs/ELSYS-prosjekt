@@ -39,7 +39,7 @@ channel ADC without need for any input to initiate sampling.
 #define OUTPUT_DATA argv[2] // path and filename to dump buffered ADC data
 
 /* RPi PIN ASSIGNMENTS */
-#define MISO1 16    // ADC 1 MISO (BCM 4 aka GPIO 4).
+#define MISO1 21    // ADC 1 MISO (BCM 4 aka GPIO 4).
 
 
 #define MOSI 10     // GPIO for SPI MOSI (BCM 10 aka GPIO 10 aka SPI_MOSI). MOSI not in use here due to single ch. ADCs, but must be defined anyway.
@@ -55,7 +55,7 @@ channel ADC without need for any input to initiate sampling.
 
 #define REPEAT_MICROS 32 // Reading every x microseconds. Must be no less than 2xB0 defined above
 
-#define DEFAULT_NUM_SAMPLES 31250 // Default number of samples for printing in the example. Should give 1sec of data at Tp=32us.
+#define DEFAULT_NUM_SAMPLES 31250*60 // Default number of samples for printing in the example. Should give 1sec of data at Tp=32us.
 
 int MISO[ADCS]={MISO1}; // Must be updated if you change number of ADCs/MISOs above
 /////// END USER SHOULD MAKE SURE THESE DEFINES CORRESPOND TO THEIR SETUP ///////
