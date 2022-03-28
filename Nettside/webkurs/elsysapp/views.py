@@ -58,3 +58,11 @@ def diagram(request):
 def kart(request):
     context = {} # Tom dictionary som blir brukt senere!
     return render(request, "elsysapp/kart.html", context)
+
+def klokkeslett(request):
+    context = {} # Tom dictionary som blir brukt senere!
+    return render(request, "elsysapp/klokkeslett.html", context)
+
+def spekter(request):
+    context = {}
+    return render(request,"elsysapp/spekter.html", context)
