@@ -7,7 +7,7 @@
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
+  
     
     
     <meta charset="UTF-8">
@@ -37,27 +37,38 @@
 
     <div class="row">
       <div class="column side">
-        <h2> </h2>
-        <p> </p>
+        <h2> Velg et klokkeslett </h2>
+        <div id="bars"></div>
+          <input type="button" value="13:00" and "Clear" name="submit" onclick="loadFile()" and "draw()" ><br>
+          <input type="button" value="14:00" name="submit" onclick="draw()"><br>
+          <input type="button" value="15:00" name="submit" onclick="draw()"><br>
+          
+            
+          <input type="button" value="Clear" name="Clear" onclick="reset()"><br>
+            
+       
+      
+
+
+        <form action='#' onsubmit="return false;">
+          <input type='file' id='fileinput'>
+          <input type='button' id='btnLoad' value='13:00' onclick='loadFile();'>
+        </form>
+        
       </div>
       
       <div class="column middle">
         <h2>Frekvensspekter kl: 13:00</h2>
         
-        <div id="bars">
-            <p></p>
-            </div>
-            Enter the values seperated by a comma<br> 
-            <input type="text" name="number" id="num"><br>
-            <input type="button" value="submit" name="submit" onclick="draw()">
-            <input type="button" value="Clear" name="Clear" onclick="reset()"><br><br>
-            <canvas id="myCanvas" width="900" height="200";">
-            </canvas>
+        <canvas id="myCanvas" width="900" height="200"></canvas>
+        
+        
       </div>
+        
+        
 
       <div class="column side">
-        <h2> </h2>
-        <p> </p>
+        
       </div>
 
 

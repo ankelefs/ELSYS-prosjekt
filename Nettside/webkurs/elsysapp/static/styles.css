@@ -11,8 +11,16 @@ h1.aksel {
     color: gray;
 }
 
+html {
+  overflow: hidden;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
 body {
     background-color: rgb(215, 248, 252);
+    height: 100%;
+    
   }
 
   .header {
@@ -25,6 +33,7 @@ body {
     left: 0;
     bottom: 0;
     width: 100%;
+    height: auto;
     background-color: #333;
     padding: 20px;
     text-align: center;
