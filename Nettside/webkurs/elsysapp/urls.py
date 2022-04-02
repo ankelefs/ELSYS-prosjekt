@@ -2,6 +2,7 @@ from tokenize import Imagnumber
 from django.contrib import admin
 from django.urls import path
 from .views import index, sensor, chart, diagram, kart, spekter #Relativ import av viewsfunksjonen
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 appname = "elsysapp"
 urlpatterns = [
@@ -14,4 +15,4 @@ urlpatterns = [
 ]
 
 
-
+urlpatterns += staticfiles_urlpatterns()

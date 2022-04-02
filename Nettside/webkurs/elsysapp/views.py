@@ -64,3 +64,4 @@ def kart(request):
 def spekter(request):
     context = {}
     return render(request,"elsysapp/spekter.html", context)
+    
