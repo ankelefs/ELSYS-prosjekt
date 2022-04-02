@@ -1,85 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-      <!-- CSS stylesheet -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> 
-      <!-- JS scrip -->
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  
-    
-    
+
+  <head>
+    <title>Sonus Captura</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-  
+    
+    <!-- CSS stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2021.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2020.css">
+    
+    <!-- JS scrip -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
     {% load static %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-
     <script src="{% static 'spectrum.js' %}"></script>
 
-
+    <style>
+    html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
+    .mySlides {display:none}
+    .w3-tag, .fa {cursor:pointer}
+    .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+    a:hover {
+      text-decoration: none;
+    }
+    </style>
 </head>
 <body>
-    <div class="header">
-      <h1>Støymålinger i Trondheim</h1>
-    </div>
-    <div class="topnav">
-      <a href="/elsysapp/">Hjem</a>
-      <a href="/elsysapp/klokkeslett">Klokkeslett</a>
-      <a href="">Spekter</a>
-      <a href="/elsysapp/diagram">Diagram</a>
-      <a href="/elsysapp/kart">Kart</a>
-    </div>
+  <div class="w3-content" style="max-width:1100px;margin-top:0px;margin-bottom:0px"></div>
 
-    <div class="row">
-      <div class="column side">
-        <h2> Velg et klokkeslett </h2>
-        <div id="bars"></div>
-          <input type="button" value="13:00" and "Clear" name="submit" onclick="loadFile()" and "draw()" ><br>
-          <input type="button" value="14:00" name="submit" onclick="draw()"><br>
-          <input type="button" value="15:00" name="submit" onclick="draw()"><br>
-          
-            
-          <input type="button" value="Clear" name="Clear" onclick="reset()"><br>
-            
-       
-      
-
-
-        <form action='#' onsubmit="return false;">
-          <input type='file' id='fileinput'>
-          <input type='button' id='btnLoad' value='13:00' onclick='loadFile();'>
-        </form>
-        
+<!-- Header -->
+  <header class="w3-container w3-padding-32 w3-2021-inkwell w3-center ">
+    <h1>Sonus Captura</h1>
+      <p class="w3-opacity">Støymåling i Trondheim</p>
+  </header>
+  
+<!-- Meny -->
+  <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+    <div class="w3-col s3">
+        <a href="/elsysapp/" class="w3-button w3-block w3-xlarge">Hjem</a>
       </div>
-      
-      <div class="column middle">
-        <h2>Frekvensspekter kl: 13:00</h2>
-        
-        <canvas id="myCanvas" width="900" height="200"></canvas>
-        
-        
+      <div class="w3-col s3">
+        <a href="/elsysapp/diagram" class="w3-button w3-block w3-xlarge">Støynivå</a>
       </div>
-        
-        
-
-      <div class="column side">
-        
+      <div class="w3-col s3">
+        <a href="" class="w3-button w3-block w3-xlarge">Klassifisering</a>
       </div>
+      <div class="w3-col s3">
+        <a href="/elsysapp/kart" class="w3-button w3-block w3-xlarge">Kart</a>
+      </div>
+  </div>
 
-
+<!-- Innhold --> 
+  <div class="w3-center w3-padding-16 w3-panel" >  
+    <h1><b>Velg et tidsintervall</b></h1>
+    <div class=" w3-container w3-quarter">
     </div>
-
-    <div class="footer">
-        <h3>Kontakt:</h3>
-        <h3>Elsys gruppe 7</h3>
-        <h3>El-bygget</h3>
+    <div class="w3-quarter w3-center w3-padding-16" style="margin-top: 25px"> 
+      <div class="w3-col w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('1').style.display='block'" >7:00 - 8:00</button>
+        </div>
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('2').style.display='block'">8:00 - 9:00</button>
+        </div>
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('3').style.display='block'">9:00 - 10:00</button>
+        </div>
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('4').style.display='block'">10:00 - 11:00</button>
+        </div>
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('5').style.display='block'">11:00 - 12:00</button>
+        </div>
+      </div>  
     </div>
+    <div class="w3-quarter w3-center w3-padding-16" style="margin-top: 25px" > 
+      <div class="w3-col w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('6').style.display='block'" >12:00 - 13:00</button>
+        </div>
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('7').style.display='block'">13:00 - 14:00</button>
+        </div>
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('8').style.display='block'">14:00 - 15:00</button>
+        </div>
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('9').style.display='block'">15:00 - 16:00</button>
+        </div>
+        <div class="w3-row s4">
+          <button class="w3-button w3-block w3-large" onclick="document.getElementById('10').style.display='block'">16:00 - 17:00</button>
+        </div>
+      </div>  
+    </div>
+    <div class=" w3-container w3-quarter">
+    </div>
+  </div>
     
-</body>
+  <div id="1" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('1').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 7:00 - 8:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <div class=" w3-container w3-half">
+          </div>
+        </div>
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('1').style.display='none'; document.getElementById('2').style.display='block'">Neste</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div id="2" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('2').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 8:00 - 9:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('2').style.display='none'; document.getElementById('1').style.display='block'">Forrige</button>
+        </div>
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('2').style.display='none'; document.getElementById('3').style.display='block'">Neste</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="3" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('3').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 9:00 - 10:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('3').style.display='none'; document.getElementById('2').style.display='block'">Forrige</button>
+        </div>
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('3').style.display='none'; document.getElementById('4').style.display='block'">Neste</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="4" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('4').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 10:00 - 11:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('4').style.display='none'; document.getElementById('3').style.display='block'">Forrige</button>
+        </div>
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('4').style.display='none'; document.getElementById('5').style.display='block'">Neste</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="5" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('5').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 11:00 - 12:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('5').style.display='none'; document.getElementById('4').style.display='block'">Forrige</button>
+        </div>
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('5').style.display='none'; document.getElementById('6').style.display='block'">Neste</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="6" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('6').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 12:00 - 13:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('6').style.display='none'; document.getElementById('5').style.display='block'">Forrige</button>
+        </div>
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('6').style.display='none'; document.getElementById('7').style.display='block'">Neste</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="7" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('7').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 13:00 - 14:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('7').style.display='none'; document.getElementById('6').style.display='block'">Forrige</button>
+        </div>
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('7').style.display='none'; document.getElementById('8').style.display='block'">Neste</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="8" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('8').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 14:00 - 15:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('8').style.display='none'; document.getElementById('7').style.display='block'">Forrige</button>
+        </div>
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('8').style.display='none'; document.getElementById('9').style.display='block'">Neste</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="9" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('9').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 15:00 - 16:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('9').style.display='none'; document.getElementById('8').style.display='block'">Forrige</button>
+        </div>
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('9').style.display='none'; document.getElementById('10').style.display='block'">Neste</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="10" class="w3-modal">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4">
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+        <span onclick="document.getElementById('10').style.display='none'" 
+      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+        <h2 class="w3-wide">Frekvensspekter 16:00 - 17:00</h2>
+      </header>
+      <div class="w3-container">
+        {% load static %}
+        <img src="{% static 'Bilder/circle.png' %}" alt="My image" style="width:50%; transform: translate(50%,0">
+      </div>
+      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+        <div class="w3-col s6">
+          <button class="w3-button w3-block w3-xlarge" onclick="document.getElementById('10').style.display='none'; document.getElementById('9').style.display='block'">Forrige</button>
+        </div>
+        <div class="w3-col s6">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    var modal = document.getElementById('ticketModal');
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+   
+<!-- Footer -->
+    <footer class="w3-container w3-padding-32 w3-2021-inkwell">
+      <h3>Kontakt:</h3>
+      <h4>Elsys gruppe 7</h4>
+      <h4>El-bygget</h4>
+  </footer>
+</body>
 </html>

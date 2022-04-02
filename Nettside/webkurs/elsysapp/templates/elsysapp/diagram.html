@@ -1,77 +1,95 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-      <!-- CSS stylesheet -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> 
-      <!-- JS scrip -->
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-   
-    
-    
+  <head>
+    <title>Sonus Captura</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-  
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-
-
-</head>
-<body>
-    <div class="header">
-      <h1>Støymålinger i Trondheim</h1>
-    </div>
-    <div class="topnav">
-      <a href="/elsysapp/">Hjem</a>
-      <a href="/elsysapp/klokkeslett">Klokkeslett</a>
-      <a href="/elsysapp/spekter">Spekter</a>
-      <a href="">Diagram</a>
-      <a href="/elsysapp/kart">Kart</a>
-    </div>
-
-    <div class="row">
-      <div class="column side">
-        <h2> </h2>
-        <p> </p>
-      </div>
-      
-      <div class="column middle">
-        <h2>Første måling</h2>
-        {% include "elsysapp/chart.html" %}
-      </div>
-
-      <div class="column side">
-        <h2> </h2>
-        <p> </p>
-      </div>
-      <div class="row">
-        <div class="column side">
-          <h2> </h2>
-          <p> </p>
-        </div>
-        
-        <div class="column middle">
-          <h2> </h2>
-        </div>
-  
-        <div class="column side">
-          <h2> </h2>
-          <p> </p>
-        </div>
-        
-    </div>
-
-    <div class="footer">
-        <h3>Kontakt:</h3>
-        <h3>Elsys gruppe 7</h3>
-        <h3>El-bygget</h3>
-    </div>
     
-</body>
+    <!-- CSS stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2021.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2020.css">
+    
+    <!-- JS scrip -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
+    <style>
+    html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
+    .mySlides {display:none}
+    .w3-tag, .fa {cursor:pointer}
+    .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+    a:hover {
+      text-decoration: none;
+    </style>
+  </head>
+<body>
+  <div class="w3-content" style="max-width:1100px;margin-top:0px;margin-bottom:0px"></div>
 
+<!-- Header -->
+    <header class="w3-container w3-padding-32 w3-2021-inkwell w3-center ">
+      <h1>Sonus Captura</h1>
+        <p class="w3-opacity">Støymåling i Trondheim</p>
+    </header>
+
+<!-- Meny -->
+    <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+      <div class="w3-col s3">
+          <a href="/elsysapp/" class="w3-button w3-block w3-xlarge">Hjem</a>
+        </div>
+        <div class="w3-col s3">
+          <a href="" class="w3-button w3-block w3-xlarge">Støynivå</a>
+        </div>
+        <div class="w3-col s3">
+          <a href="/elsysapp/spekter" class="w3-button w3-block w3-xlarge">Klassifisering</a>
+        </div>
+        <div class="w3-col s3">
+          <a href="/elsysapp/kart" class="w3-button w3-block w3-xlarge">Kart</a>
+        </div>
+    </div>
+
+<!-- Innhold -->
+    <div class="w3-container w3-content w3-panel w3-center w3-padding-64 " >
+      <h2>Første måling</h2>
+      <canvas id="myChart" style="width:100%;max-width:600px;transform: translate(28%,0)"></canvas>
+    </div>
+    <script>
+      var xValues = [7,8,9,10,11,12,13,14,15,16,17];
+      var yValues = [20,35,30,20,10,15,10,20,25,35,30];
+      
+      new Chart("myChart", {
+        type: "line",
+        data: {
+          labels: xValues,
+          datasets: [{
+            fill: false,
+            lineTension: 0,
+            backgroundColor: "rgba(0,0,255,1.0)",
+            borderColor: "rgba(0,0,255,0.1)",
+            data: yValues
+          }]
+        },
+        options: {
+          legend: {display: false},
+          scales: {
+            yAxes: [{ticks: {min: 6, max:40}}],
+          }
+        }
+      });
+      </script>
+
+<!-- Footer -->
+  <footer class="w3-container w3-padding-32 w3-2021-inkwell">
+    <h3>Kontakt:</h3>
+    <h4>Elsys gruppe 7</h4>
+    <h4>El-bygget</h4>
+  </footer>
+</body>
 </html>
