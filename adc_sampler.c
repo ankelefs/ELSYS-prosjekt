@@ -39,7 +39,7 @@ channel ADC without need for any input to initiate sampling.
 #define OUTPUT_DATA argv[2] // path and filename to dump buffered ADC data
 
 /* RPi PIN ASSIGNMENTS */
-#define MISO1 21    // ADC 1 MISO (BCM 4 aka GPIO 4).
+#define MISO1 21    // ADC 1 MISO (BCM 4 aka GPIO 21).
 
 
 #define MOSI 10     // GPIO for SPI MOSI (BCM 10 aka GPIO 10 aka SPI_MOSI). MOSI not in use here due to single ch. ADCs, but must be defined anyway.
