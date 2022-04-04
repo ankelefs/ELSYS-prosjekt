@@ -321,12 +321,12 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 
 #Kode kalibrering, men usikker om tallet fra kalibrering skal multipliseres eller adderes
 #tar inn data i tidsdomene og sender ut data i tidsdomene (mulig A-vektet)
-def kalibrering(kalibreringsverdi, freq_vec, verdi):
-    verdi_kalib = []
+def kalibrering(kalibreringsverdi, frekvens, spect):
+    verdi_kalib = dBA(frekvens, spect, dBA_dict)
     verdi_temp = 0
 
-    for f in range(0, len(freq_vec)):
-        verdi_temp = verdi[f] - kalibreringsverdi
+    for f in range(0, len(frekvens)):
+        verdi_temp = spect[f] - kalibreringsverdi
         #få verdien i dbA her
         verdi_temp = np.fft.iffft(verdi_temp)
         verdi_kalib.append(verdi_temp)
@@ -358,6 +358,7 @@ plt.plot(t, y)
 '''
 
 #plt.subplot(2, 1, 2)
+'''
 y = dBA(freq, spectrum, dBA_dict)
 y2 = todB_vec(spectrum)
 
@@ -374,12 +375,17 @@ plt.ylabel("Power [dB]")
 plt.plot(freq, y2) # get the power spectrum
 
 
+<<<<<<< HEAD
+#plt.show()
+''''
+=======
 plt.show()
 
 my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder') # Figures out the absolute path for you in case your working directory moves around.
 my_file = 'graph.png'
 plt.savefig(os.path.join(my_path, my_file))
 
+>>>>>>> c2af23117c98ffbf96ab5ff5dff8e86251700ff0
 # Filter a noisy signal.
 '''
 T = 0.05
