@@ -16,7 +16,7 @@ while True:
 
     time.sleep(sleep)
     try:
-        os.system(f'cd {elsysProsjektMappe} && python3 raspi_analyze copy.py') # Analyse
+        os.system(f'cd {elsysProsjektMappe} && python3 raspi_analyze_copy.py') # Analyse
         print('Analysis complete')
     except:
         print('Analysis unsuccessfull')
