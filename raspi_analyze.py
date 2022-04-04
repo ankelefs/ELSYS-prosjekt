@@ -1,5 +1,6 @@
 from cProfile import label
 from cmath import cos
+import dataclasses
 import math
 from turtle import xcor
 import numpy as np
@@ -10,6 +11,10 @@ import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
 import os
 import acoustics 
+import acoustics.octave
+import acoustics.bands
+from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
+
 
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
@@ -107,12 +112,12 @@ def dBA(frekvens, spect, dBA_dict): #tar i rfft av signalet
     dBA_vector = []
     temp = 0
 
-    for i in range(0, len(spect)):
+    for i in range(0, len(freq)):
         temp = todB_num(spect[i])
         if(frekvens[i] >= 20000):
             temp += -9.3
         else:
-            for j in range(0, len(dBA_dict)):
+            for j in range(0, len(dBA_dict)-1):
                 if(dBA_key_list[j] < frekvens[i] < dBA_key_list[j + 1]):
                     temp += (dBA_value_list[j] + dBA_value_list[j + 1])/2
         
@@ -190,11 +195,11 @@ def ekvivalentverdi2(period, num_samples, verdi_dB):
 '########################################################################'
 #Båndpass her  --- dette funket ikke, nytt filter lenger ned.
 
-def butter_bandpass(lowcut, highcut, fs, order=5):
+def butter_bandpass(lowcut, highcut, fs, order=8):
     return butter(order, [lowcut, highcut], fs=fs, btype='band')
 
 
-def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
+def butter_bandpass_filter(data, lowcut, highcut, fs, order=8):
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
     y = lfilter(b, a, data)
     return y
@@ -251,6 +256,7 @@ x += 0.03 * np.cos(2 * np.pi * 2000 * t)
 #tar inn data i tidsdomene og sender ut data i tidsdomene (mulig A-vektet)
 def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
     verdi_kalib = dBA(frekvens, spect, dBA_dict)
+    print(len(verdi_kalib))
     verdi_temp = 0
     kalib_dBA = []
     #Denne løkken kalibrerer
@@ -261,6 +267,7 @@ def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
 
 
     print(len(kalib_dBA))
+    print(len(freq))
     return kalib_dBA #Verdi i dB
 
 
@@ -275,8 +282,8 @@ def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
 fs = 40000 #nyqvist eller hva det heter, må være en satt variabel
 
 def enKlasse(verdi_Pa, klasse_freq, verdi_tid):
-    bp_filtrert = butter_bandpass_filter(verdi_tid, klasse_freq-3, klasse_freq + 30, fs, 5)
-    kalb_filtrert = kalibrering(bp_filtrert)
+    bp_filtrert = butter_bandpass_filter(verdi_tid, klasse_freq-30, klasse_freq + 30, fs, 8)
+    kalb_filtrert = kalibrering(20, freq, bp_filtrert, dBA_dict)
     frekvens_niv = ekvivalentverdi(sample_period, num_of_samples, kalb_filtrert)
     #frekvens_niv2 = ekvivalentverdi2(sample_period, num_of_samples, verdi_dB)
     return frekvens_niv
@@ -312,12 +319,14 @@ def klassifisering(klasser, verdi, verdi_tid):
 
 #test_kalib = kalibrering(20, freq, spectrum, dBA_dict)
 #test_Pa = toPascal(test_kalib)
-#test3 = butter_bandpass_filter(test_Pa, 1000-3, 1000 + 30, fs, 5)
+test3 = butter_bandpass_filter(data, 1000-3, 1000 + 30, fs, 5)
+spect3= np.fft.rfft(test3, axis=0) 
+test_kalib = kalibrering(20, freq, spect3, dBA_dict)
 
-#x, y =klassifisering(klasser, test_Pa)
+x, y =klassifisering(klasser, test_kalib, data)
 
 
-#plt.bar(x, y, color ='maroon', width = 10.0)
+plt.bar(x, y, color ='maroon', width = 10.0)
 #plt.plot(t, test3)
 plt.xlabel("Frekvens")
 plt.ylabel("Ekvivalentnivå")
@@ -336,8 +345,49 @@ plt.show()
 '''
 
 '########################################################################'
-acoustics.signal.octave_filter(1000, fs, 1, order=8, output='sos')
+#acoustics.signal.octave_filter(1000, fs, 1, order=8, output='sos')
+'''
+def octave_filter(center, fs, fraction, order=8, output='sos'):
+    """Fractional-octave band-pass filter.
 
+    :param center: Centerfrequency of fractional-octave band.
+    :param fs: Sample frequency
+    :param fraction: Fraction of fractional-octave band.
+    :param order: Filter order
+    :param output: Output type. {'ba', 'zpk', 'sos'}. Default is 'sos'. See also :func:`scipy.signal.butter`.
+
+    A Butterworth filter is used.
+
+    .. seealso:: :func:`bandpass_filter`
+
+    """
+    ob = OctaveBand(center=center, fraction=fraction)
+    return bandpass_filter(ob.lower[0], ob.upper[0], fs, order, output=output)
+'''
+
+def octavepass(signal, center, fs, fraction, order=8, zero_phase=True):
+    """Filter signal with fractional-octave bandpass filter.
+
+    :param signal: Signal
+    :param center: Centerfrequency of fractional-octave band.
+    :param fs: Sample frequency
+    :param fraction: Fraction of fractional-octave band.
+    :param order: Filter order
+    :param zero_phase: Prevent phase error by filtering in both directions (filtfilt)
+
+    A Butterworth filter is used. Filtering is done with second-order sections.
+
+    .. seealso:: :func:`octave_filter`
+
+    """
+
+    '''
+    sos = octave_filter(center, fs, fraction, order)
+    if zero_phase:
+        return _sosfiltfilt(sos, signal)
+    else:
+        return sosfilt(sos, signal)
+    '''
 
 '########################################################################'
 #Litt usikker på hvordan kalibrering gjøres, har tatt utgangspunkt i at
