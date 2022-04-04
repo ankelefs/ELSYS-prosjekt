@@ -157,17 +157,18 @@ def ekvivalentverdi(period, num_samples, verdi):
 
 
 #Her er det antatt at pa(t) er målt i pascal og at i Pa = tall[dB]* 1/94
-def toPascal(verdi):
-    verdi = todB_vec(verdi)
+def toPascal(verdi_dB):
+    Pa_vec = []
 
-    for i in range(0, len(verdi)):
-        verdi[i] = 20*10**((verdi[i]/p0))
+    for i in range(0, len(verdi_dB)):
 
-    return verdi
+        Pa_vec.append(20*10**((verdi_dB[i]/p0)))
 
-def ekvivalentverdi2(period, num_samples, verdi):
+    return Pa_vec
+
+def ekvivalentverdi2(period, num_samples, verdi_dB):
     p = 0
-    verdi = toPascal(verdi)
+    verdi = toPascal(verdi_dB)
 
     for i in range(0, num_samples):
         p2 = (verdi[i]- p0)**2
@@ -240,6 +241,13 @@ x += 0.03 * np.cos(2 * np.pi * 2000 * t)
 #plt.plot(sample_period, ekvivalentverdi(sample_period, data))
 #plt.stem(mostProminentFreq, 20*np.log10(np.abs((2*spectrum[mostProminentFreq]))))
 '########################################################################'
+#Tar inn dBA vektor og gir ut i tidsdomene igjen, må gjøres for å kunne filtrere signalet. 
+#def toTime(frekvens, verdi_dBA): 
+
+
+
+'########################################################################'
+
 #Disse 3 linjene er unødvendige men brukt til testing
 #f_max =  np.argmax(freq)
 #print('største f:')
@@ -379,10 +387,7 @@ plt.ylabel("Power [dB]")
 plt.plot(freq, y2) # get the power spectrum
 
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-#plt.show()
+plt.show()
 ''''
 =======
 plt.show()
@@ -393,9 +398,10 @@ plt.savefig(os.path.join(my_path, my_file))
 >>>>>>> 60573d5935e6381c55ad3a357da9b52da5c4fd3f
 
 plt.show()
-'''
-'''
+
 # Filter a noisy signal.
+'''
+
 '''
 T = 0.05
 nsamples = int(T * fs)
