@@ -357,13 +357,23 @@ plt.plot(t, y)
 '''
 
 #plt.subplot(2, 1, 2)
-#y = dBA_vec(freq, spectrum)
+y = dBA(freq, spectrum, dBA_dict)
+y2 = todB_vec(spectrum)
 
+plt.subplot(2, 1, 1)
 plt.title("dBA spectrum of signal")
 plt.xlabel("Frequency [Hz]")
 plt.ylabel("Power [dBA]")
-#plt.plot(freq, y) # get the power spectrum
-##plt.show()
+plt.plot(freq, y) # get the power spectrum
+
+plt.subplot(2, 1, 2)
+plt.title("dBA spectrum of signal")
+plt.xlabel("Frequency [Hz]")
+plt.ylabel("Power [dB]")
+plt.plot(freq, y2) # get the power spectrum
+
+
+plt.show()
 
 # Filter a noisy signal.
 '''
