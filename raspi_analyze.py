@@ -255,7 +255,8 @@ def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
         #verdi_temp = np.fft.iffft(verdi_temp)
         kalib_dBA.append(verdi_temp)
 
-   
+
+    print(len(kalib_dBA))
     return kalib_dBA #Verdi i dB
 
 
@@ -269,9 +270,10 @@ def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
 
 fs = 40000 #nyqvist eller hva det heter, må være en satt variabel
 
-def enKlasse(verdi_Pa, klasse_freq):
-    bp_filtrert = butter_bandpass_filter(verdi_Pa, klasse_freq-3, klasse_freq + 30, fs, 5)
-    frekvens_niv = ekvivalentverdi(sample_period, num_of_samples, bp_filtrert)
+def enKlasse(verdi_Pa, klasse_freq, verdi_tid):
+    bp_filtrert = butter_bandpass_filter(verdi_tid, klasse_freq-3, klasse_freq + 30, fs, 5)
+    kalb_filtrert = kalibrering(bp_filtrert)
+    frekvens_niv = ekvivalentverdi(sample_period, num_of_samples, kalb_filtrert)
     #frekvens_niv2 = ekvivalentverdi2(sample_period, num_of_samples, verdi_dB)
     return frekvens_niv
 
@@ -286,12 +288,12 @@ klasser = {"Bil": 1600, "Lastebil" : 1000}
 klassifiserings_freq = []
 klassifiserings_niv = []
 
-def klassifisering(klasser, verdi):
+def klassifisering(klasser, verdi, verdi_tid):
 
     for key in klasser.keys():
-        klasse_niv = enKlasse(verdi, klasser[key])  #detter er ekvivalentnivålet fra klassens frekvens
-        print(klasse_niv)
-        print(klasser[key])
+        klasse_niv = enKlasse(verdi, klasser[key], verdi_tid)  #detter er ekvivalentnivålet fra klassens frekvens
+        #print(klasse_niv)
+        #print(klasser[key])
         klassifiserings_freq.append(klasser[key])
         klassifiserings_niv.append(float(klasse_niv))
 
