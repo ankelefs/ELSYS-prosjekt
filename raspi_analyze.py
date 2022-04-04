@@ -15,6 +15,8 @@ import acoustics.octave
 import acoustics.bands
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
+import filter 
+
 
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
@@ -321,6 +323,18 @@ def klassifisering(klasser, verdi, verdi_tid):
 #test_kalib = kalibrering(20, freq, spectrum, dBA_dict)
 #test_Pa = toPascal(test_kalib)
 test3 = butter_bandpass_filter(data, 9999, 1000, fs, 8)
+
+ 
+
+print(len(freq))
+print(len(data))
+print(len(spectrum))
+
+spl, y, z = filter.octavefilter(data, 15626, fraction=3, order=6, limits=None, show=0, sigbands =1) 
+for h in range(0, len(z)):
+    print(z[h])
+
+print(len(spl))
 spect3= np.fft.rfft(test3, axis=0) 
 test_kalib = kalibrering(2, freq, spect3, dBA_dict)
 
@@ -333,7 +347,7 @@ testtest = kalibrering(2, freq, spectrum, dBA_dict)
 
 plt.subplot(2, 1, 1)
 #plt.plot(t, data)
-plt.plot(freq, testtest)
+#plt.plot(freq, testtest)
 plt.xlabel("Frekvens")
 plt.ylabel("Ekvivalentnivå")
 plt.title("Klassifisering")
@@ -345,7 +359,7 @@ plt.plot(freq, test_kalib)
 plt.xlabel("Frekvens")
 plt.ylabel("Ekvivalentnivå")
 plt.title("Klassifisering")
-plt.show()
+#plt.show()
 
 
 
@@ -359,57 +373,8 @@ plt.show()
 '''
 
 '########################################################################'
-#acoustics.signal.octave_filter(1000, fs, 1, order=8, output='sos')
-'''
-def octave_filter(center, fs, fraction, order=8, output='sos'):
-    """Fractional-octave band-pass filter.
 
-    :param center: Centerfrequency of fractional-octave band.
-    :param fs: Sample frequency
-    :param fraction: Fraction of fractional-octave band.
-    :param order: Filter order
-    :param output: Output type. {'ba', 'zpk', 'sos'}. Default is 'sos'. See also :func:`scipy.signal.butter`.
 
-    A Butterworth filter is used.
-
-    .. seealso:: :func:`bandpass_filter`
-
-    """
-    ob = OctaveBand(center=center, fraction=fraction)
-    return bandpass_filter(ob.lower[0], ob.upper[0], fs, order, output=output)
-'''
-
-def octavepass(signal, center, fs, fraction, order=8, zero_phase=True):
-    """Filter signal with fractional-octave bandpass filter.
-
-    :param signal: Signal
-    :param center: Centerfrequency of fractional-octave band.
-    :param fs: Sample frequency
-    :param fraction: Fraction of fractional-octave band.
-    :param order: Filter order
-    :param zero_phase: Prevent phase error by filtering in both directions (filtfilt)
-
-    A Butterworth filter is used. Filtering is done with second-order sections.
-
-    .. seealso:: :func:`octave_filter`
-
-    """
-
-    '''
-    sos = octave_filter(center, fs, fraction, order)
-    if zero_phase:
-        return _sosfiltfilt(sos, signal)
-    else:
-        return sosfilt(sos, signal)
-    '''
-
-'########################################################################'
-#Litt usikker på hvordan kalibrering gjøres, har tatt utgangspunkt i at
-# en måling tas med måler og vårt system, så finner man hva differansen i dB er
-# Deretter trekker man fra denne differansen fra alle dB verdier i senere målinger når systemet er i bruk.
-
-#Kode for å finne kalibrering - flyttet til egen fil
-'''
 def finn_kalibrering(kalib_fil, målt_verdi):
 
     #Dette er kopiert fra toppen av koden
@@ -421,7 +386,7 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 
     diff = np.argmax(spectrum) - målt_verdi
     return diff
-'''
+
 
 #Kode kalibrering, men usikker om tallet fra kalibrering skal multipliseres eller adderes
 #tar inn data i tidsdomene og sender ut data i tidsdomene (mulig A-vektet)
