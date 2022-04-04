@@ -11,3 +11,5 @@ numSamples = 2
 for i in range(numSamples):
     now = datetime.now()
     os.system(fr'cd {elsysProsjektMappe} && sudo ./adc_sampler {twentyMinSamples} {now}.bin')
+    
+print('Program ended succesfully')
