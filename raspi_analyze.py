@@ -146,13 +146,13 @@ def todB_num(verdi_rfft):
 #Ekvivalentverdi, er gitt i dB
 p0 = 20*10^-6
 #Her er det antatt at pa(t) målt volt er utgangspunktet for dB
-def ekvivalentverdi(period, num_samples, verdi):
+def ekvivalentverdi(period, num_samples, verdi_Pa):
     p = 0
-    for i in range(0, num_samples):
-        p2 = (verdi[i]- p0)**2
+    for i in range(0, len(verdi_Pa)):
+        p2 = (verdi_Pa[i]- p0)**2
         p += p2
    
-    L = 10*np.log(p/(num_samples))
+    L = 10*np.log(p/(len(verdi_Pa)))
     return L
 
 
@@ -165,6 +165,7 @@ def toPascal(verdi_dB):
         Pa_vec.append(20*10**((verdi_dB[i]/p0)))
 
     return Pa_vec
+
 
 def ekvivalentverdi2(period, num_samples, verdi_dB):
     p = 0
@@ -241,8 +242,21 @@ x += 0.03 * np.cos(2 * np.pi * 2000 * t)
 #plt.plot(sample_period, ekvivalentverdi(sample_period, data))
 #plt.stem(mostProminentFreq, 20*np.log10(np.abs((2*spectrum[mostProminentFreq]))))
 '########################################################################'
-#Tar inn dBA vektor og gir ut i tidsdomene igjen, må gjøres for å kunne filtrere signalet. 
-#def toTime(frekvens, verdi_dBA): 
+
+
+#tar inn data i tidsdomene og sender ut data i tidsdomene (mulig A-vektet)
+def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
+    verdi_kalib = dBA(frekvens, spect, dBA_dict)
+    verdi_temp = 0
+    kalib_dBA = []
+    #Denne løkken kalibrerer
+    for f in range(0, len(frekvens)):
+        verdi_temp = verdi_kalib[f] - kalibreringsverdi
+        #verdi_temp = np.fft.iffft(verdi_temp)
+        kalib_dBA.append(verdi_temp)
+
+   
+    return kalib_dBA #Verdi i dB
 
 
 
@@ -255,9 +269,10 @@ x += 0.03 * np.cos(2 * np.pi * 2000 * t)
 
 fs = 40000 #nyqvist eller hva det heter, må være en satt variabel
 
-def enKlasse(verdi, klasse_freq):
-    bp_filtrert = butter_bandpass_filter(verdi, klasse_freq-300, klasse_freq + 300, fs, 5)
+def enKlasse(verdi_Pa, klasse_freq):
+    bp_filtrert = butter_bandpass_filter(verdi_Pa, klasse_freq-3, klasse_freq + 30, fs, 5)
     frekvens_niv = ekvivalentverdi(sample_period, num_of_samples, bp_filtrert)
+    #frekvens_niv2 = ekvivalentverdi2(sample_period, num_of_samples, verdi_dB)
     return frekvens_niv
 
 #Disse to linjene brukes kun til testing
@@ -276,8 +291,10 @@ def klassifisering(klasser, verdi):
     for key in klasser.keys():
         klasse_niv = enKlasse(verdi, klasser[key])  #detter er ekvivalentnivålet fra klassens frekvens
         print(klasse_niv)
+        print(klasser[key])
         klassifiserings_freq.append(klasser[key])
         klassifiserings_niv.append(float(klasse_niv))
+
 
 
     return klassifiserings_freq, klassifiserings_niv
@@ -286,15 +303,21 @@ def klassifisering(klasser, verdi):
 '########################################################################'
 
 #Tester at fun klassifisering funker
-'''
-x, y =klassifisering(klasser, data)
 
-plt.bar(x, y, color ='maroon', width = 10.0)
+test_kalib = kalibrering(20, freq, spectrum, dBA_dict)
+test_Pa = toPascal(test_kalib)
+test3 = butter_bandpass_filter(test_Pa, 1000-3, 1000 + 30, fs, 5)
+
+#x, y =klassifisering(klasser, test_Pa)
+
+
+#plt.bar(x, y, color ='maroon', width = 10.0)
+plt.plot(t, test3)
 plt.xlabel("Frekvens")
 plt.ylabel("Ekvivalentnivå")
 plt.title("Klassifisering")
 plt.show()
-'''
+
 
 
 #Tester at enKlasse kjører og kan plottes:
@@ -329,18 +352,6 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 
 #Kode kalibrering, men usikker om tallet fra kalibrering skal multipliseres eller adderes
 #tar inn data i tidsdomene og sender ut data i tidsdomene (mulig A-vektet)
-def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
-    verdi_kalib = dBA(frekvens, spect, dBA_dict)
-    verdi_temp = 0
-    kalib_dBA = []
-    #Denne løkken kalibrerer
-    for f in range(0, len(frekvens)):
-        verdi_temp = verdi_kalib[f] - kalibreringsverdi
-        #verdi_temp = np.fft.iffft(verdi_temp)
-        kalib_dBA.append(verdi_temp)
-
-   
-    return kalib_dBA #Verdi i dB
 
 
 '########################################################################'
@@ -366,7 +377,7 @@ plt.plot(t, y)
 '''
 
 #plt.subplot(2, 1, 2)
-
+'''
 y_test = dBA(freq, spectrum, dBA_dict)
 y = kalibrering(20, freq, spectrum, dBA_dict) 
 y2 = todB_vec(spectrum)
@@ -388,7 +399,9 @@ plt.plot(freq, y2) # get the power spectrum
 
 
 plt.show()
-''''
+'''
+
+'''
 =======
 plt.show()
 
