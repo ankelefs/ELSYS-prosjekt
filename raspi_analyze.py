@@ -8,6 +8,7 @@ import scipy
 from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
+import os
 
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
@@ -374,6 +375,10 @@ plt.plot(freq, y2) # get the power spectrum
 
 
 plt.show()
+
+my_path = os.path.abspath(__file__) # Figures out the absolute path for you in case your working directory moves around.
+my_file = 'graph.png'
+plt.savefig(os.path.join(my_path, my_file))
 
 # Filter a noisy signal.
 '''
