@@ -48,7 +48,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 '########################################################################'
 
 # Import data from bin file
-sample_period, data = raspi_import('Lydfiler/bil.bin')
+sample_period, data = raspi_import('Lydfiler/lastebil.bin')
 
 
 
@@ -283,7 +283,8 @@ fs = 40000 #nyqvist eller hva det heter, må være en satt variabel
 
 def enKlasse(verdi_Pa, klasse_freq, verdi_tid):
     bp_filtrert = butter_bandpass_filter(verdi_tid, klasse_freq-30, klasse_freq + 30, fs, 8)
-    kalb_filtrert = kalibrering(20, freq, bp_filtrert, dBA_dict)
+    spect_klasse = np.fft.rfft(bp_filtrert, axis=0) 
+    kalb_filtrert = kalibrering(20, freq, spect_klasse, dBA_dict)
     frekvens_niv = ekvivalentverdi(sample_period, num_of_samples, kalb_filtrert)
     #frekvens_niv2 = ekvivalentverdi2(sample_period, num_of_samples, verdi_dB)
     return frekvens_niv
@@ -319,15 +320,28 @@ def klassifisering(klasser, verdi, verdi_tid):
 
 #test_kalib = kalibrering(20, freq, spectrum, dBA_dict)
 #test_Pa = toPascal(test_kalib)
-test3 = butter_bandpass_filter(data, 1000-3, 1000 + 30, fs, 5)
+test3 = butter_bandpass_filter(data, 9999, 1000, fs, 8)
 spect3= np.fft.rfft(test3, axis=0) 
-test_kalib = kalibrering(20, freq, spect3, dBA_dict)
+test_kalib = kalibrering(2, freq, spect3, dBA_dict)
 
 x, y =klassifisering(klasser, test_kalib, data)
 
 
-plt.bar(x, y, color ='maroon', width = 10.0)
+#plt.bar(x, y, color ='maroon', width = 10.0)
 #plt.plot(t, test3)
+testtest = kalibrering(2, freq, spectrum, dBA_dict)
+
+plt.subplot(2, 1, 1)
+#plt.plot(t, data)
+plt.plot(freq, testtest)
+plt.xlabel("Frekvens")
+plt.ylabel("Ekvivalentnivå")
+plt.title("Klassifisering")
+
+
+plt.subplot(2, 1, 2)
+#plt.plot(t, test3)
+plt.plot(freq, test_kalib)
 plt.xlabel("Frekvens")
 plt.ylabel("Ekvivalentnivå")
 plt.title("Klassifisering")
