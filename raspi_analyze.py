@@ -71,29 +71,44 @@ print('Amplitude til mest fremtredende frekvens: ', (20*np.log10(np.abs(2*(spect
 
 
 '##########Kode for dBA'
-dBA_array = np.array([]) 
+#dBA_array = np.array([]) 
 
-dBA_list = []
+#dBA_list = []
 dBA_dict = {6.3: -85.4, 8: -77.6, 10: -70.4, 12.5: -63.6, 16: -56.4, 20: -50.4, 25: -44.8, 31.5: -39.5, 40: -34.5, 50: -30.3, 63: -26.2, 80: -22.4, 100: -19.1, 125: -16.2, 160: -13.2, 200: -10.8, 250: -8.7, 315: -6.6, 400: -4.8, 500: -3.2, 630: -1.9, 800: -0.8, 1000: 0.0, 1250: 0.6, 1600: 1.0, 2000: 1.2, 2500: 1.3, 3150: 1.2, 4000: 1.0, 5000: 0.6, 6300: -0.1, 8000: -1.1, 10000: -2.5, 12500: -4.3, 16000: -6.7, 20000: -9.3} #inneholder tabellen over generelle dBA verdier
 
 dBA_key_list = list(dBA_dict.keys()) #inneholder alle keys fra dBA_dict
 
 dBA_value_list = list(dBA_dict.values()) #inneholder alle values fra dBA_dict
-
-for i in range(0, len(freq)):
-    dB = (20*np.log10(np.abs((spectrum[i]))))-60 #en variabel som inneholder dB-verdier
-    if (freq[i] == 20000):
-        new_element_1 = (dB -9.3)
-        np.append(dBA_array, new_element_1)
-        break
-    for j in range(0, len(dBA_dict) - 1):
-        if (dBA_key_list[j] < freq[i] < dBA_key_list[j + 1]):
-            new_element = (dB + dBA_value_list[j + 1]/2)
-            dBA_list.append(new_element[0])
-            dBA_array = np.array(dBA_list)
-
-freqdBA = np.fft.rfftfreq(n=len(dBA_array), d=sample_period)
+'''
+def dBA_vec(frekvens, verdi):
+    dBA_list = []
+    dBA_array = np.array([])
+    for i in range(0, len(freq)):
+        dB = (20*np.log10(np.abs((verdi[i]))))-60 #en variabel som inneholder dB-verdier
+        if (freq[i] <= 20000):
+            new_element_1 = (dB -9.3)
+            np.append(dBA_array, new_element_1)
+            break
+        for j in range(0, len(dBA_dict) - 1):
+            if (dBA_key_list[j] < freq[i] < dBA_key_list[j + 1]):
+                new_element = (dB + dBA_value_list[j + 1]/2)
+                dBA_list.append(new_element[0])
+                dBA_array = np.array(dBA_list)
+        #freqdBA = np.fft.rfftfreq(n=len(dBA_array), d=sample_period)
+    return dBA_array
+'''
 '######################'
+#dBA for en verdi
+'''
+def dBA_num(frekvens, spect, dBA_dict): #tar i rfft av signalet
+    temp = 0
+
+    for i in range(0, len(spect)):
+        temp = todB_num(spect[i])
+        for j in range(0, len(dBA_dict))
+        
+
+'''
 
 
 #For å få måling fra spectrum til dB, tar inn data som har blitt rfft
@@ -332,12 +347,13 @@ plt.plot(t, y)
 '''
 
 #plt.subplot(2, 1, 2)
+#y = dBA_vec(freq, spectrum)
+
 plt.title("dBA spectrum of signal")
 plt.xlabel("Frequency [Hz]")
 plt.ylabel("Power [dBA]")
-plt.plot(freqdBA, dBA_array) # get the power spectrum
-
-plt.show()
+#plt.plot(freq, y) # get the power spectrum
+##plt.show()
 
 # Filter a noisy signal.
 '''
