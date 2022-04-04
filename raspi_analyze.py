@@ -144,19 +144,21 @@ def todB_num(verdi_rfft):
 
 '########################################################################'
 #Ekvivalentverdi, er gitt i dB
-p0 = 20*10^-6
+#p0 = 20*10^-6
 #Her er det antatt at pa(t) målt volt er utgangspunktet for dB
-def ekvivalentverdi(period, num_samples, verdi_Pa):
+def ekvivalentverdi(period, num_samples, verdi_V):
     p = 0
-    for i in range(0, len(verdi_Pa)):
-        p2 = (verdi_Pa[i]- p0)**2
+    for i in range(0, len(verdi_V)):
+        p2 = (verdi_V[i])**2
         p += p2
    
-    L = 10*np.log(p/(len(verdi_Pa)))
+    L = 10*np.log(p/(len(verdi_V)))
     return L
 
 
 #Her er det antatt at pa(t) er målt i pascal og at i Pa = tall[dB]* 1/94
+#Trenger ikke pa
+'''
 def toPascal(verdi_dB):
     Pa_vec = []
 
@@ -165,8 +167,9 @@ def toPascal(verdi_dB):
         Pa_vec.append(20*10**((verdi_dB[i]/p0)))
 
     return Pa_vec
+'''
 
-
+'''
 def ekvivalentverdi2(period, num_samples, verdi_dB):
     p = 0
     verdi = toPascal(verdi_dB)
@@ -177,9 +180,9 @@ def ekvivalentverdi2(period, num_samples, verdi_dB):
    
     L = 10*np.log(p/(num_samples))
     return L
+'''
 
-
-test = ekvivalentverdi(sample_period, num_of_samples, data)
+#test = ekvivalentverdi(sample_period, num_of_samples, data)
 #print('Dette er en test:')
 #print(test)
 
@@ -306,15 +309,15 @@ def klassifisering(klasser, verdi, verdi_tid):
 
 #Tester at fun klassifisering funker
 
-test_kalib = kalibrering(20, freq, spectrum, dBA_dict)
-test_Pa = toPascal(test_kalib)
-test3 = butter_bandpass_filter(test_Pa, 1000-3, 1000 + 30, fs, 5)
+#test_kalib = kalibrering(20, freq, spectrum, dBA_dict)
+#test_Pa = toPascal(test_kalib)
+#test3 = butter_bandpass_filter(test_Pa, 1000-3, 1000 + 30, fs, 5)
 
 #x, y =klassifisering(klasser, test_Pa)
 
 
 #plt.bar(x, y, color ='maroon', width = 10.0)
-plt.plot(t, test3)
+#plt.plot(t, test3)
 plt.xlabel("Frekvens")
 plt.ylabel("Ekvivalentnivå")
 plt.title("Klassifisering")
