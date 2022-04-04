@@ -18,12 +18,12 @@ func main() {
 	//get port and ip address to dial
 
 	if len(os.Args) != 3 {
-		fmt.Println("useage example: tcpClient 127.0.0.1 7005")
+		fmt.Println("useage example: tcpClient 127.0.0.1 34933")
 		return
 	}
 
 	var ip string = os.Args[1]
-	var port string = os.Args[2]
+	var port string = os.Args[2] //Kan byttes til "34933" hvis hardcoding er nødvendig
 
 	connection, err := net.Dial("tcp", ip+":"+port)
 	if err != nil {
@@ -65,11 +65,10 @@ func sendFileToServer(fileName string, connection net.Conn) {
 	connection.Write([]byte("send " + fileName))
 	//read file until there is an error
 	for err == nil || err != io.EOF {
-		//Kan også være feil her
-		_, err = file.ReadAt(fileBuffer, currentByte)
+		n, err = file.ReadAt(fileBuffer, currentByte)
 		currentByte += BUFFER_SIZE
 		fmt.Println(fileBuffer)
-		connection.Write(fileBuffer)
+		connection.Write(fileBuffer[:n])
 	}
 
 	file.Close()
