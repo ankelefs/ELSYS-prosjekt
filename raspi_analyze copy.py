@@ -321,18 +321,18 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 
 #Kode kalibrering, men usikker om tallet fra kalibrering skal multipliseres eller adderes
 #tar inn data i tidsdomene og sender ut data i tidsdomene (mulig A-vektet)
-def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
-    verdi_kalib = dBA(frekvens, spect, dBA_dict)
+def kalibrering(kalibreringsverdi, freq_vec, verdi):
+    verdi_kalib = []
     verdi_temp = 0
-    kalib_dBA = []
-    #Denne løkken kalibrerer
-    for f in range(0, len(frekvens)):
-        verdi_temp = verdi_kalib[f] - kalibreringsverdi
-        #verdi_temp = np.fft.iffft(verdi_temp)
-        kalib_dBA.append(verdi_temp)
+
+    for f in range(0, len(freq_vec)):
+        verdi_temp = verdi[f] - kalibreringsverdi
+        #få verdien i dbA her
+        verdi_temp = np.fft.iffft(verdi_temp)
+        verdi_kalib.append(verdi_temp)
 
    
-    return kalib_dBA #Verdi i dB
+    return verdi_kalib
 
 
 '########################################################################'
@@ -358,19 +358,16 @@ plt.plot(t, y)
 '''
 
 #plt.subplot(2, 1, 2)
-
-y_test = dBA(freq, spectrum, dBA_dict)
-y = kalibrering(20, freq, spectrum, dBA_dict) 
+y = dBA(freq, spectrum, dBA_dict)
 y2 = todB_vec(spectrum)
-print(len(y_test))
-print(len(freq))
-print(len(y2))
-print(len(y))
+
 plt.subplot(2, 1, 1)
 plt.title("dBA spectrum of signal")
 plt.xlabel("Frequency [Hz]")
 plt.ylabel("Power [dBA]")
 plt.plot(freq, y) # get the power spectrum
+
+
 
 plt.subplot(2, 1, 2)
 plt.title("dBA spectrum of signal")
@@ -378,23 +375,14 @@ plt.xlabel("Frequency [Hz]")
 plt.ylabel("Power [dB]")
 plt.plot(freq, y2) # get the power spectrum
 
+my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder/graph2') # Figures out the absolute path for you in case your working directory moves around.
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-#plt.show()
-''''
-=======
-plt.show()
-
-my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder') # Figures out the absolute path for you in case your working directory moves around.
-my_file = 'graph.png'
-plt.savefig(os.path.join(my_path, my_file))
->>>>>>> 60573d5935e6381c55ad3a357da9b52da5c4fd3f
+plt.savefig(my_path)
 
 plt.show()
-'''
-'''
+
+
+
 # Filter a noisy signal.
 '''
 T = 0.05
