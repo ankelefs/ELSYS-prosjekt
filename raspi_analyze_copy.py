@@ -42,7 +42,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 '########################################################################'
 
 # Import data from bin file
-sample_period, data = raspi_import('Lydfiler/bil.bin')
+sample_period, data = raspi_import('Lydfiler/lastebil.bin')
 
 
 
@@ -375,7 +375,7 @@ plt.xlabel("Frequency [Hz]")
 plt.ylabel("Power [dB]")
 plt.plot(freq, y2) # get the power spectrum
 
-my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder/graph4') # Figures out the absolute path for you in case your working directory moves around.
+my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder/graph1') # Figures out the absolute path for you in case your working directory moves around.
 
 plt.savefig(my_path)
 
