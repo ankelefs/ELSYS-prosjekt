@@ -34,4 +34,4 @@ while True:
     except: 
         print('Deletion on git failed')
         
-    time.sleep(sixHours)
+    time.sleep(10)
