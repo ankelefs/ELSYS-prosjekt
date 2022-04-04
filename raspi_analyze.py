@@ -40,7 +40,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 '########################################################################'
 
 # Import data from bin file
-sample_period, data = raspi_import('test3.bin')
+sample_period, data = raspi_import('Lydfiler/bil.bin')
 
 
 
@@ -231,7 +231,7 @@ def enKlasse(verdi, klasse_freq):
 
 
 #Dictionary med kjøretøysklasse og frekvens i miden av frekvensområdet, denne fyller brukeren inn!!
-klasser = {"Bil": 1000, "Lastebil" : 1600}
+klasser = {"Bil": 1600, "Lastebil" : 1000}
 
 klassifiserings_freq = []
 klassifiserings_niv = []
