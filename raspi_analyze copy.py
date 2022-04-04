@@ -367,18 +367,21 @@ plt.xlabel("Frequency [Hz]")
 plt.ylabel("Power [dBA]")
 plt.plot(freq, y) # get the power spectrum
 
+
+
 plt.subplot(2, 1, 2)
 plt.title("dBA spectrum of signal")
 plt.xlabel("Frequency [Hz]")
 plt.ylabel("Power [dB]")
 plt.plot(freq, y2) # get the power spectrum
 
+my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder/graph1') # Figures out the absolute path for you in case your working directory moves around.
+
+plt.savefig(my_path)
 
 plt.show()
 
-my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder') # Figures out the absolute path for you in case your working directory moves around.
-my_file = 'graph.png'
-plt.savefig(os.path.join(my_path, my_file))
+
 
 # Filter a noisy signal.
 '''
