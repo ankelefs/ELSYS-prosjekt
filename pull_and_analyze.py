@@ -18,7 +18,7 @@ while True:
     os.system(f'cd {elsysProsjektMappe} && rm *.bin') # Fjerner alle binær-filer
     print('Deletion success')
         
-    os.system(f'cd {elsysProsjektMappe} && git add . && git commit -m "Fjerning av gamle lydopptak" && git push') # Fjerner alle binær-filer fra git
+    os.system(f'cd {elsysProsjektMappe} && git add . && git commit -m "Fjerning av gamle lydopptak" && git pull && git push') # Fjerner alle binær-filer fra git
     print('Deletion on git success')
  
     time.sleep(sixHours)
