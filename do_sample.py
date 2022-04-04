@@ -10,6 +10,8 @@ numSamples = 2
 
 for i in range(numSamples):
     now = datetime.now()
-    os.system(f'cd {elsysProsjektMappe} && sudo ./adc_sampler {twentyMinSamples} {now}.bin')
+    dt_string = now.strftime("%Y-%m-%d-%H-%M-%S") # YY-mm-dd-H-M-S
+    
+    os.system(f'cd {elsysProsjektMappe} && sudo ./adc_sampler {twentyMinSamples} {dt_string}.bin')
     
 print('Program ended succesfully')
