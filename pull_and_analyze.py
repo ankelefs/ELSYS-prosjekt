@@ -4,15 +4,15 @@ import os
 
 sleep = 10
 sixHours = 3600*6
-elsysProsjektMappe = ''
+elsysProsjektMappe = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
 
 while True:
     time.sleep(sleep)
     try:
         os.system(f'cd {elsysProsjektMappe} && git pull') # Henter nye lydopptak
-        print('git push success')
+        print('git pull success')
     except: 
-        print('git push unsuccesful')
+        print('git pull unsuccesful')
 
     time.sleep(sleep)
     try:
