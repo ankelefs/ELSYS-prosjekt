@@ -9,6 +9,7 @@ from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
 import os
+import acoustics 
 
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
@@ -333,6 +334,9 @@ plt.ylabel("Power [dB]")
 plt.stem(kjøretøy1_freq, kjøretøy1_niv)
 plt.show()
 '''
+
+'########################################################################'
+acoustics.signal.octave_filter(1000, fs, 1, order=8, output='sos')
 
 
 '########################################################################'
