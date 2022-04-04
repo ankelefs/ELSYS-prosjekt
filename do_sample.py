@@ -10,7 +10,7 @@ numSamples = 2
 
 for i in range(numSamples):
     now = datetime.now()
-    dt_string = now.strftime("%Y-%m-%d-%H-%M-%S") # YY-mm-dd-H-M-S
+    dt_string = now.strftime("Y%Y-M%m-D%d-H%H-M%M-S%S") # YY-mm-dd-H-M-S
     
     os.system(f'cd {elsysProsjektMappe} && sudo ./adc_sampler {twentyMinSamples} {dt_string}.bin')
     
