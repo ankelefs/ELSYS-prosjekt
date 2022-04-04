@@ -2,65 +2,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <!-- CSS stylesheet -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> 
-      <!-- JS scrip -->
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    
-    
+    <title>Sonus Captura</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-  
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-
-
-</head>
-<body>
-    <div class="header">
-      <h1>Støymålinger i Trondheim</h1>
-    </div>
-    <div class="topnav">
-      <a href="">Hjem</a>
-      <a href="diagram">Diagram</a>
-      <a href="kart">Kart</a>
-    </div>
-
-    <div class="row">
-      <div class="column side">
-        <h2>Side</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-      </div>
-      
-      <div class="column middle">
-        <h2>Om denne nettsiden</h2>
-        <p>Nettsiden viser støymålinger gjort i Trondheim. Dette har blitt målt med systemet Senbox. Her vises diagrammer som viser bakgrunnen for støyen på gitt område, og kart over punkter der Senbox er tatt i bruk.</p>
-      </div>
-
-      <div class="column side">
-        <h2>Side</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-      </div>
-
-      <div class="column side">
-        <h2> </h2>
-        <p> </p>
-      </div>
-
-    </div>
-
-    <div class="footer">
-        <h3>Kontakt:</h3>
-        <h3>Elsys gruppe 7</h3>
-        <h3>El-bygget</h3>
-    </div>
     
-</body>
+    <!-- CSS stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2021.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2020.css">
+    
+    <!-- JS scrip -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+   
+    
+    <style>
+    html,body,h1,h2,h3,h4 {font-family:"Lato", sans-serif}
+    .mySlides {display:none}
+    .w3-tag, .fa {cursor:pointer}
+    .w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+    a:hover {
+      text-decoration: none;
+    </style>
+</head>
 
+<body>
+  <div class="w3-content" style="max-width:1100px;margin-top:0px;margin-bottom:0px"></div>
+
+<!-- Header -->
+  <header class="w3-container w3-padding-32 w3-2021-inkwell w3-center ">
+    <h1>Sonus Captura</h1>
+      <p class="w3-opacity">Støymåling i Trondheim</p>
+  </header>
+  
+<!-- Meny -->
+  <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+    <div class="w3-col s3">
+        <a href="" class="w3-button w3-block w3-xlarge">Hjem</a>
+      </div>
+      <div class="w3-col s3">
+        <a href="/elsysapp/diagram" class="w3-button w3-block w3-xlarge">Støynivå</a>
+      </div>
+      <div class="w3-col s3">
+        <a href="/elsysapp/spekter" class="w3-button w3-block w3-xlarge">Klassifisering</a>
+      </div>
+      <div class="w3-col s3">
+        <a href="/elsysapp/kart" class="w3-button w3-block w3-xlarge">Kart</a>
+      </div>
+  </div>
+  
+<!-- Innhold -->
+  <div class="w3-container w3-content w3-panel w3-center w3-padding-64 " >
+    <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Bilder/logo.png" alt="logo" style="width:45%">
+  </div>
+  <div class="w3-container w3-content w3-panel w3-center w3-padding-64 " >  
+    <h1><b>Om Sonus Captura</b></h1>
+    <p class="w3-justify">We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+        ex ea com modo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
+        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  </div>
+    
+    
+  
+    <!-- Grid 
+    <div class="w3-row w3-container">
+      <div class="w3-center w3-padding-64">
+        <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">På denne nettsiden</span>
+      </div>
+      <div class="w3-col l3 m6 w3-light-grey w3-container w3-padding-16">
+        <h3>Støynivå</h3>
+        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+      </div>
+  
+      <div class="w3-col l3 m6 w3-grey w3-container w3-padding-16">
+        <h3>Klassifisering</h3>
+        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+      </div>
+  
+      <div class="w3-col l3 m6 w3-dark-grey w3-container w3-padding-16">
+        <h3>Kart</h3>
+        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+      </div>
+  
+      <div class="w3-col l3 m6 w3-black w3-container w3-padding-16">
+        <h3>Om oss</h3>
+        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+      </div>
+    </div>-->
+  
+<!-- Footer -->  
+  <footer class="w3-container w3-padding-32 w3-2021-inkwell">
+      <h3>Kontakt:</h3>
+      <h4>Elsys gruppe 7</h4>
+      <h4>El-bygget</h4>
+  </footer>
+</body>
 </html>
+  

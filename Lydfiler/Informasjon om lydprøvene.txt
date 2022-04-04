@@ -1,0 +1,24 @@
+Bil-video: https://youtu.be/XnR-mvOMrpU](https://youtu.be/XnR-mvOMrpU (benyttet sekund 4-5)
+Maks frek.: 1622 Hz. 
+* Usikker hastighet
+* Høres ikke vått ut
+
+
+Lastebil-video: https://youtu.be/o1JwupKtlDY](https://youtu.be/o1JwupKtlDY (benyttet sekund 2-3)
+Max frek.: 1069 Hz.
+Ting å nevne:
+* Noe støy i bakgrunnen
+* Usikker hastighet
+* Høres vått ut
+
+
+
+
+!!! Lydene ble spilt fra Ankers iPhone 12 Mini med ca. samme lydnivå og tatt opp av systemets egen mikrofon. På denne måten er lydprøvene mer relevante enn andre, bedre, lydprøver !!!
+
+
+
+
+Det er vanskelig å sammenlikne en bil og lastebil slik som lydprøvene er tatt per nå, fordi forholdene er ukjente, men med stor sannsynlighet ulike. Derfor vil ikke støyen, frekvensene eller lydnivåene være til å sammenlikne. 
+
+bil.bin og lastebil.bin er kun til bruk for å teste kode og bruke noe litt mer relevant enn kun en enkelt tone.
