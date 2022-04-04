@@ -8,6 +8,7 @@ import scipy
 from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
+import os
 
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
@@ -374,8 +375,17 @@ plt.ylabel("Power [dB]")
 plt.plot(freq, y2) # get the power spectrum
 
 
+<<<<<<< HEAD
 #plt.show()
 ''''
+=======
+plt.show()
+
+my_path = os.path.abspath(__file__) # Figures out the absolute path for you in case your working directory moves around.
+my_file = 'graph.png'
+plt.savefig(os.path.join(my_path, my_file))
+
+>>>>>>> c2af23117c98ffbf96ab5ff5dff8e86251700ff0
 # Filter a noisy signal.
 '''
 T = 0.05
