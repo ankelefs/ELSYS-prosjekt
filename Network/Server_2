@@ -11,7 +11,7 @@ import (
 )
 
 const BUFFER_SIZE = 1024
-const PORT = "7005"
+const PORT = "34933"
 
 func main() {
 
@@ -48,10 +48,17 @@ func connectionHandler(connection net.Conn) {
 	fmt.Println("command recieved: " + string(buffer))
 
 	//loop until disconntect
-	//Her er det en feil!!!!!!!!!!
-	cleanedBuffer := bytes.Trim(buffer, "\x00")
-	cleanedInputCommandString := strings.TrimSpace(string(cleanedBuffer))
-	arrayOfCommands := strings.Split(cleanedInputCommandString, " ")
+
+	file, err := os.Open(strings.TrimSpace(fileName)) // For read access.
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close() // make sure to close the file even if we panic.
+	n, err = io.Copy(connection, file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(n, "bytes sent")
 
 	fmt.Println(arrayOfCommands[0])
 	if arrayOfCommands[0] == "get" {
@@ -83,11 +90,10 @@ func sendFileToClient(fileName string, connection net.Conn) {
 
 	//read file until there is an error
 	for {
-		//Tror det er feil her!!!!!
-		_, err2 = file.ReadAt(fileBuffer, currentByte)
+		n, err2 = file.ReadAt(fileBuffer, currentByte)
 		currentByte += BUFFER_SIZE
 		fmt.Println(fileBuffer)
-		connection.Write(fileBuffer)
+		connection.Write(fileBuffer[:n])
 
 		if err2 == io.EOF {
 			break
