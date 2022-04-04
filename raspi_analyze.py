@@ -9,6 +9,7 @@ from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
 
+# MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
 def raspi_import(path, channels=1):
     """
@@ -246,7 +247,7 @@ def enKlasse(verdi, klasse_freq):
 
 
 #Dictionary med kjøretøysklasse og frekvens i miden av frekvensområdet, denne fyller brukeren inn!!
-klasser = {"Bil": 1000, "Lastebil" : 1600}
+klasser = {"Bil": 1600, "Lastebil" : 1000}
 
 klassifiserings_freq = []
 klassifiserings_niv = []
