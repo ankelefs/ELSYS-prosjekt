@@ -99,16 +99,26 @@ def dBA_vec(frekvens, verdi):
 '''
 '######################'
 #dBA for en verdi
-'''
-def dBA_num(frekvens, spect, dBA_dict): #tar i rfft av signalet
+
+
+def dBA(frekvens, spect, dBA_dict): #tar i rfft av signalet
+    dBA_vector = []
     temp = 0
 
     for i in range(0, len(spect)):
         temp = todB_num(spect[i])
-        for j in range(0, len(dBA_dict))
+        if(frekvens[i] >= 20000):
+            temp += -9.3
+        else:
+            for j in range(0, len(dBA_dict)):
+                if(dBA_key_list[j] < frekvens[i] < dBA_key_list[j + 1]):
+                    temp += (dBA_value_list[j] + dBA_value_list[j + 1])/2
         
+        dBA_vector.append(temp)
+    
+    return dBA_vector
 
-'''
+
 
 
 #For å få måling fra spectrum til dB, tar inn data som har blitt rfft
