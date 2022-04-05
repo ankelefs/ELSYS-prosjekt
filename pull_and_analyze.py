@@ -2,7 +2,7 @@
 import time
 import os
 
-sleep = 10
+sleep = 1
 sixHours = 3600*6
 elsysProsjektMappe = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
 

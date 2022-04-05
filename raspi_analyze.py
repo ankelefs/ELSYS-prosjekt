@@ -1,5 +1,6 @@
 from cProfile import label
 from cmath import cos
+import dataclasses
 import math
 from turtle import xcor
 import numpy as np
@@ -9,6 +10,13 @@ from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
 import os
+import acoustics 
+import acoustics.octave
+import acoustics.bands
+from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
+
+import filter 
+
 
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
@@ -42,7 +50,8 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 '########################################################################'
 
 # Import data from bin file
-sample_period, data = raspi_import('Lydfiler/bil.bin')
+sample_period, data = raspi_import('Y2022-M04-D04-H10-M38-S12.bin')
+
 
 
 
@@ -106,12 +115,12 @@ def dBA(frekvens, spect, dBA_dict): #tar i rfft av signalet
     dBA_vector = []
     temp = 0
 
-    for i in range(0, len(spect)):
+    for i in range(0, len(freq)):
         temp = todB_num(spect[i])
         if(frekvens[i] >= 20000):
             temp += -9.3
         else:
-            for j in range(0, len(dBA_dict)):
+            for j in range(0, len(dBA_dict)-1):
                 if(dBA_key_list[j] < frekvens[i] < dBA_key_list[j + 1]):
                     temp += (dBA_value_list[j] + dBA_value_list[j + 1])/2
         
@@ -144,19 +153,21 @@ def todB_num(verdi_rfft):
 
 '########################################################################'
 #Ekvivalentverdi, er gitt i dB
-p0 = 20*10^-6
+#p0 = 20*10^-6
 #Her er det antatt at pa(t) målt volt er utgangspunktet for dB
-def ekvivalentverdi(period, num_samples, verdi_Pa):
+def ekvivalentverdi(period, num_samples, verdi_V):
     p = 0
-    for i in range(0, len(verdi_Pa)):
-        p2 = (verdi_Pa[i]- p0)**2
+    for i in range(0, len(verdi_V)):
+        p2 = (verdi_V[i])**2
         p += p2
    
-    L = 10*np.log(p/(len(verdi_Pa)))
+    L = 10*np.log(p/(len(verdi_V)))
     return L
 
 
 #Her er det antatt at pa(t) er målt i pascal og at i Pa = tall[dB]* 1/94
+#Trenger ikke pa
+'''
 def toPascal(verdi_dB):
     Pa_vec = []
 
@@ -165,8 +176,9 @@ def toPascal(verdi_dB):
         Pa_vec.append(20*10**((verdi_dB[i]/p0)))
 
     return Pa_vec
+'''
 
-
+'''
 def ekvivalentverdi2(period, num_samples, verdi_dB):
     p = 0
     verdi = toPascal(verdi_dB)
@@ -177,23 +189,29 @@ def ekvivalentverdi2(period, num_samples, verdi_dB):
    
     L = 10*np.log(p/(num_samples))
     return L
+'''
 
-
-test = ekvivalentverdi(sample_period, num_of_samples, data)
+#test = ekvivalentverdi(sample_period, num_of_samples, data)
 #print('Dette er en test:')
 #print(test)
 
 '########################################################################'
 #Båndpass her  --- dette funket ikke, nytt filter lenger ned.
 
-def butter_bandpass(lowcut, highcut, fs, order=5):
+def butter_bandpass(lowcut, highcut, fs, order=8):
     return butter(order, [lowcut, highcut], fs=fs, btype='band')
 
 
-def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
+def butter_bandpass_filter(data, lowcut, highcut, fs, order=8):
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
+    w, h = freqz(b, a, fs=fs, worN=2000)
+    plt.plot(w, abs(h), label="order = %d" % order)
+    print('Len h:')
+    print(len(abs(h)))
+    plt.show()
     y = lfilter(b, a, data)
     return y
+    #return abs(h)
 
 #Dette er for å plotte, for å sjekke om filteret ble riktig
 '''
@@ -247,6 +265,7 @@ x += 0.03 * np.cos(2 * np.pi * 2000 * t)
 #tar inn data i tidsdomene og sender ut data i tidsdomene (mulig A-vektet)
 def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
     verdi_kalib = dBA(frekvens, spect, dBA_dict)
+    #print(len(verdi_kalib))
     verdi_temp = 0
     kalib_dBA = []
     #Denne løkken kalibrerer
@@ -255,7 +274,9 @@ def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
         #verdi_temp = np.fft.iffft(verdi_temp)
         kalib_dBA.append(verdi_temp)
 
-   
+
+    #print(len(kalib_dBA))
+    #print(len(freq))
     return kalib_dBA #Verdi i dB
 
 
@@ -269,9 +290,11 @@ def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
 
 fs = 40000 #nyqvist eller hva det heter, må være en satt variabel
 
-def enKlasse(verdi_Pa, klasse_freq):
-    bp_filtrert = butter_bandpass_filter(verdi_Pa, klasse_freq-3, klasse_freq + 30, fs, 5)
-    frekvens_niv = ekvivalentverdi(sample_period, num_of_samples, bp_filtrert)
+def enKlasse(verdi_Pa, klasse_freq, verdi_tid):
+    bp_filtrert = butter_bandpass_filter(verdi_tid, klasse_freq-30, klasse_freq + 30, fs, 8)
+    spect_klasse = np.fft.rfft(bp_filtrert, axis=0) 
+    kalb_filtrert = kalibrering(20, freq, spect_klasse, dBA_dict)
+    frekvens_niv = ekvivalentverdi(sample_period, num_of_samples, kalb_filtrert)
     #frekvens_niv2 = ekvivalentverdi2(sample_period, num_of_samples, verdi_dB)
     return frekvens_niv
 
@@ -286,12 +309,12 @@ klasser = {"Bil": 1600, "Lastebil" : 1000}
 klassifiserings_freq = []
 klassifiserings_niv = []
 
-def klassifisering(klasser, verdi):
+def klassifisering(klasser, verdi, verdi_tid):
 
     for key in klasser.keys():
-        klasse_niv = enKlasse(verdi, klasser[key])  #detter er ekvivalentnivålet fra klassens frekvens
-        print(klasse_niv)
-        print(klasser[key])
+        klasse_niv = enKlasse(verdi, klasser[key], verdi_tid)  #detter er ekvivalentnivålet fra klassens frekvens
+        #print(klasse_niv)
+        #print(klasser[key])
         klassifiserings_freq.append(klasser[key])
         klassifiserings_niv.append(float(klasse_niv))
 
@@ -304,19 +327,38 @@ def klassifisering(klasser, verdi):
 
 #Tester at fun klassifisering funker
 
-test_kalib = kalibrering(20, freq, spectrum, dBA_dict)
-test_Pa = toPascal(test_kalib)
-test3 = butter_bandpass_filter(test_Pa, 1000-3, 1000 + 30, fs, 5)
+#test_kalib = kalibrering(20, freq, spectrum, dBA_dict)
+#test_Pa = toPascal(test_kalib)
+#test3 = butter_bandpass_filter(data, 2000, 3000, fs, 6)
 
-#x, y =klassifisering(klasser, test_Pa)
+ 
+
+
+#spect3= np.fft.rfft(test3, axis=0) 
+#test_kalib = kalibrering(2, freq, spect3, dBA_dict)
+
+#x, y =klassifisering(klasser, test_kalib, data)
 
 
 #plt.bar(x, y, color ='maroon', width = 10.0)
-plt.plot(t, test3)
+#plt.plot(t, test3)
+testtest = kalibrering(2, freq, spectrum, dBA_dict)
+
+#plt.subplot(2, 1, 1)
+#plt.plot(t, data)
+#plt.plot(freq, testtest)
 plt.xlabel("Frekvens")
 plt.ylabel("Ekvivalentnivå")
 plt.title("Klassifisering")
-plt.show()
+
+
+#plt.subplot(2, 1, 2)
+#plt.plot(t, test3)
+#plt.plot(freq, test_kalib)
+plt.xlabel("Frekvens")
+plt.ylabel("Ekvivalentnivå")
+plt.title("Klassifisering")
+#plt.show()
 
 
 
@@ -329,14 +371,9 @@ plt.stem(kjøretøy1_freq, kjøretøy1_niv)
 plt.show()
 '''
 
-
 '########################################################################'
-#Litt usikker på hvordan kalibrering gjøres, har tatt utgangspunkt i at
-# en måling tas med måler og vårt system, så finner man hva differansen i dB er
-# Deretter trekker man fra denne differansen fra alle dB verdier i senere målinger når systemet er i bruk.
 
-#Kode for å finne kalibrering - flyttet til egen fil
-'''
+
 def finn_kalibrering(kalib_fil, målt_verdi):
 
     #Dette er kopiert fra toppen av koden
@@ -348,7 +385,7 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 
     diff = np.argmax(spectrum) - målt_verdi
     return diff
-'''
+
 
 #Kode kalibrering, men usikker om tallet fra kalibrering skal multipliseres eller adderes
 #tar inn data i tidsdomene og sender ut data i tidsdomene (mulig A-vektet)
@@ -415,30 +452,41 @@ plt.show()
 # Filter a noisy signal.
 '''
 
-'''
+
 T = 0.05
 nsamples = int(T * fs)
-t = np.linspace(0, T, nsamples, endpoint=False)
+#t = np.linspace(0, T, nsamples, endpoint=False)
 a = 0.02
 f0 = 600.0
 x = 0.1 * np.sin(2 * np.pi * 1.2 * np.sqrt(t))
 x += 0.01 * np.cos(2 * np.pi * 312 * t + 0.1)
 x += a * np.cos(2 * np.pi * f0 * t + .11)
 x += 0.03 * np.cos(2 * np.pi * 2000 * t)
-plt.figure(2)
-plt.clf()
-plt.plot(t, x, label='Noisy signal')
 
-y = butter_bandpass_filter(data, lowcut, highcut, fs, order=6)
-plt.plot(t, y, label='Filtered signal (%g Hz)' % f0)
-plt.xlabel('time (seconds)')
-plt.hlines([-a, a], 0, T, linestyles='--')
+spectx= np.fft.rfft(x, axis=0) 
+x_db = kalibrering(2, freq, spectx, dBA_dict)
+#plt.subplot(2, 1, 2)
+#plt.plot(freq, x_db)
+
+y = butter_bandpass_filter(x, 200, 800, 31250, order=8)
+
+print('NY test')
+print(len(y))
+print(len(t))
+
+
+specty= np.fft.rfft(y, axis=0) 
+y_db = kalibrering(2, freq, specty, dBA_dict)
+
+#plt.subplot(2, 1, 2)
+#plt.plot(freq, y_db)
+#plt.xlabel('time (seconds)')
 plt.grid(True)
 plt.axis('tight')
-plt.legend(loc='upper left')
+#plt.legend(loc='upper left')
 
-plt.show()
-'''
+#plt.show()
+
 
 #Alternativt bp-filter b
 #b,a=scipy.signal.butter(N=6, Wn=[0.25, 0.5], btype='band')

@@ -42,6 +42,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 '########################################################################'
 
 # Import data from bin file
+
 sample_period, data = raspi_import('Lydfiler/lastebil.bin')
 
 
