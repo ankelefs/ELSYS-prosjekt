@@ -114,6 +114,9 @@ def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
     #print(len(freq))
     return kalib_dBA #Verdi i dB
 
+
+
+
 #Testing
 a = 0.02
 f0 = 600.0
