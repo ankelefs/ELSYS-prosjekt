@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 
-def octavefilter(x, fs, fraction=1, order=6, limits=None, show=0, sigbands =1):
+def octavefilter(x, fs, fraction=1, order=6, limits=None, show=0, sigbands =0):
     """
     Filter a signal with octave or fractional octave filter bank. This
     method uses a Butterworth filter with Second-Order Sections
@@ -252,6 +252,14 @@ t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
 
 
 fs =40000
+print(len(data))
 
-#octavefilter(data, fs, fraction=3, order=6, limits=None, show=1, sigbands =1) 
+xx, yy = octavefilter(data, fs, fraction=3, order=6, limits=None, show=1, sigbands =0) 
+#spl.tolist(), freq, xb
+#print(xx)
+#print(yy)
+#print(zz)
 
+
+for i in range(0, len(yy)):
+    print(yy[i])
