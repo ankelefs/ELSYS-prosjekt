@@ -2,7 +2,8 @@
 import os
 
 def run():
-    elsysProsjektMappe = '/home/pi/Documents/elsys-prosjekt'    
-    os.system(f'cd {elsysProsjektMappe} && git add *.bin && git commit -m "Nye opptak (.bin)" && git pull && git push') # Pusher kun .bin-filer til git (serveren sletter de etter behandling)
+    elsysProsjektMappeRPi = '/home/pi/Documents/elsys-prosjekt'
+        
+    os.system(f'cd {elsysProsjektMappeRPi} && git add . && git commit -m "Nye opptak (.bin)" && git pull && git push') # Pusher alle nye filer til git, som vil være opptaksfilene i .bin-format. Serveren sletter opptaksfilene etter at de er ferdigbehandlet
         
     print('Program ended succesfully')
