@@ -11,14 +11,15 @@ Koden er skrevet skalerbart med intensjon om å importeres i en annen fil
 """
 
 # elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
+# elsysProsjektMappeOpptaksfilerServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler'
 
 def pullFromGit(elsysProsjektMappeServer):
     os.system(f'cd {elsysProsjektMappeServer} && git pull') # Henter nye lydopptak
     print('git pull success')
 
-def removeBinaryFiles(elsysProsjektMappeServer):
-    os.system(f'cd {elsysProsjektMappeServer} && rm *.bin') # Fjerner alle binær-filer
+def removeBinaryFiles(elsysProsjektOpptaksfilerMappeServer):
+    os.system(f'cd {elsysProsjektOpptaksfilerMappeServer} && rm *.bin') # Fjerner alle binær-filer i Opptaksfiler-mappen
     print('Deletion success')
         
-    os.system(f'cd {elsysProsjektMappeServer} && git add . && git commit -m "Fjerning av gamle lydopptak" && git pull && git push') # Fjerner alle binær-filer fra git
+    os.system(f'cd {elsysProsjektOpptaksfilerMappeServer} && git add . && git commit -m "Fjerning av gamle lydopptak" && git pull && git push') # Fjerner alle binær-filer fra git
     print('Deletion on git success')

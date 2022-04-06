@@ -6,6 +6,7 @@ import pull_and_remove
 
 ##### Variabler #####
 elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
+elsysProsjektMappeOpptaksfilerServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler'
 
 ##### Funksjoner #####
 
@@ -27,6 +28,6 @@ if __name__ == '__main__':
             # behandling av data
             
         # Fjerner ferdigbehandlede opptaksfiler:
-        pull_and_remove.removeBinaryFiles(elsysProsjektMappeServer)
+        pull_and_remove.removeBinaryFiles(elsysProsjektMappeOpptaksfilerServer)
         
         # times.sleep(6 timer - tiden for bahendling ++)
