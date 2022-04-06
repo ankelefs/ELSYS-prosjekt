@@ -311,22 +311,23 @@ tid = 0
 tid_vec = []
 
 for filename in os.listdir(directory):
-    antall_filer += 1
-    y_db = 0
-    dBA_num = 0
     if filename.endswith(".bin"): 
+        y_db = 0
+        dBA_num = 0
+        antall_filer += 1
         print(os.path.join("./Lydfiler", filename))
         sample_period, data = raspi_import(os.path.join("./Lydfiler", filename))
         num_of_samples = data.shape[0]
         freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
         spectrum = np.fft.rfft(data, axis=0) 
         dBA_num = dBA(freq, spectrum, dBA_dict)
+        plt.clf()
         plt.title("dBA spectrum of signal")
         plt.xlabel("Frequency [Hz]")
         plt.ylabel("Power [dBA]")
         plt.plot(freq, dBA_num)
         plt.savefig(plottName('graph' + str(antall_filer)))
-        plt.show()  
+        
         
         T = num_of_samples * sample_period
         L = ekvivalentnivå_mv0(data, v0)

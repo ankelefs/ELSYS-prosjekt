@@ -1,10 +1,13 @@
 #! /usr/bin/env python
 import time
 import os
+from buffer_to_first_analysis import synCRON_maximus
 
 sleep = 1
 sixHours = 3600*6
 elsysProsjektMappe = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
+
+time.sleep(synCRON_maximus())
 
 while True:
     os.system(f'cd {elsysProsjektMappe} && git pull') # Henter nye lydopptak

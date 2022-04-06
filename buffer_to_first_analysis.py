@@ -29,6 +29,6 @@ def synCRON_maximus():
         
         if delta_sec > 0:
             bufre.append(delta_sec)
-        
     return min(bufre)
+
     
