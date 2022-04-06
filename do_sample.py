@@ -16,3 +16,5 @@ def sample():
         os.system(f'cd {elsysProsjektMappe} && sudo ./adc_sampler {twentyMinSamples} {dt_string}.bin')
         
     print('Program ended succesfully')
+    
+sample()
