@@ -62,7 +62,6 @@ spectrum = np.fft.rfft(data, axis=0)  # takes FFT of all channels
 
 
 
-
 #dBA_array = np.array([]) 
 
 #dBA_list = []
@@ -223,7 +222,6 @@ plt.title("dBA spectrum of signal")
 plt.xlabel("Frequency [Hz]")
 plt.ylabel("Power [dBA]")
 plt.plot(freq, y) # get the power spectrum
-
 
 
 plt.subplot(2, 1, 2)
