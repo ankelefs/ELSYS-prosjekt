@@ -134,7 +134,7 @@ def ekvivalentnivå_mv0(måling_data, v0):
 v0 = 0.02
 
 antall_filer = 2
-liste_filer = ['Lydfiler/lastebil.bin', 'Lydfiler/bil.bin']
+liste_filer = ['Lydfiler/bil.bin', 'Lydfiler/lastebil.bin']
 def plott(antall_filer, liste_filer):
     tid = 0
     tid_vec = []

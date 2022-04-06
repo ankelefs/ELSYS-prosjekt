@@ -60,46 +60,6 @@ t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
 freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
 spectrum = np.fft.rfft(data, axis=0)  # takes FFT of all channels
 
-'''
-directory = 'the/directory/you/want/to/use'
-
-for filename in os.listdir(directory):
-    if filename.endswith(".bin"):
-        sample_period, data = raspi_import(filename)
-        sample_period *= 1e-6  
-
-        num_of_samples = data.shape[0]  
-        t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
-
-        freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
-        spectrum = np.fft.rfft(data, axis=0)  
-        y = dBA(freq, spectrum, dBA_dict)
-        y2 = todB_vec(spectrum)
-
-        def plottName(name):
-            my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder/'+ name)
-            return my_path
-
-        plt.subplot(2, 1, 1)
-        plt.title("dBA spectrum of signal")
-        plt.xlabel("Frequency [Hz]")
-        plt.ylabel("Power [dBA]")
-        plt.plot(freq, y) # get the power spectrum
-
-        plt.subplot(2, 1, 2)
-        plt.title("dBA spectrum of signal")
-        plt.xlabel("Frequency [Hz]")
-        plt.ylabel("Power [dB]")
-        plt.plot(freq, y2) # get the power spectrum
-
-        plt.savefig(plottName('graph1'))        
-
-        continue
-    else:
-        continue
-
-
-'''
 
 
 
@@ -345,17 +305,16 @@ plott(2, liste_filer)
 '''
 directory = 'Lydfiler/'
 antall_filer = 0
+L = 0
+L_eq = []
+tid = 0
+tid_vec = []
 
 for filename in os.listdir(directory):
-    if filename.endswith(".bin"):
-        antall_filer += 1
-        tid = 0
-        tid_vec = []
-        y_db = 0
-        #L = 0
-        #L_eq = []
-        dBA_num = 0
-        
+    antall_filer += 1
+    y_db = 0
+    dBA_num = 0
+    if filename.endswith(".bin"): 
         print(os.path.join("./Lydfiler", filename))
         sample_period, data = raspi_import(os.path.join("./Lydfiler", filename))
         num_of_samples = data.shape[0]
@@ -367,27 +326,26 @@ for filename in os.listdir(directory):
         plt.ylabel("Power [dBA]")
         plt.plot(freq, dBA_num)
         plt.savefig(plottName('graph' + str(antall_filer)))
-        plt.show()
-    
-        #yy, yh = butter_bandpass_filter(x, 200, 800, 31250, order=8)
-        #specty= np.fft.rfft(yh, axis=0) 
+        plt.show()  
+        
         T = num_of_samples * sample_period
-        #L = ekvivalentnivå_mv0(data, v0)
+        L = ekvivalentnivå_mv0(data, v0)
         
         #L_kalib = kalibrering(2, freq, spectrum, dBA_dict)
         tid += 1
         tid_vec.append(tid)
 
-            #print(L)
-            #a = plt.stem(tid, L)
-           # L_eq.append(L)
+        print(L)
+        #a = plt.stem(tid, L)
+        L_eq.append(L)
         
-       # plt.plot(tid_vec, L_eq)
-        plt.show()
         continue
+        
     else:
         continue
 
+plt.plot(tid_vec, L_eq)
+plt.show()
 
 
 
