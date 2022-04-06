@@ -60,6 +60,47 @@ t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
 freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
 spectrum = np.fft.rfft(data, axis=0)  # takes FFT of all channels
 
+'''
+directory = 'the/directory/you/want/to/use'
+
+for filename in os.listdir(directory):
+    if filename.endswith(".bin"):
+        sample_period, data = raspi_import(filename)
+        sample_period *= 1e-6  
+
+        num_of_samples = data.shape[0]  
+        t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
+
+        freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
+        spectrum = np.fft.rfft(data, axis=0)  
+        y = dBA(freq, spectrum, dBA_dict)
+        y2 = todB_vec(spectrum)
+
+        def plottName(name):
+            my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder/'+ name)
+            return my_path
+
+        plt.subplot(2, 1, 1)
+        plt.title("dBA spectrum of signal")
+        plt.xlabel("Frequency [Hz]")
+        plt.ylabel("Power [dBA]")
+        plt.plot(freq, y) # get the power spectrum
+
+        plt.subplot(2, 1, 2)
+        plt.title("dBA spectrum of signal")
+        plt.xlabel("Frequency [Hz]")
+        plt.ylabel("Power [dB]")
+        plt.plot(freq, y2) # get the power spectrum
+
+        plt.savefig(plottName('graph1'))        
+
+        continue
+    else:
+        continue
+
+
+'''
+
 
 
 #dBA_array = np.array([]) 
