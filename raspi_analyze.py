@@ -50,7 +50,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 '########################################################################'
 
 # Import data from bin file
-sample_period, data = raspi_import('Lydfiler/Lydprøver/test3.bin')
+sample_period, data = raspi_import('Lydfiler/Lydprøver/60.bin')
 
 
 
@@ -201,14 +201,16 @@ def ekvivalentverdi2(period, num_samples, verdi_dB):
 '########################################################################'
 #Båndpass her  --- dette funket ikke, nytt filter lenger ned.
 
-def butter_bandpass(lowcut, highcut, fs, order=8):
-    return butter(order, [lowcut, highcut], fs=fs, btype='band')
+def butter_bandpass(lowcut, highcut, fs, order=4):
+    low = lowcut / (0.5*fs)
+    high = highcut / (0.5*fs)
+    return butter(order, [low, high], fs=fs, btype='band')
 
 
-def butter_bandpass_filter(data, lowcut, highcut, fs, order=8):
+def butter_bandpass_filter(data, lowcut, highcut, fs, order=4):
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
     w, h = freqz(b, a, fs=fs, worN=2000)
-    plt.plot(w, abs(h), label="order = %d" % order)
+    #plt.plot(w, abs(h), label="order = %d" % order)
     y = lfilter(b, a, data)
     return y
     #return abs(h)
@@ -347,17 +349,10 @@ def klassifisering(klasser, verdi, verdi_tid):
 #plt.subplot(2, 1, 1)
 #plt.plot(t, data)
 #plt.plot(freq, testtest)
-plt.xlabel("Frekvens")
-plt.ylabel("Ekvivalentnivå")
-plt.title("Klassifisering")
-
 
 #plt.subplot(2, 1, 2)
 #plt.plot(t, test3)
 #plt.plot(freq, test_kalib)
-plt.xlabel("Frekvens")
-plt.ylabel("Ekvivalentnivå")
-plt.title("Klassifisering")
 #plt.show()
 
 
@@ -462,6 +457,7 @@ def ekvivalentnivå_mv0(måling_data, v0):
 #Antar
 v0 = 0.02
 
+'''
 T = 0.05
 nsamples = int(T * fs)
 #t = np.linspace(0, T, nsamples, endpoint=False)
@@ -471,22 +467,26 @@ x = 0.1 * np.sin(2 * np.pi * 1.2 * np.sqrt(t))
 x += 0.01 * np.cos(2 * np.pi * 312 * t + 0.1)
 x += a * np.cos(2 * np.pi * f0 * t + .11)
 x += 0.03 * np.cos(2 * np.pi * 2000 * t)
+'''
 
-spectx= np.fft.rfft(x, axis=0) 
+
+data_spect= np.fft.rfft(data, axis=0) #y-akse i frekvensspekter
 #x_db = kalibrering(2, freq, spectx, dBA_dict)
 x_Leq = ekvivalentnivå_mv0(data, v0)
+
 
 
 plt.subplot(2, 1, 1)
 plt.title("data")
 plt.grid(True)
-#plt.plot(t,data)
+plt.plot(freq, np.real(data_spect))
+
+til_filter = []
+for g in range(0, len(data)):
+    til_filter.append(data[g])
 
 
-plt.plot(freq, np.real(spectx))
-
-
-y = butter_bandpass_filter(data, 1800, 2200, 31250, order=8)
+y = butter_bandpass_filter(til_filter, 1200, 1600, 31250, order=3)
 
 print('NY test')
 print(len(data))
@@ -499,16 +499,11 @@ specty= np.fft.rfft(y, axis=0)
 #y_db = kalibrering(2, freq, specty, dBA_dict)
 
 plt.subplot(2, 1, 2)
-
 plt.title("y")
-#plt.plot(t,y)
-#plt.xlabel('time (seconds)')
+plt.xlabel('Hz')
 plt.grid(True)
-plt.axis('tight')
 plt.plot(freq, np.real(specty))
 #plt.legend(loc='upper left')
-
-
 
 plt.show()
 #Alternativt bp-filter b
