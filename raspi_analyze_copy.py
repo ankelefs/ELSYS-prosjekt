@@ -253,6 +253,21 @@ def kalibrering(kalibreringsverdi, freq_vec, verdi):
    
     return verdi_kalib
 
+p0 = 20*10^-6
+def todB_num(verdi_rfft):
+    num_dB = (20*np.log10(np.abs(verdi_rfft)))
+   
+    return num_dB
+
+
+
+def ekvivalentnivå_mv0(måling_data, v0):
+    sum = 0
+    for i in range(0, len(måling_data)):
+        sum += (måling_data[i]/v0)**2
+    L = 10*np.log(1/len(måling_data) + sum)
+    return float(L)
+
 
 #plt.subplot(2, 1, 2)
 y = dBA(freq, spectrum, dBA_dict)
@@ -263,6 +278,7 @@ def plottName(name):
     return my_path
 # Figures out the absolute path for you in case your working directory moves around.
 
+'''
 plt.subplot(2, 1, 1)
 plt.title("dBA spectrum of signal")
 plt.xlabel("Frequency [Hz]")
@@ -279,6 +295,100 @@ plt.plot(freq, y2) # get the power spectrum
 plt.savefig(plottName('graph1'))
 
 plt.show()
+'''
+
+v0 = 0.02
+'''
+#antall_filer = 2
+#liste_filer = ['Lydfiler/lastebil.bin', 'Lydfiler/bil.bin']
+
+
+def plott(antall_filer, liste_filer):
+    tid = 0
+    tid_vec = []
+    y_db = 0
+    L = 0
+    L_eq = []
+    dBA_num = 0
+    for n in range(0, antall_filer):
+        print(liste_filer[n])
+        sample_period, data = raspi_import(liste_filer[n])
+        num_of_samples = data.shape[0]
+        freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
+        spectrum = np.fft.rfft(data, axis=0) 
+        dBA_num = dBA(freq, spectrum, dBA_dict)
+        plt.title("dBA spectrum of signal")
+        plt.xlabel("Frequency [Hz]")
+        plt.ylabel("Power [dBA]")
+        plt.plot(freq, dBA_num)
+        plt.savefig(plottName('graph' + str(n)))
+        plt.show()
+        
+        #yy, yh = butter_bandpass_filter(x, 200, 800, 31250, order=8)
+        #specty= np.fft.rfft(yh, axis=0) 
+        T = num_of_samples * sample_period
+        L = ekvivalentnivå_mv0(data, v0)
+        
+        #L_kalib = kalibrering(2, freq, spectrum, dBA_dict)
+        tid += 1
+        tid_vec.append(tid)
+
+        print(L)
+        #a = plt.stem(tid, L)
+        L_eq.append(L)
+    
+    plt.plot(tid_vec, L_eq)
+    plt.show()
+
+plott(2, liste_filer) 
+
+'''
+directory = 'Lydfiler/'
+antall_filer = 0
+
+for filename in os.listdir(directory):
+    if filename.endswith(".bin"):
+        antall_filer += 1
+        tid = 0
+        tid_vec = []
+        y_db = 0
+        #L = 0
+        #L_eq = []
+        dBA_num = 0
+        
+        print(os.path.join("./Lydfiler", filename))
+        sample_period, data = raspi_import(os.path.join("./Lydfiler", filename))
+        num_of_samples = data.shape[0]
+        freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
+        spectrum = np.fft.rfft(data, axis=0) 
+        dBA_num = dBA(freq, spectrum, dBA_dict)
+        plt.title("dBA spectrum of signal")
+        plt.xlabel("Frequency [Hz]")
+        plt.ylabel("Power [dBA]")
+        plt.plot(freq, dBA_num)
+        plt.savefig(plottName('graph' + str(antall_filer)))
+        plt.show()
+    
+        #yy, yh = butter_bandpass_filter(x, 200, 800, 31250, order=8)
+        #specty= np.fft.rfft(yh, axis=0) 
+        T = num_of_samples * sample_period
+        #L = ekvivalentnivå_mv0(data, v0)
+        
+        #L_kalib = kalibrering(2, freq, spectrum, dBA_dict)
+        tid += 1
+        tid_vec.append(tid)
+
+            #print(L)
+            #a = plt.stem(tid, L)
+           # L_eq.append(L)
+        
+       # plt.plot(tid_vec, L_eq)
+        plt.show()
+        continue
+    else:
+        continue
+
+
 
 
 

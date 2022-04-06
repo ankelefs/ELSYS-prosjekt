@@ -10,7 +10,7 @@ from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
 import os
-import acoustics 
+#import acoustics 
 
 def raspi_import(path, channels=1):
     """
