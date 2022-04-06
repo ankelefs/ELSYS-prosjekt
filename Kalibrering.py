@@ -23,6 +23,7 @@ def finn_v0(kalib_fil, målt_verdi_Leq):
     for i in range(0, len(data)):
         sum_V += (data[i])**2
 
-    v0 = np.sqrt(1/T * 1/(10**(målt_verdi_Leq/20)) * sum_V)
+    v0 = np.sqrt(1/(T * 1/(10**(målt_verdi_Leq/20))) * sum_V)
     return v0
+
 
