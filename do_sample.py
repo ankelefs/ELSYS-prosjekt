@@ -26,7 +26,7 @@ def sample(sampleTime = 31250, numSamples = 1, elsysProsjektMappeRPi = '/home/pi
     
     print('Program sampled successfully')
     
-    os.system(f'cd {elsysProsjektMappeRPi} && mv *.bin /Opptaksfiler')
+    os.system(f'cd {elsysProsjektMappeRPi} && mv *.bin Opptaksfiler')
     print('Program moved files successfully. Total success')
     
 sample(sampleTime, numSamples)
