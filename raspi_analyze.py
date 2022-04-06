@@ -215,6 +215,93 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=4):
     return y
     #return abs(h)
 
+################################
+
+#GEEKS FOR GEEKS LOSNING PÅ BANDPASS
+
+def convertX(f_sample, f):
+    w = []
+      
+    for i in range(len(f)):
+        b = 2*((f[i]/2)/(f_sample/2))
+        w.append(b)
+  
+    omega_mine = []
+  
+    for i in range(len(w)):
+        c = (2/Td)*np.tan(w[i]/2)
+        omega_mine.append(c)
+  
+    return omega_mine
+
+# Specifications of Filter
+  
+# sampling frequency
+f_sample = 7000
+  
+# pass band frequency
+f_pass = [1400, 2100]
+  
+# stop band frequency
+f_stop = [1050, 2450]
+  
+# pass band ripple
+fs = 0.5
+  
+# Sampling Time
+Td = 1
+  
+# pass band ripple
+g_pass = 0.4
+  
+# stop band attenuation
+g_stop = 50
+
+# Conversion to prewrapped analog
+# frequency
+omega_p=convertX(f_sample,f_pass)
+omega_s=convertX(f_sample,f_stop)
+	
+# Design of Filter using signal.buttord
+# function
+N, Wn = signal.buttord(omega_p, omega_s,
+					g_pass, g_stop,
+					analog=True)
+	
+	
+# Printing the values of order & cut-off frequency
+# N is the order
+print("Order of the Filter=", N)
+
+# Wn is the cut-off freq of the filter
+print("Cut-off frequency= {:} rad/s ".format(Wn))
+	
+	
+# Conversion in Z-domain
+	
+# b is the numerator of the filter & a is
+# the denominator
+b, a = signal.butter(N, Wn, 'bandpass', True)
+z, p = signal.bilinear(b, a, fs)
+
+# w is the freq in z-domain & h is the
+# magnitude in z-domain
+w, h = signal.freqz(z, p, 512)
+
+
+plt.semilogx(w, 20*np.log10(abs(h)))
+plt.xscale('log')
+plt.title('Butterworth filter frequency response')
+plt.xlabel('Frequency [Hz]')
+plt.ylabel('Amplitude [dB]')
+plt.margins(0, 0.1)
+plt.grid(which='both', axis='both')
+plt.axvline(100, color='green')
+plt.show()
+
+################################
+
+
 #Dette er for å plotte, for å sjekke om filteret ble riktig
 '''
 # Plot the frequency response for a few different orders.
