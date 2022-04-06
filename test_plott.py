@@ -127,7 +127,7 @@ def ekvivalentnivå_mv0(måling_data, v0):
     sum = 0
     for i in range(0, len(måling_data)):
         sum += (måling_data[i]/v0)**2
-    L = 10*np.log(1/len(måling_data) + sum)
+    L = 10*np.log(sum/len(måling_data))
     return float(L)
 
 #Antar
