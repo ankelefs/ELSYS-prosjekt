@@ -13,8 +13,8 @@ Koden er skrevet skalerbart med intensjon om å importeres i en annen fil.
 Scriptet trenger to argumenter etter script-navnet: sampleTime og numSamples
 """
 
-sampleTime = sys.argv[1] * 31250 # 31250 er antall samples per sekund, argumentet må være i sekunder
-numSamples = sys.argv[2]
+sampleTime = int(sys.argv[1]) * 31250 # 31250 er antall samples per sekund, argumentet må være i sekunder
+numSamples = int(sys.argv[2])
 
 def sample(sampleTime = 31250, numSamples = 1, elsysProsjektMappeRPi = '/home/pi/Documents/elsys-prosjekt'):    
 
