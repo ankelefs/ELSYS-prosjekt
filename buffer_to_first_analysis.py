@@ -14,21 +14,18 @@ def synCRON_maximus():
     """
     
     now = datetime.datetime.now() # Tiden nå (i dårlig format)
-    # now_better = dt_string = now.strftime("%H:%M:%S") # hh-mm-ss
-    # print(now_better)
-    # print(int(now_better))
-
     tidspunkter = [datetime.datetime.combine(now.date(), datetime.time(00, 30, 00)), datetime.datetime.combine(now.date(), datetime.time(6, 30, 00)), datetime.datetime.combine(now.date(), datetime.time(12, 30, 00)), datetime.datetime.combine(now.date(), datetime.time(18, 30, 00))] # Tidspunkt for RPi å sende til git samt. starte nye opptaksdata (de nye opptaksdataene lagres LOKALT)
     bufre = []
 
     for tidspunkt in tidspunkter:
         # print(tidspunkt)
         delta = tidspunkt - now
-        delta_sec = int(delta.total_seconds())
+        delta_sec = int(delta.total_seconds()) # Gir antall sekunder til tidspunkt (om det er et tidspunkt tidligere enn now er verdien negativ)
         # print(delta.total_seconds())
         
         if delta_sec > 0:
             bufre.append(delta_sec)
+    
     return min(bufre)
 
     
