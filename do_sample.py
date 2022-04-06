@@ -4,10 +4,10 @@ import time
 import os
 
 def sample():
-    # twentyMinSamples = 31250*60*20
-    twentyMinSamples = 31250*5
+    twentyMinSamples = 31250*60*20
+    # twentyMinSamples = 31250*5
     elsysProsjektMappe = '/home/pi/Documents/elsys-prosjekt'
-    numSamples = 2
+    numSamples = 1
 
     for i in range(numSamples):
         now = datetime.now()
