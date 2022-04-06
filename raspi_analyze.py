@@ -15,7 +15,7 @@ import acoustics.octave
 import acoustics.bands
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
-import filter 
+
 
 
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
@@ -50,7 +50,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 '########################################################################'
 
 # Import data from bin file
-sample_period, data = raspi_import('Y2022-M04-D04-H10-M38-S12.bin')
+sample_period, data = raspi_import('Lydfiler/bil.bin')
 
 
 
@@ -207,9 +207,6 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=8):
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
     w, h = freqz(b, a, fs=fs, worN=2000)
     plt.plot(w, abs(h), label="order = %d" % order)
-    print('Len h:')
-    print(len(abs(h)))
-    plt.show()
     y = lfilter(b, a, data)
     return y
     #return abs(h)
@@ -452,7 +449,15 @@ plt.show()
 
 # Filter a noisy signal.
 '''
+def ekvivalentnivå_mv0(måling_data, v0):
+    sum = 0
+    for i in range(0, len(måling_data)):
+        sum += (måling_data[i]/v0)**2
+    L = 10*np.log(1/len(måling_data) + sum)
+    return float(L)
 
+#Antar
+v0 = 0.02
 
 T = 0.05
 nsamples = int(T * fs)
@@ -465,9 +470,10 @@ x += a * np.cos(2 * np.pi * f0 * t + .11)
 x += 0.03 * np.cos(2 * np.pi * 2000 * t)
 
 spectx= np.fft.rfft(x, axis=0) 
-x_db = kalibrering(2, freq, spectx, dBA_dict)
+#x_db = kalibrering(2, freq, spectx, dBA_dict)
+x_Leq = ekvivalentnivå_mv0(data, v0)
 #plt.subplot(2, 1, 2)
-#plt.plot(freq, x_db)
+#plt.plot(freq, spectx)
 
 y = butter_bandpass_filter(x, 200, 800, 31250, order=8)
 
@@ -475,12 +481,14 @@ print('NY test')
 print(len(y))
 print(len(t))
 
+#y_Leq = ekvivalentnivå_mv0(y, v0)
 
 specty= np.fft.rfft(y, axis=0) 
-y_db = kalibrering(2, freq, specty, dBA_dict)
+#y_db = kalibrering(2, freq, specty, dBA_dict)
 
-#plt.subplot(2, 1, 2)
-#plt.plot(freq, y_db)
+plt.subplot(2, 1, 2)
+plt.plot(freq, specty)
+
 #plt.xlabel('time (seconds)')
 plt.grid(True)
 plt.axis('tight')
@@ -503,7 +511,7 @@ plt.plot(t, x)
 plt.xlabel('time (seconds)')
 plt.grid(True)
 plt.axis('tight')
-plt.legend(loc='upper left')
+plt.legend(loc='upper left')ƒ
 
 
 plt.subplot(2, 1, 2)

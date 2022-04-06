@@ -94,7 +94,7 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=8):
     print(len(w))
     plt.show()
     y = lfilter(b, a, data)
-    return y , abs(h)
+    return y
     #return abs(h)
 
 '########################################################################'

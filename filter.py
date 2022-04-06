@@ -54,6 +54,7 @@ def octavefilter(x, fs, fraction=1, order=6, limits=None, show=0, sigbands =0):
             sd = signal.decimate(x, factor[idx])
             y = signal.sosfilt(sos[idx], sd)
             spl[idx] = 20 * np.log10(np.std(y) / 2e-5)
+            print(spl)
         return spl.tolist(), freq
 
 
@@ -251,15 +252,13 @@ num_of_samples = data.shape[0]  # returns shape of matrix
 t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
 
 
-fs =40000
+fs =31250
 print(len(data))
 
-xx, yy = octavefilter(data, fs, fraction=3, order=6, limits=None, show=1, sigbands =0) 
+#xx, yy = octavefilter(data, fs, fraction=3, order=6, limits=None, show=1, sigbands =0) 
 #spl.tolist(), freq, xb
 #print(xx)
 #print(yy)
 #print(zz)
 
 
-for i in range(0, len(yy)):
-    print(yy[i])
