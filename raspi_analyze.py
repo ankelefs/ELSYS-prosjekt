@@ -50,8 +50,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 '########################################################################'
 
 # Import data from bin file
-sample_period, data = raspi_import('Lydfiler/bil.bin')
-
+sample_period, data = raspi_import('Lydfiler/Lydprøver/test3.bin')
 
 
 
@@ -62,6 +61,9 @@ sample_period *= 1e-6  # change unit to micro seconds
 num_of_samples = data.shape[0]  # returns shape of matrix
 t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
 
+
+#plt.plot(t,data)
+#plt.show()
 
 
 # Generate frequency axis and take FFT
@@ -340,7 +342,7 @@ def klassifisering(klasser, verdi, verdi_tid):
 
 #plt.bar(x, y, color ='maroon', width = 10.0)
 #plt.plot(t, test3)
-testtest = kalibrering(2, freq, spectrum, dBA_dict)
+#testtest = kalibrering(2, freq, spectrum, dBA_dict)
 
 #plt.subplot(2, 1, 1)
 #plt.plot(t, data)
@@ -456,6 +458,7 @@ def ekvivalentnivå_mv0(måling_data, v0):
     L = 10*np.log(1/len(måling_data) + sum)
     return float(L)
 
+
 #Antar
 v0 = 0.02
 
@@ -472,12 +475,21 @@ x += 0.03 * np.cos(2 * np.pi * 2000 * t)
 spectx= np.fft.rfft(x, axis=0) 
 #x_db = kalibrering(2, freq, spectx, dBA_dict)
 x_Leq = ekvivalentnivå_mv0(data, v0)
-#plt.subplot(2, 1, 2)
-#plt.plot(freq, spectx)
 
-y = butter_bandpass_filter(x, 200, 800, 31250, order=8)
+
+plt.subplot(2, 1, 1)
+plt.title("data")
+plt.grid(True)
+#plt.plot(t,data)
+
+
+plt.plot(freq, np.real(spectx))
+
+
+y = butter_bandpass_filter(data, 1800, 2200, 31250, order=8)
 
 print('NY test')
+print(len(data))
 print(len(y))
 print(len(t))
 
@@ -487,16 +499,18 @@ specty= np.fft.rfft(y, axis=0)
 #y_db = kalibrering(2, freq, specty, dBA_dict)
 
 plt.subplot(2, 1, 2)
-plt.plot(freq, specty)
 
+plt.title("y")
+#plt.plot(t,y)
 #plt.xlabel('time (seconds)')
 plt.grid(True)
 plt.axis('tight')
+plt.plot(freq, np.real(specty))
 #plt.legend(loc='upper left')
 
-#plt.show()
 
 
+plt.show()
 #Alternativt bp-filter b
 #b,a=scipy.signal.butter(N=6, Wn=[0.25, 0.5], btype='band')
 #x = scipy.signal.lfilter(b,a,data)
@@ -512,7 +526,6 @@ plt.xlabel('time (seconds)')
 plt.grid(True)
 plt.axis('tight')
 plt.legend(loc='upper left')ƒ
-
 
 plt.subplot(2, 1, 2)
 plt.title("Time domain signal")
