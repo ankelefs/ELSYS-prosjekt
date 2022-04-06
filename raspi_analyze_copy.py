@@ -217,6 +217,11 @@ def kalibrering(kalibreringsverdi, freq_vec, verdi):
 y = dBA(freq, spectrum, dBA_dict)
 y2 = todB_vec(spectrum)
 
+def plottName(name):
+    my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder/'+ name)
+    return my_path
+# Figures out the absolute path for you in case your working directory moves around.
+
 plt.subplot(2, 1, 1)
 plt.title("dBA spectrum of signal")
 plt.xlabel("Frequency [Hz]")
@@ -230,9 +235,7 @@ plt.xlabel("Frequency [Hz]")
 plt.ylabel("Power [dB]")
 plt.plot(freq, y2) # get the power spectrum
 
-my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder/graph1') # Figures out the absolute path for you in case your working directory moves around.
-
-plt.savefig(my_path)
+plt.savefig(plottName('graph1'))
 
 plt.show()
 
