@@ -50,7 +50,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 '########################################################################'
 
 # Import data from bin file
-sample_period, data = raspi_import('Lydfiler/Lydprøver/60.bin')
+sample_period, data = raspi_import('Lydfiler/Lydprøver/34.bin')
 
 
 
@@ -69,7 +69,8 @@ t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
 # Generate frequency axis and take FFT
 freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
 spectrum = np.fft.rfft(data, axis=0)  # takes FFT of all channels
-
+print(len(freq))
+print(len(spectrum))
 
 
 '#########Kode som finner mest fremtredende frekvens i fft-bilde###########'
@@ -237,17 +238,17 @@ def convertX(f_sample, f):
 # Specifications of Filter
   
 # sampling frequency
-f_sample = 7000
+f_sample = 31250
   
 # pass band frequency
-f_pass = [1400, 2100]
+f_pass = [5900, 6300]
   
 # stop band frequency
 f_stop = [1050, 2450]
-  
+
 # pass band ripple
 fs = 0.5
-  
+
 # Sampling Time
 Td = 1
   
@@ -289,14 +290,43 @@ z, p = signal.bilinear(b, a, fs)
 w, h = signal.freqz(z, p, 512)
 
 
-plt.semilogx(w, 20*np.log10(abs(h)))
-plt.xscale('log')
-plt.title('Butterworth filter frequency response')
+#plt.semilogx(w, 20*np.log10(abs(h)))
+y = lfilter(b, a, data)   #Denne la jeg til
+
+
+print(len(y))
+print(len(t))
+print(len(data))
+print(len(spectrum))
+print(len(freq))
+print(freq)
+
+
+plt.subplot(2,1,1)
+#plt.plot(t, data)
+plt.plot(freq, np.real(spectrum))
+print(len(spectrum))
+#plt.xscale('log')
+plt.title('Butterworth filter frequency response_data')
 plt.xlabel('Frequency [Hz]')
 plt.ylabel('Amplitude [dB]')
 plt.margins(0, 0.1)
 plt.grid(which='both', axis='both')
-plt.axvline(100, color='green')
+
+
+
+plt.subplot(2,1,2)
+sect_y = np.fft.rfft(y, axis=0)
+print(len(np.real(sect_y)))
+plt.plot(freq, np.real(sect_y))
+#plt.plot(t, y)
+#plt.xscale('log')
+plt.title('Butterworth filter frequency response_filterert')
+plt.xlabel('Frequency [Hz]')
+plt.ylabel('Amplitude [dB]')
+plt.margins(0, 0.1)
+plt.grid(which='both', axis='both')
+#plt.axvline(100, color='green')
 plt.show()
 
 ################################
@@ -563,6 +593,8 @@ x_Leq = ekvivalentnivå_mv0(data, v0)
 
 
 
+'''
+
 plt.subplot(2, 1, 1)
 plt.title("data")
 plt.grid(True)
@@ -591,8 +623,9 @@ plt.xlabel('Hz')
 plt.grid(True)
 plt.plot(freq, np.real(specty))
 #plt.legend(loc='upper left')
+'''
 
-plt.show()
+
 #Alternativt bp-filter b
 #b,a=scipy.signal.butter(N=6, Wn=[0.25, 0.5], btype='band')
 #x = scipy.signal.lfilter(b,a,data)
