@@ -89,6 +89,7 @@ dBA_dict = {6.3: -85.4, 8: -77.6, 10: -70.4, 12.5: -63.6, 16: -56.4, 20: -50.4, 
 dBA_key_list = list(dBA_dict.keys()) #inneholder alle keys fra dBA_dict
 
 dBA_value_list = list(dBA_dict.values()) #inneholder alle values fra dBA_dict
+
 '''
 def dBA_vec(frekvens, verdi):
     dBA_list = []

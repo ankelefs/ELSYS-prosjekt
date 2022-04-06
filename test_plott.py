@@ -49,7 +49,7 @@ def dBA(frekvens, spect, dBA_dict): #tar i rfft av signalet
     dBA_vector = []
     temp = 0
 
-    for i in range(0, len(freq)):
+    for i in range(0, len(spect)):
         temp = todB_num(spect[i])
         if(frekvens[i] >= 20000):
             temp += -9.3
@@ -91,6 +91,7 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=8):
     plt.plot(w, abs(h), label="order = %d" % order)
     print('Len h:')
     print(len(abs(h)))
+    print(len(w))
     plt.show()
     y = lfilter(b, a, data)
     return y , abs(h)
@@ -104,7 +105,7 @@ def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
     verdi_temp = 0
     kalib_dBA = []
     #Denne løkken kalibrerer
-    for f in range(0, len(frekvens)):
+    for f in range(0, len(spect)):
         verdi_temp = verdi_kalib[f] - kalibreringsverdi
         #verdi_temp = np.fft.iffft(verdi_temp)
         kalib_dBA.append(verdi_temp)
@@ -114,6 +115,36 @@ def kalibrering(kalibreringsverdi, frekvens, spect, dBA_dict):
     #print(len(freq))
     return kalib_dBA #Verdi i dB
 
+p0 = 20*10^-6
+def todB_num(verdi_rfft):
+    num_dB = (20*np.log10(np.abs(verdi_rfft)))
+   
+    return num_dB
+
+
+
+def ekvivalentnivå_mv0(måling_data, tid_fil, v0):
+    sum = 0
+    for i in range(0, len(måling_data)):
+        sum += (data[i]/v0)**2
+    L = 20*np.log(1/tid_fil + sum)
+
+
+antall_filer = 2
+liste_filer = ['Y2022-M04-D04-H10-M38-S12.bin', 'Y2022-M04-D04-H10-M38-S17.bin']
+'''
+def plott(antall_filer, liste_filer):
+    y_db = 0
+    L = 0
+    for n in range(0, antall_filer):
+        sample_period, data = raspi_import(liste_filer[n])
+        freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
+        spectrum = np.fft.rfft(data, axis=0) 
+        yy, yh = butter_bandpass_filter(x, 200, 800, 31250, order=8)
+        specty= np.fft.rfft(yh, axis=0) 
+        y_db = kalibrering(2, freq, specty, dBA_dict)
+        L = ekvivalentverdi2(sample_period, len(y_db), y_db)
+'''
 
 
 
@@ -130,7 +161,7 @@ x_db = kalibrering(2, freq, spectx, dBA_dict)
 
 plt.subplot(2, 1, 1)
 plt.plot(freq, x_db)
-plt.show()
+
 yy, yh = butter_bandpass_filter(x, 200, 800, 31250, order=8)
 specty= np.fft.rfft(yh, axis=0) 
 y_db = kalibrering(2, freq, specty, dBA_dict)
