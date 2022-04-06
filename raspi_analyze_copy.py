@@ -234,7 +234,7 @@ y = dBA(freq, spectrum, dBA_dict)
 y2 = todB_vec(spectrum)
 
 def plottName(name):
-    my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder/'+ name)
+    my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Frekvensspekter/'+ name)
     return my_path
 # Figures out the absolute path for you in case your working directory moves around.
 
@@ -345,7 +345,9 @@ for filename in os.listdir(directory):
     else:
         continue
 
+plt.clf()
 plt.plot(tid_vec, L_eq)
+plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'))
 plt.show()
 
 
