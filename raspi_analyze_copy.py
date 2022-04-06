@@ -62,17 +62,7 @@ spectrum = np.fft.rfft(data, axis=0)  # takes FFT of all channels
 
 
 
-'#########Kode som finner mest fremtredende frekvens i fft-bilde###########'
-'''
-mostProminentFreq = np.argmax(spectrum) #Variabelen holder posisjonen i arrayet til den frekvensen som er mest fremtredende.
-print('Mest fremtredende Frekvens:',freq[mostProminentFreq])
-print(mostProminentFreq)
-print('Amplitude til mest fremtredende frekvens: ', (20*np.log10(np.abs(2*(spectrum[mostProminentFreq]))))-60, 'dB')
-'''
-'########################################################################'
 
-
-'##########Kode for dBA'
 #dBA_array = np.array([]) 
 
 #dBA_list = []
@@ -81,26 +71,7 @@ dBA_dict = {6.3: -85.4, 8: -77.6, 10: -70.4, 12.5: -63.6, 16: -56.4, 20: -50.4, 
 dBA_key_list = list(dBA_dict.keys()) #inneholder alle keys fra dBA_dict
 
 dBA_value_list = list(dBA_dict.values()) #inneholder alle values fra dBA_dict
-'''
-def dBA_vec(frekvens, verdi):
-    dBA_list = []
-    dBA_array = np.array([])
-    for i in range(0, len(freq)):
-        dB = (20*np.log10(np.abs((verdi[i]))))-60 #en variabel som inneholder dB-verdier
-        if (freq[i] <= 20000):
-            new_element_1 = (dB -9.3)
-            np.append(dBA_array, new_element_1)
-            break
-        for j in range(0, len(dBA_dict) - 1):
-            if (dBA_key_list[j] < freq[i] < dBA_key_list[j + 1]):
-                new_element = (dB + dBA_value_list[j + 1]/2)
-                dBA_list.append(new_element[0])
-                dBA_array = np.array(dBA_list)
-        #freqdBA = np.fft.rfftfreq(n=len(dBA_array), d=sample_period)
-    return dBA_array
-'''
-'######################'
-#dBA for en verdi
+
 
 
 def dBA(frekvens, spect, dBA_dict): #tar i rfft av signalet
@@ -194,57 +165,7 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
     y = lfilter(b, a, data)
     return y
 
-#Dette er for å plotte, for å sjekke om filteret ble riktig
-'''
-# Plot the frequency response for a few different orders.
-#fs = 5000.0
-lowcut = 500.0
-highcut = 1250.0
-plt.figure(1)
-plt.clf()
-for order in [3, 6, 9]:
-    b, a = butter_bandpass(lowcut, highcut, fs, order=order)
-    w, h = freqz(b, a, worN=2000)
-    plt.plot((fs * 0.5 / np.pi) * w, abs(h), label="order = %d" % order)
 
-plt.plot([0, 0.5 * fs], [np.sqrt(0.5), np.sqrt(0.5)],
-             '--', label='sqrt(0.5)')
-plt.xlabel('Frequency (Hz)')
-plt.ylabel('Gain')
-plt.grid(True)
-plt.legend(loc='best')
-
-# Filter a noisy signal.
-T = 0.05
-nsamples = int(T * fs)
-t = np.linspace(0, T, nsamples, endpoint=False)
-a = 0.02
-f0 = 600.0
-x = 0.1 * np.sin(2 * np.pi * 1.2 * np.sqrt(t))
-x += 0.01 * np.cos(2 * np.pi * 312 * t + 0.1)
-x += a * np.cos(2 * np.pi * f0 * t + .11)
-x += 0.03 * np.cos(2 * np.pi * 2000 * t)
-#plt.figure(2)
-#plt.clf()
-#plt.plot(t, x, label='Noisy signal')
-'''
-
-'########################################################################'
-
-#SLÅ SAMMEN FREKVENSSPEKTERE - tror dette skal slettes etterhvert
-#plt.subplot(2, 1, 2)
-#plt.title("Frekvensspektere slått sammen")
-#plt.xlabel("Frequency [Hz]")
-#plt.ylabel("Power [dB]")
-#plt.plot(freq, 20*np.log10(np.abs(spectrum)))
-#plt.stem(10, ekvivalentverdi(sample_period, data))
-#plt.plot(sample_period, ekvivalentverdi(sample_period, data))
-#plt.stem(mostProminentFreq, 20*np.log10(np.abs((2*spectrum[mostProminentFreq]))))
-'########################################################################'
-#Disse 3 linjene er unødvendige men brukt til testing
-#f_max =  np.argmax(freq)
-#print('største f:')
-#print(f_max)
 
 fs = 40000 #nyqvist eller hva det heter, må være en satt variabel
 
@@ -276,49 +197,6 @@ def klassifisering(klasser, verdi):
     return klassifiserings_freq, klassifiserings_niv
 
 
-'########################################################################'
-
-#Tester at fun klassifisering funker
-'''
-x, y =klassifisering(klasser, data)
-
-plt.bar(x, y, color ='maroon', width = 10.0)
-plt.xlabel("Frekvens")
-plt.ylabel("Ekvivalentnivå")
-plt.title("Klassifisering")
-plt.show()
-'''
-
-
-#Tester at enKlasse kjører og kan plottes:
-'''
-plt.title("Power spectrum of signal")
-plt.xlabel("Frequency [Hz]")
-plt.ylabel("Power [dB]")
-plt.stem(kjøretøy1_freq, kjøretøy1_niv)
-plt.show()
-'''
-
-
-'########################################################################'
-#Litt usikker på hvordan kalibrering gjøres, har tatt utgangspunkt i at
-# en måling tas med måler og vårt system, så finner man hva differansen i dB er
-# Deretter trekker man fra denne differansen fra alle dB verdier i senere målinger når systemet er i bruk.
-
-#Kode for å finne kalibrering - flyttet til egen fil
-'''
-def finn_kalibrering(kalib_fil, målt_verdi):
-
-    #Dette er kopiert fra toppen av koden
-    sample_period, data = raspi_import(kalib_fil)
-    num_of_samples = data.shape[0]
-    t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
-    freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
-    spectrum = np.fft.rfft(data, axis=0)
-
-    diff = np.argmax(spectrum) - målt_verdi
-    return diff
-'''
 
 #Kode kalibrering, men usikker om tallet fra kalibrering skal multipliseres eller adderes
 #tar inn data i tidsdomene og sender ut data i tidsdomene (mulig A-vektet)
@@ -335,28 +213,6 @@ def kalibrering(kalibreringsverdi, freq_vec, verdi):
    
     return verdi_kalib
 
-
-'########################################################################'
-
-#Diverse som stod der fra før
-'''
-plt.subplot(2, 1, 2)
-plt.title("Power spectrum of signal")
-plt.xlabel("Frequency [Hz]")
-plt.ylabel("Power [dB]")
-plt.stem(1100,kjøretøy1_niv)
-'''
-
-'''
-y = butter_bandpass_filter(data, 900, 1600, fs, 5)
-#print(bp_filtrert)
-
-plt.subplot(2, 1, 1)
-plt.title("Time domain signal")
-plt.xlabel("Time [us]")
-plt.ylabel("Voltage")
-plt.plot(t, y)
-'''
 
 #plt.subplot(2, 1, 2)
 y = dBA(freq, spectrum, dBA_dict)
