@@ -122,29 +122,17 @@ def todB_num(verdi_rfft):
     return num_dB
 
 
-def toPascal(verdi_dB):
-    Pa_vec = []
 
-    for i in range(0, len(verdi_dB)):
-
-        Pa_vec.append(20*10**((verdi_dB[i]/p0)))
-
-    return Pa_vec
-
-def ekvivalentverdi2(period, num_samples, verdi_dB):
-    p = 0
-    verdi = toPascal(verdi_dB)
-
-    for i in range(0, len(verdi)):
-        p2 = (verdi[i]- p0)**2
-        p += p2
-   
-    L = 10*np.log(p/(len(verdi)))
-    return L
+def ekvivalentnivå_mv0(måling_data, tid_fil, v0):
+    sum = 0
+    for i in range(0, len(måling_data)):
+        sum += (data[i]/v0)**2
+    L = 20*np.log(1/tid_fil + sum)
 
 
 antall_filer = 2
 liste_filer = ['Y2022-M04-D04-H10-M38-S12.bin', 'Y2022-M04-D04-H10-M38-S17.bin']
+'''
 def plott(antall_filer, liste_filer):
     y_db = 0
     L = 0
@@ -156,7 +144,7 @@ def plott(antall_filer, liste_filer):
         specty= np.fft.rfft(yh, axis=0) 
         y_db = kalibrering(2, freq, specty, dBA_dict)
         L = ekvivalentverdi2(sample_period, len(y_db), y_db)
-
+'''
 
 
 
