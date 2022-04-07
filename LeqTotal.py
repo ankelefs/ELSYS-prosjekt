@@ -74,11 +74,11 @@ def Prominent_freq(sample_period, data):
         num_of_samples_5sec = each_5second.shape[0]
         
         #num_of_samples_per_second = each_second.shape[0]  # returns shape of matrix
-        spect_ett_5sec = np.fft.rfft(each_5second, axis=0)
+        spect_5sec = np.fft.rfft(each_5second, axis=0)
         freq = np.fft.rfftfreq(n=num_of_samples_5sec, d=sample_period)
-        mostProminent_index = np.argmax(spect_ett_5sec)
+        mostProminent_index = np.argmax(spect_5sec)
         mostProminent_freq = freq[mostProminent_index] 
-        mostProminent_spect = spect_ett_5sec[mostProminent_index]
+        mostProminent_spect = spect_5sec[mostProminent_index]
         klass_freq.append(mostProminent_freq)
         klass_spect.append(mostProminent_spect)
         
@@ -86,7 +86,6 @@ def Prominent_freq(sample_period, data):
     
     return klass_freq, klass_dBA
     
-
 
 #data = signal.detrend(data, axis=0) # removes DC component for each channel
 #sample_period *= 1e-6  # change unit to micro seconds
