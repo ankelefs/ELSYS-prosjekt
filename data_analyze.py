@@ -3,6 +3,7 @@ import datetime
 import buffer_to_first_analysis
 import time
 import pull_and_remove
+import data_analyze_func
 
 
 ##### Variabler #####

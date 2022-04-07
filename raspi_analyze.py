@@ -17,7 +17,6 @@ from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
 
 
-
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
 def raspi_import(path, channels=1):
