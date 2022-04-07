@@ -1,7 +1,11 @@
 import raspi_analyze
 import numpy as np
 
+'''
+Denne brukes kun til kalibrering av mikrofonen. Brukes ikke til behandlig av data. Den nederste funksjonen skal brukes.
+'''
 
+'''
 def finn_kalibrering(kalib_fil, målt_verdi):
 
     #Dette er kopiert fra toppen av koden
@@ -13,7 +17,7 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 
     diff = np.argmax(spectrum) - målt_verdi
     return diff
-
+'''
 
 def finn_v0(kalib_fil, målt_verdi_Leq):
     sample_period, data = raspi_analyze.raspi_import(kalib_fil)

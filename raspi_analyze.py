@@ -10,13 +10,9 @@ from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
 import os
-#import acoustics 
-#import acoustics.octave
-#import acoustics.bands
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
 
-#MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
 def raspi_import(path, channels=1):
     """
