@@ -10,9 +10,9 @@ from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
 import os
-import acoustics 
-import acoustics.octave
-import acoustics.bands
+#import acoustics 
+#import acoustics.octave
+#import acoustics.bands
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
 
