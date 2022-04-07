@@ -1,4 +1,4 @@
-import raspi_analyze
+import diverse
 import numpy as np
 
 '''
@@ -20,7 +20,7 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 '''
 
 def finn_v0(kalib_fil, målt_verdi_Leq):
-    sample_period, data = raspi_analyze.raspi_import(kalib_fil)
+    sample_period, data = diverse.raspi_import(kalib_fil)
     num_of_samples = data.shape[0]
     T = num_of_samples  * sample_period
     sum_V = 0

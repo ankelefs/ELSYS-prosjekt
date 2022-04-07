@@ -16,6 +16,19 @@ from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 Denne koden iterer gjennom alle lydfilene som finnes i en mappe og lagrer plottene og sender til nettsiden. 
 '''
 
+def raspi_import(path, channels=1):
+    """
+    Import data produced using adc_sampler.c.
+    Returns sample period and ndarray with one column per channel.
+    Sampled data for each channel, in dimensions NUM_SAMPLES x NUM_CHANNELS.
+    """
+
+    with open(path, 'r') as fid:
+        sample_period = np.fromfile(fid, count=1, dtype=float)[0]
+        data = np.fromfile(fid, dtype=np.uint16)
+        data = data.reshape((-1, channels))
+    return sample_period, data
+
 
 def plottName(name):
     my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Frekvensspekter/'+ name)
