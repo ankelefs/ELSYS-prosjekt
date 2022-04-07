@@ -54,7 +54,7 @@ def raspi_import(path, channels=1):
 
 #Ekvivalentnivå
 
-def ekvivalentnivå_mv0(måling_data, v0):
+def ekvivalentniva_mv0(måling_data, v0):
     sum = 0
     for i in range(0, len(måling_data)):
         sum += (måling_data[i]/v0)**2
@@ -181,7 +181,7 @@ def behandleData():
                 lagre()
             
             T = num_of_samples * sample_period
-            L = ekvivalentnivå_mv0(data, v0)
+            L = ekvivalentniva_mv0(data, v0)
             
         # L_kalib = kalibrering(2, freq, spectrum, dBA_dict)
             tid += 0.3

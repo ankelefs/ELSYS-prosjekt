@@ -13,10 +13,14 @@ import os
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
 
+<<<<<<<< Updated upstream:diverse.py
 '''
 Her er kode som vi ikke bruker til noe, men som vi ikke vil slette i tilfelle vi trenger det. Her finnes diverse filtere.
 '''
 
+========
+# MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
+>>>>>>>> Stashed changes:raspi_analyze.py
 
 def raspi_import(path, channels=1):
     """
