@@ -2,6 +2,7 @@ from cProfile import label
 from cmath import cos
 import dataclasses
 import math
+from stat import FILE_ATTRIBUTE_DIRECTORY
 from turtle import xcor
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,6 +20,7 @@ Denne koden iterer gjennom alle lydfilene som finnes i en mappe og lagrer plotte
 #VARIABLER
 v0 = 0.02
 directory = 'Opptaksfiler'
+directory_time = 'Opptaksfiler/OpptaksfilerTimer'
 antall_filer = 0
 L = 0
 L_eq = []
@@ -141,6 +143,9 @@ def plottName(name):
 
 
 'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
+
+
+
 
 
 
