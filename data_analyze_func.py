@@ -21,7 +21,7 @@ Denne koden iterer gjennom alle lydfilene som finnes i en mappe og lagrer plotte
 v0 = 0.02
 directory = 'Opptaksfiler'
 directory_time = 'Opptaksfiler/OpptaksfilerTimer'
-antall_filer = 0
+
 antall_filer_time = 0
 L = 0
 L_eq = []
@@ -147,8 +147,10 @@ def plottName(name):
 
 
 def plot_frekvens():
+    antall_filer = 0
     for filename in arr_time:
-        if filename.endswith(".bin"): 
+        if filename.endswith(".bin"):
+            antall_filer += 1 
             print(os.path.join("./Opptaksfiler/OpptaksfilerTimer", filename))
             sample_period, data = raspi_import(os.path.join("./Opptaksfiler/OpptaksfilerTimer", filename))
             sample_period *= 1e-6  # change unit to micro seconds
@@ -160,6 +162,8 @@ def plot_frekvens():
             for i in range(len(freq)):
                 plt.stem(freq[i], dBA_plott[i])
             plt.show()
+
+            plt.savefig(plottName('graph' + str(antall_filer)))
         
             continue
         else:
@@ -171,8 +175,41 @@ plot_frekvens()
 
 
 
+def find_ekvivalens():
+    Leq_vec = []
+    time = []
+    t = 0
+    for filename in arr:
+        if filename.endswith(".bin"):
+            print(os.path.join("./Opptaksfiler", filename))
+            sample_period, data = raspi_import(os.path.join("./Opptaksfiler", filename))
+            sample_period *= 1e-6  # change unit to micro seconds
+            
+            tempLeq = ekvivalentniva_mv0(data, v0)
 
-''''''
+            Leq_vec.append(tempLeq)
+            t += 0.33
+            time.append(t)
+
+            continue
+        else:
+            continue
+    return Leq_vec, time
+
+def plott_ekvivalens():
+    L, t = find_ekvivalens()
+    plt.clf()
+    plt.title("Ekvivalentnivå")
+    plt.xlabel("Tid [s]")
+    plt.ylabel("Power [dB]")
+    plt.plot(t, L)
+  #  with open("fignummer.txt", "r") as file:
+  #          k = file.read()
+   # plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
+    plt.show()
+
+#plott_ekvivalens()
+
 
 def lagre():
     with open("fignummer.txt", "r") as file:
@@ -212,7 +249,7 @@ def lagre():
 
 
 
-
+'''
 for filename in arr:
     if filename.endswith(".bin"): 
         antall_filer += 1
@@ -230,7 +267,7 @@ for filename in arr:
             plt.stem(freq[i], dBA_plott[i])
         plt.show()
         
-        '''
+        
         if antall_filer == 1 or antall_filer == 2 or antall_filer == 3:
             plt.title("dBA spectrum of signal")
             plt.xlabel("Frequency [Hz]")
@@ -267,7 +304,8 @@ for filename in arr:
             plt.ylabel("Power [dBA]")
             plt.plot(freq, dBA_plott, color='pink')
             lagre()
-        '''
+        
+        
         #Ekvivalentnivå skal være for 20 minutter
         T = num_of_samples * sample_period
         L = ekvivalentniva_mv0(data, v0)
@@ -296,7 +334,7 @@ with open("fignummer.txt", "r") as file:
 plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
 plt.show()
 
-
+'''
 
 
 
