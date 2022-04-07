@@ -12,4 +12,6 @@ from scipy.signal import butter, lfilter, freqz
 import os
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
-
+'''
+Her er kode som vi ikke bruker til noe, men som vi ikke vil slette i tilfelle vi trenger det. Her finnes diverse filtere.
+'''
