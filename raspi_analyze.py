@@ -68,12 +68,12 @@ print(len(spectrum))
 
 
 '#########Kode som finner mest fremtredende frekvens i fft-bilde###########'
-'''
+
 mostProminentFreq = np.argmax(spectrum) #Variabelen holder posisjonen i arrayet til den frekvensen som er mest fremtredende.
 print('Mest fremtredende Frekvens:',freq[mostProminentFreq])
 print(mostProminentFreq)
 print('Amplitude til mest fremtredende frekvens: ', (20*np.log10(np.abs(2*(spectrum[mostProminentFreq]))))-60, 'dB')
-'''
+
 '########################################################################'
 
 
