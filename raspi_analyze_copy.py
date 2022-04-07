@@ -1,5 +1,7 @@
 from cProfile import label
 from cmath import cos
+from inspect import modulesbyfile
+from lzma import FILTER_LZMA2
 import math
 from turtle import xcor
 import numpy as np
@@ -9,6 +11,7 @@ from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
 import os
+
 
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
@@ -238,105 +241,115 @@ def plottName(name):
     return my_path
 # Figures out the absolute path for you in case your working directory moves around.
 
-'''
-plt.subplot(2, 1, 1)
-plt.title("dBA spectrum of signal")
-plt.xlabel("Frequency [Hz]")
-plt.ylabel("Power [dBA]")
-plt.plot(freq, y) # get the power spectrum
 
-
-plt.subplot(2, 1, 2)
-plt.title("dBA spectrum of signal")
-plt.xlabel("Frequency [Hz]")
-plt.ylabel("Power [dB]")
-plt.plot(freq, y2) # get the power spectrum
-
-plt.savefig(plottName('graph1'))
-
-plt.show()
-'''
+'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
 
 v0 = 0.02
-'''
-#antall_filer = 2
-#liste_filer = ['Lydfiler/lastebil.bin', 'Lydfiler/bil.bin']
-
-
-def plott(antall_filer, liste_filer):
-    tid = 0
-    tid_vec = []
-    y_db = 0
-    L = 0
-    L_eq = []
-    dBA_num = 0
-    for n in range(0, antall_filer):
-        print(liste_filer[n])
-        sample_period, data = raspi_import(liste_filer[n])
-        num_of_samples = data.shape[0]
-        freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
-        spectrum = np.fft.rfft(data, axis=0) 
-        dBA_num = dBA(freq, spectrum, dBA_dict)
-        plt.title("dBA spectrum of signal")
-        plt.xlabel("Frequency [Hz]")
-        plt.ylabel("Power [dBA]")
-        plt.plot(freq, dBA_num)
-        plt.savefig(plottName('graph' + str(n)))
-        plt.show()
-        
-        #yy, yh = butter_bandpass_filter(x, 200, 800, 31250, order=8)
-        #specty= np.fft.rfft(yh, axis=0) 
-        T = num_of_samples * sample_period
-        L = ekvivalentnivå_mv0(data, v0)
-        
-        #L_kalib = kalibrering(2, freq, spectrum, dBA_dict)
-        tid += 1
-        tid_vec.append(tid)
-
-        print(L)
-        #a = plt.stem(tid, L)
-        L_eq.append(L)
-    
-    plt.plot(tid_vec, L_eq)
-    plt.show()
-
-plott(2, liste_filer) 
-
-'''
-directory = 'Lydfiler/'
+directory = 'Lydfiler/Lydprøver/'
 antall_filer = 0
 L = 0
 L_eq = []
 tid = 0
 tid_vec = []
+arr = sorted(os.listdir(directory))
 
-for filename in os.listdir(directory):
+
+
+def lagre():
+    with open("fignummer.txt", "r") as file:
+        k = file.read()
+        j = int(k)
+    if j >= 18:
+        with open("fignummer.txt", "w") as file:
+            file.write(str(0))
+        j = 0
+    
+    if antall_filer == 3:
+        j += 1
+        plt.savefig(plottName('graph'+ str(j)))
+        plt.clf()
+    if antall_filer == 6:
+        j += 1
+        plt.savefig(plottName('graph' + str(j)))
+        plt.clf()
+    if antall_filer == 9:
+        j += 1
+        plt.savefig(plottName('graph' + str(j)))
+        plt.clf()
+    if antall_filer == 12:
+        j += 1
+        plt.savefig(plottName('graph' + str(j)))
+        plt.clf()
+    if antall_filer == 15:
+        j += 1
+        plt.savefig(plottName('graph' + str(j)))
+        plt.clf()
+    if antall_filer == 18:
+        j += 1
+        plt.savefig(plottName('graph' + str(j)))
+        plt.clf()
+    with open("fignummer.txt", "w") as file:
+        file.write(str(j))
+
+
+
+for filename in arr:
     if filename.endswith(".bin"): 
         y_db = 0
         dBA_num = 0
         antall_filer += 1
-        print(os.path.join("./Lydfiler", filename))
-        sample_period, data = raspi_import(os.path.join("./Lydfiler", filename))
+        print(os.path.join("./Lydfiler/Lydprøver", filename))
+        sample_period, data = raspi_import(os.path.join("./Lydfiler/Lydprøver", filename))
         num_of_samples = data.shape[0]
         freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
         spectrum = np.fft.rfft(data, axis=0) 
         dBA_num = dBA(freq, spectrum, dBA_dict)
-        plt.clf()
-        plt.title("dBA spectrum of signal")
-        plt.xlabel("Frequency [Hz]")
-        plt.ylabel("Power [dBA]")
-        plt.plot(freq, dBA_num)
-        plt.savefig(plottName('graph' + str(antall_filer)))
-        
+
+        if antall_filer == 1 or antall_filer == 2 or antall_filer == 3:
+            plt.title("dBA spectrum of signal")
+            plt.xlabel("Frequency [Hz]")
+            plt.ylabel("Power [dBA]")
+            plt.plot(freq, dBA_num, color='black')
+            lagre()
+        if antall_filer == 4 or antall_filer == 5 or antall_filer == 6:
+            plt.title("dBA spectrum of signal")
+            plt.xlabel("Frequency [Hz]")
+            plt.ylabel("Power [dBA]")
+            plt.plot(freq, dBA_num, color='blue')
+            lagre()
+        if antall_filer == 7 or antall_filer == 8 or antall_filer == 9:
+            plt.title("dBA spectrum of signal")
+            plt.xlabel("Frequency [Hz]")
+            plt.ylabel("Power [dBA]")
+            plt.plot(freq, dBA_num, color='red')
+            lagre()
+        if antall_filer == 10 or antall_filer == 11 or antall_filer == 12:
+            plt.title("dBA spectrum of signal")
+            plt.xlabel("Frequency [Hz]")
+            plt.ylabel("Power [dBA]")
+            plt.plot(freq, dBA_num, color='green')
+            lagre()
+        if antall_filer == 13 or antall_filer == 14 or antall_filer == 15:
+            plt.title("dBA spectrum of signal")
+            plt.xlabel("Frequency [Hz]")
+            plt.ylabel("Power [dBA]")
+            plt.plot(freq, dBA_num, color='yellow')
+            lagre()
+        if antall_filer == 16 or antall_filer == 17 or antall_filer == 18:
+            plt.title("dBA spectrum of signal")
+            plt.xlabel("Frequency [Hz]")
+            plt.ylabel("Power [dBA]")
+            plt.plot(freq, dBA_num, color='pink')
+            lagre()
         
         T = num_of_samples * sample_period
         L = ekvivalentnivå_mv0(data, v0)
         
-        #L_kalib = kalibrering(2, freq, spectrum, dBA_dict)
-        tid += 1
+       # L_kalib = kalibrering(2, freq, spectrum, dBA_dict)
+        tid += 0.3
         tid_vec.append(tid)
 
-        print(L)
+        
         #a = plt.stem(tid, L)
         L_eq.append(L)
         
@@ -344,220 +357,11 @@ for filename in os.listdir(directory):
         
     else:
         continue
+    
 
 plt.clf()
 plt.plot(tid_vec, L_eq)
-plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'))
+with open("fignummer.txt", "r") as file:
+        k = file.read()
+plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
 plt.show()
-
-
-
-
-# Filter a noisy signal.
-'''
-T = 0.05
-nsamples = int(T * fs)
-t = np.linspace(0, T, nsamples, endpoint=False)
-a = 0.02
-f0 = 600.0
-x = 0.1 * np.sin(2 * np.pi * 1.2 * np.sqrt(t))
-x += 0.01 * np.cos(2 * np.pi * 312 * t + 0.1)
-x += a * np.cos(2 * np.pi * f0 * t + .11)
-x += 0.03 * np.cos(2 * np.pi * 2000 * t)
-plt.figure(2)
-plt.clf()
-plt.plot(t, x, label='Noisy signal')
-
-y = butter_bandpass_filter(data, lowcut, highcut, fs, order=6)
-plt.plot(t, y, label='Filtered signal (%g Hz)' % f0)
-plt.xlabel('time (seconds)')
-plt.hlines([-a, a], 0, T, linestyles='--')
-plt.grid(True)
-plt.axis('tight')
-plt.legend(loc='upper left')
-
-plt.show()
-'''
-
-#Alternativt bp-filter b
-#b,a=scipy.signal.butter(N=6, Wn=[0.25, 0.5], btype='band')
-#x = scipy.signal.lfilter(b,a,data)
-'########################################################################'
-#Tester at filteret funker
-'''
-fs = 40000
-x = butter_bandpass_filter(data, 900, 1600, fs, 5)
-
-plt.subplot(2, 1, 1)
-plt.plot(t, x)
-plt.xlabel('time (seconds)')
-plt.grid(True)
-plt.axis('tight')
-plt.legend(loc='upper left')
-
-
-plt.subplot(2, 1, 2)
-plt.title("Time domain signal")
-plt.xlabel("Time [us]")
-plt.ylabel("Voltage")
-plt.grid(True)
-plt.plot(t, data)
-
-plt.show()
-
-freq2 = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
-spectrum2 = np.fft.rfft(x, axis=0)
-plt.subplot(3, 1, 1)
-plt.title("Power spectrum of signal2")
-plt.xlabel("Frequency [Hz]")
-plt.ylabel("Power [dB]")
-plt.plot(freq2, 20*np.log10(np.abs(spectrum2)))
-plt.plot(freq, 20*np.log10(np.abs(spectrum)))
-'''
-'''
-plt.subplot(3, 1, 2)
-plt.title("Power spectrum of signal")
-plt.xlabel("Frequency [Hz]")
-plt.ylabel("Power [dB]")
-plt.plot(freq, 20*np.log10(np.abs(spectrum)))
-'''
-
-
-'########################################################################'
-
-# Plot the results in two subplots
-# NOTICE: This lazily plots the entire matrixes. All the channels will be put into the same plots.
-# If you want a single channel, use data[:,n] to get channel n
-
-'''
-plt.subplot(3, 1, 1)
-plt.title("Power spectrum of signal")
-plt.xlabel("Frequency [Hz]")
-plt.ylabel("Power [dB]")
-plt.plot(freq, 20*np.log10(np.abs(spectrum))) # get the power spectrum
-
-plt.subplot(3, 1, 2)
-plt.title("Power spectrum of signal2")
-plt.xlabel("Frequency [Hz]")
-plt.ylabel("Power [dB]")
-plt.plot(freq2, 20*np.log10(np.abs(spectrum2)))
-
-plt.show()
-#plt.savefig('fig.png')
-'''
-
-
-#Dataene fra de forskjellige mikrofonene
-'''
-#mic_1 = scipy.signal.detrend(data[2000:,0])
-#mic_2 = scipy.signal.detrend(data[2000:,3])
-#mic_3 = scipy.signal.detrend(data[2000:,4])
-
-
-#Først båndpassfilter over data
-#Prøver meg først på noen tusen Hz til å starte med
-#order = 6
-#fs = 31250
-#cutoff = 500
-
-#b, a = butter_lowpass(cutoff, fs, order)
-
-#Plotting freq respons
-#w, h = freqz(b, a, worN=8000)
-#plt.subplot(2, 1, 1)
-#plt.plot(0.5*fs*w/np.pi, np.abs(h), 'b')
-#plt.plot(cutoff, 0.5*np.sqrt(2), 'ko')
-#plt.axvline(cutoff, color='k')
-##plt.xlim(0, 0.5*fs)
-#plt.title("Lowpass Filter Frequency Response")
-#plt.xlabel('Frequency [Hz]')
-#plt.grid()
-#plt.show()
-
-#filter_1 = butter_lowpass_filter(mic_1, cutoff, fs, order)
-#filter_2 = butter_lowpass_filter(mic_2, cutoff, fs, order)
-#filter_3 = butter_lowpass_filter(mic_3, cutoff, fs, order)
-
-#t2 = t[2000:]
-#plt.subplot(3, 1, 1)
-#plt.plot(t2, mic_1, 'b-', label='data')
-#plt.plot(t2, filter_1, 'g-', linewidth=2, label='filtered data')
-#plt.xlabel('Time [sec]')
-#plt.grid()
-#plt.legend()
-
-#plt.subplot(3, 1, 2)
-#plt.plot(t2, mic_2, 'b-', label='data')
-#plt.plot(t2, filter_2, 'g-', linewidth=2, label='filtered data')
-#plt.xlabel('Time [sec]')
-#plt.grid()
-#plt.legend()
-
-#plt.subplot(3, 1, 3)
-#plt.plot(t2, mic_3, 'b-', label='data')
-#plt.plot(t2, filter_3, 'g-', linewidth=2, label='filtered data')
-#plt.xlabel('Time [sec]')
-#plt.grid()
-#plt.legend()
-
-#plt.show()
-'''
-
-
-#så krysskorelasjon mellom dataen og finn største verdi
-'''
-# mic_12 = np.correlate(mic_1, mic_2, 'full')
-# mic_13 = np.correlate(mic_1, mic_3, 'full')
-# mic_23 = np.correlate(mic_2, mic_3, 'full')
-# mic_11 = np.correlate(mic_1, mic_1, 'full')
-
-# fig = plt.figure()
-# ax1 = fig.add_subplot(411)
-# ax1.xcorr(mic_1, mic_2, usevlines=True, maxlags=29)
-# ax1.grid(True)
-
-# ax2 = fig.add_subplot(412)
-# ax2.xcorr(mic_1, mic_3, usevlines=True, maxlags=29)
-# ax2.grid(True)
-
-# ax3 = fig.add_subplot(413)
-# ax3.xcorr(mic_2, mic_3, usevlines=True, maxlags=29)
-# ax3.grid(True)
-
-
-# ax3 = fig.add_subplot(414)
-# ax3.xcorr(mic_1, mic_1, usevlines=True, maxlags=29)
-# ax3.grid(True)
-
-# plt.show()
-
-# max_11 = np.argmax(mic_11)
-# max_1 = np.argmax(mic_12) - max_11
-# max_2 = np.argmax(mic_13) - max_11
-# max_3 = np.argmax(mic_23) - max_11
-
-# print(max_1)
-# print(max_2)
-# print(max_3)
-# print(max_11)
-
-# t_delta_1 = max_1/31250
-# t_delta_2 = max_2/31250
-# t_delta_3 = max_3/31250
-
-# #mattematisk formel for vinkel basert på matten
-# d = 0.055
-# c = 343
-# #cos(vinkel) = (t_delta * c)/d
-# vinkel_1 = math.degrees(np.arccos((t_delta_1*c)/d))
-# vinkel_2 = math.degrees(np.arccos((t_delta_2*c)/d))
-# vinkel_3 = math.degrees(np.arccos((t_delta_3*c)/d))
-
-# vinkel = math.degrees(np.arctan2(np.sqrt(3)*(max_1 + max_2),(max_1 - max_2 - 2*max_3)))
-
-# print(vinkel_1)
-# print(vinkel_2)
-# print(vinkel_3)
-# print(vinkel)
-'''
-
