@@ -18,7 +18,6 @@ def finn_kalibrering(kalib_fil, målt_verdi):
     return diff
 
 
-
 def finn_v0(kalib_fil, målt_verdi_Leq):
     sample_period, data = raspi_analyze.raspi_import(kalib_fil)
     num_of_samples = data.shape[0]
