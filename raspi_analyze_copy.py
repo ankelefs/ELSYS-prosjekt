@@ -64,8 +64,6 @@ freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
 spectrum = np.fft.rfft(data, axis=0)  # takes FFT of all channels
 
 
-
-
 #dBA_array = np.array([]) 
 
 #dBA_list = []
