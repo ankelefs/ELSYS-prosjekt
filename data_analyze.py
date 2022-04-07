@@ -4,11 +4,14 @@ import buffer_to_first_analysis
 import time
 import pull_and_remove
 import data_analyze_func
+import binary_files_treatment
 
 
 ##### Variabler #####
 elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
 elsysProsjektOpptaksfilerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler'
+elsysProsjektOpptaksfilerTimerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
+
 
 hours = 6 # Må være synkront med RPi-opplastinger
 time_sleep = hours * 3600 # Antall timer i sekund
@@ -33,6 +36,7 @@ if __name__ == '__main__':
         
         # Henter nye opptaksfiler:
         pull_and_remove.pullFromGit(elsysProsjektMappeServer)
+        binary_files_treatment.mergeBinFilesToHour(elsysProsjektOpptaksfilerMappeServer, elsysProsjektOpptaksfilerTimerMappeServer) # Lager nye binærfiler som omfatter all info for hver relevante time (i tillegg til å beholde filene på X ant. min.)
         
         # for-løkke for alle binærfilene i Opptaksfiler-mappen:
             # Behandling av data:
