@@ -1,7 +1,7 @@
 import raspi_analyze
 import numpy as np
 
-'''
+
 def finn_kalibrering(kalib_fil, målt_verdi):
 
     #Dette er kopiert fra toppen av koden
@@ -13,7 +13,6 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 
     diff = np.argmax(spectrum) - målt_verdi
     return diff
-'''
 
 
 def finn_v0(kalib_fil, målt_verdi_Leq):

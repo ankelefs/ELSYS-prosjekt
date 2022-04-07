@@ -16,8 +16,7 @@ import os
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
 
-
-# MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
+#MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
 def raspi_import(path, channels=1):
     """
@@ -48,7 +47,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 
 '########################################################################'
 
-# Import data from bin file
+#Import data from bin file
 sample_period, data = raspi_import('Lydfiler/Lydprøver/34.bin')
 
 
@@ -56,7 +55,7 @@ sample_period, data = raspi_import('Lydfiler/Lydprøver/34.bin')
 #data = signal.detrend(data, axis=0)  # removes DC component for each channel
 sample_period *= 1e-6  # change unit to micro seconds
 
-# Generate time axis
+#Generate time axis
 num_of_samples = data.shape[0]  # returns shape of matrix
 t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
 
@@ -130,8 +129,6 @@ def dBA(frekvens, spect, dBA_dict): #tar i rfft av signalet
         dBA_vector.append(temp)
     
     return dBA_vector
-
-
 
 
 #For å få måling fra spectrum til dB, tar inn data som har blitt rfft
