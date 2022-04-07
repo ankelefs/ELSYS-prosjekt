@@ -18,7 +18,7 @@ Denne koden iterer gjennom alle lydfilene som finnes i en mappe og lagrer plotte
 
 #VARIABLER
 v0 = 0.02
-directory = 'Lydfiler'
+directory = 'Opptaksfiler'
 antall_filer = 0
 L = 0
 L_eq = []
@@ -89,6 +89,7 @@ def dBA(frekvens, spect, dBA_dict): #tar i rfft av signalet
 
 
 def Prominent_freq(sample_period, data):
+
     klass_freq = []
     klass_spect = []
     num_of_samples_in_bin = data.shape[0]  # returns shape of matrix
@@ -100,18 +101,16 @@ def Prominent_freq(sample_period, data):
     #er sekunder i data-arrayet. Hvert av disse arrayene inneholder fs=31250 samplinger. 
     list_of_5seconds = np.split(data,num_of_5seconds_in_bin)
     
-   
-    #Variabelen holder summen av 10^(spl_second/10)
-    sum_spl = 0
 
     for each_5second in list_of_5seconds:
         num_of_samples_5sec = each_5second.shape[0]
+        each_5second = signal.detrend(each_5second, axis=0)
         
-        #num_of_samples_per_second = each_second.shape[0]  # returns shape of matrix
         spect_5sec = np.fft.rfft(each_5second, axis=0)
         freq = np.fft.rfftfreq(n=num_of_samples_5sec, d=sample_period)
-        mostProminent_index = np.argmax(spect_5sec)
-        mostProminent_freq = freq[mostProminent_index] 
+        dBA_temp = dBA(freq, spect_5sec, dBA_dict)
+        mostProminent_index = np.argmax(dBA_temp)
+        mostProminent_freq = freq[mostProminent_index]
         mostProminent_spect = spect_5sec[mostProminent_index]
         klass_freq.append(mostProminent_freq)
         klass_spect.append(mostProminent_spect)
@@ -174,15 +173,11 @@ def lagre():
 for filename in arr:
     if filename.endswith(".bin"): 
         antall_filer += 1
-        print(os.path.join("./Lydfiler", filename))
-        sample_period, data = raspi_import(os.path.join("./Lydfiler", filename))
+        print(os.path.join("./Opptaksfiler", filename))
+        sample_period, data = raspi_import(os.path.join("./Opptaksfiler", filename))
         sample_period *= 1e-6  # change unit to micro seconds
         num_of_samples = data.shape[0]
         freq, dBA_plott = Prominent_freq(sample_period, data)
-        for i in range(len(freq)):
-            print(freq[i])
-        for i in range(len(dBA_plott)):
-            print(dBA_plott[i])
         plt.title("dBA spectrum of signal")
         plt.xlabel("Frequency [Hz]")
         plt.ylabel("Power [dBA]")
@@ -246,6 +241,9 @@ for filename in arr:
 
 
 plt.clf()
+plt.title("dBA spectrum of signal")
+plt.xlabel("Tid [s]")
+plt.ylabel("Power [dBA]")
 plt.plot(tid_vec, L_eq)
 with open("fignummer.txt", "r") as file:
         k = file.read()
