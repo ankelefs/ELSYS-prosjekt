@@ -178,7 +178,7 @@ def plot_frekvens():
             continue
     with open("fignummer.txt", "w") as file:
         file.write(str(j))
-plot_frekvens()
+#plot_frekvens()
 
 'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
 
@@ -219,42 +219,6 @@ def plott_ekvivalens():
 
 plott_ekvivalens()
 
-
-def lagre():
-    with open("fignummer.txt", "r") as file:
-        k = file.read()
-        j = int(k)
-    if j >= 24:
-        with open("fignummer.txt", "w") as file:
-            file.write(str(0))
-        j = 0
-    
-    if antall_filer == 3:
-        j += 1
-        plt.savefig(plottName('graph'+ str(j)))
-        plt.clf()
-    if antall_filer == 6:
-        j += 1
-        plt.savefig(plottName('graph' + str(j)))
-        plt.clf()
-    if antall_filer == 9:
-        j += 1
-        plt.savefig(plottName('graph' + str(j)))
-        plt.clf()
-    if antall_filer == 12:
-        j += 1
-        plt.savefig(plottName('graph' + str(j)))
-        plt.clf()
-    if antall_filer == 15:
-        j += 1
-        plt.savefig(plottName('graph' + str(j)))
-        plt.clf()
-    if antall_filer == 18:
-        j += 1
-        plt.savefig(plottName('graph' + str(j)))
-        plt.clf()
-    with open("fignummer.txt", "w") as file:
-        file.write(str(j))
 
 
 
