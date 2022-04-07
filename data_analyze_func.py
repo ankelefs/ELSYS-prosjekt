@@ -188,7 +188,7 @@ for filename in arr:
         plt.ylabel("Power [dBA]")
         plt.plot(freq, dBA_plott, color='pink')
         plt.show()
-
+        
         '''
         if antall_filer == 1 or antall_filer == 2 or antall_filer == 3:
             plt.title("dBA spectrum of signal")
