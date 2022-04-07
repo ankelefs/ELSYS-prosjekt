@@ -259,7 +259,7 @@ def lagre():
     with open("fignummer.txt", "r") as file:
         k = file.read()
         j = int(k)
-    if j >= 18:
+    if j >= 24:
         with open("fignummer.txt", "w") as file:
             file.write(str(0))
         j = 0
