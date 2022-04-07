@@ -44,7 +44,9 @@ if __name__ == '__main__':
         
         #Behandling av data:
         #Funk for plotting av most prom frek
+        data_analyze_func.plot_frekvens()
         #Funk for plotting av ekvniv
+        data_analyze_func.plott_ekvivalens()
             
         # Fjerner ferdigbehandlede opptaksfiler:
         pull_and_remove.removeBinaryFiles(elsysProsjektMappeServer, elsysProsjektOpptaksfilerMappeServer)
