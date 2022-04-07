@@ -1,9 +1,6 @@
 import raspi_analyze
 import numpy as np
 
-'''
-Kode skrevet for å kunne gjennomføre kalibrering av mikrofonen. Her finnes kode for å kunne finne vårt referansenivå.
-'''
 
 def finn_kalibrering(kalib_fil, målt_verdi):
 
