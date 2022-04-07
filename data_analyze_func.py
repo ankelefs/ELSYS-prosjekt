@@ -125,7 +125,7 @@ def Prominent_freq(sample_period, data):
         #klass_spect.append(mostProminent_spect)
         
     #klass_dBA = dBA(klass_freq, klass_spect, dBA_dict)
-    for k,v in freq_dict:
+    for k, v in freq_dict:
         klass_freq.append(k)
         klass_n.append(v)
     
