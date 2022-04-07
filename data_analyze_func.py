@@ -119,7 +119,7 @@ def Prominent_freq(sample_period, data):
         if(mostProminent_freq in freq_dict):
             freq_dict[mostProminent_freq] += 1
         else:
-            freq_dict[mostProminent_freq] = 0
+            freq_dict[mostProminent_freq] = 1
         
 
         #mostProminent_spect = spect_5sec[mostProminent_index]
@@ -127,9 +127,9 @@ def Prominent_freq(sample_period, data):
         #klass_spect.append(mostProminent_spect)
         
     #klass_dBA = dBA(klass_freq, klass_spect, dBA_dict)
-    for k,v in freq_dict:
-        klass_freq.append(k)
-        klass_n.append(v)
+    for key in freq_dict:
+        klass_freq.append(key)
+        klass_n.append(freq_dict.get(key))
     
     return klass_freq, klass_n
     
