@@ -95,7 +95,7 @@ def Prominent_freq(sample_period, data):
     num_of_samples_in_bin = data.shape[0]  # returns shape of matrix
     
     #Finner hvor mange sekunder det er i binær-filen
-    num_of_5seconds_in_bin = int(num_of_samples_in_bin/(fs))
+    num_of_5seconds_in_bin = int(num_of_samples_in_bin/(fs*5))
 
     #list_of_seconds er et array som inneholder like mange arrays som det
     #er sekunder i data-arrayet. Hvert av disse arrayene inneholder fs=31250 samplinger. 
@@ -181,7 +181,10 @@ for filename in arr:
         plt.title("dBA spectrum of signal")
         plt.xlabel("Frequency [Hz]")
         plt.ylabel("Power [dBA]")
-        plt.plot(freq, dBA_plott, color='pink')
+        print(len(freq))
+        print(len(dBA_plott))
+        for i in range(len(freq)):
+            plt.stem(freq[i], dBA_plott[i])
         plt.show()
 
         '''
@@ -241,9 +244,9 @@ for filename in arr:
 
 
 plt.clf()
-plt.title("dBA spectrum of signal")
+plt.title("Ekvivalentnivå")
 plt.xlabel("Tid [s]")
-plt.ylabel("Power [dBA]")
+plt.ylabel("Power [dB]")
 plt.plot(tid_vec, L_eq)
 with open("fignummer.txt", "r") as file:
         k = file.read()
