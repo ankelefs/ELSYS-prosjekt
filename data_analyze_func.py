@@ -18,7 +18,7 @@ Denne koden iterer gjennom alle lydfilene som finnes i en mappe og lagrer plotte
 
 #VARIABLER
 v0 = 0.02
-directory = 'Lydfiler'
+directory = 'Opptaksfiler'
 antall_filer = 0
 L = 0
 L_eq = []
@@ -174,15 +174,11 @@ def lagre():
 for filename in arr:
     if filename.endswith(".bin"): 
         antall_filer += 1
-        print(os.path.join("./Lydfiler", filename))
-        sample_period, data = raspi_import(os.path.join("./Lydfiler", filename))
+        print(os.path.join("./Opptaksfiler", filename))
+        sample_period, data = raspi_import(os.path.join("./Opptaksfiler", filename))
         sample_period *= 1e-6  # change unit to micro seconds
         num_of_samples = data.shape[0]
         freq, dBA_plott = Prominent_freq(sample_period, data)
-        for i in range(len(freq)):
-            print(freq[i])
-        for i in range(len(dBA_plott)):
-            print(dBA_plott[i])
         plt.title("dBA spectrum of signal")
         plt.xlabel("Frequency [Hz]")
         plt.ylabel("Power [dBA]")
@@ -246,6 +242,9 @@ for filename in arr:
 
 
 plt.clf()
+plt.title("dBA spectrum of signal")
+plt.xlabel("Tid [s]")
+plt.ylabel("Power [dBA]")
 plt.plot(tid_vec, L_eq)
 with open("fignummer.txt", "r") as file:
         k = file.read()
