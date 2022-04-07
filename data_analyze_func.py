@@ -103,6 +103,9 @@ def Prominent_freq(sample_period, data):
     
     #Finner hvor mange sekunder det er i binær-filen
     num_of_5seconds_in_bin = int(num_of_samples_in_bin/(fs*5))
+    rest = num_of_samples_in_bin % (fs*5)
+    for i in range(0, rest):
+        data = np.delete(data, 0)
 
     #list_of_seconds er et array som inneholder like mange arrays som det
     #er sekunder i data-arrayet. Hvert av disse arrayene inneholder fs=31250 samplinger. 
