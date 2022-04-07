@@ -52,33 +52,39 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 # Import data from bin file
 sample_period, data = raspi_import('Y2022-M04-D06-H16-M39-S01.bin')
 
+klass_freq = []
+klass_spect = []
 
-def L_eq_and_fft (sample_period, data):
+def Prominent_freq(sample_period, data):
     
     num_of_samples_in_bin = data.shape[0]  # returns shape of matrix
     
     #Finner hvor mange sekunder det er i binær-filen
-    num_of_seconds_in_bin = int(num_of_samples_in_bin/fs)
+    num_of_5seconds_in_bin = int(num_of_samples_in_bin/(fs*5))
 
     #list_of_seconds er et array som inneholder like mange arrays som det
     #er sekunder i data-arrayet. Hvert av disse arrayene inneholder fs=31250 samplinger. 
-    list_of_seconds = np.split(data,num_of_seconds_in_bin)
+    list_of_5seconds = np.split(data,num_of_5seconds_in_bin)
     
    
     #Variabelen holder summen av 10^(spl_second/10)
     sum_spl = 0
 
-    for each_second in list_of_seconds:
+    for each_5second in list_of_5seconds:
+        num_of_samples_5sec = each_5second.shape[0]
         
-        num_of_samples_per_second = each_second.shape[0]  # returns shape of matrix
-        #NB! BRUKER NAVNET ekvivalentniva med a i stedet for å
-        spl_second = ekvivalentniva_mv0(each_second, v0)
+        #num_of_samples_per_second = each_second.shape[0]  # returns shape of matrix
+        spect_ett_5sec = np.fft.rfft(each_5second, axis=0)
+        freq = np.fft.rfftfreq(n=num_of_samples_5sec, d=sample_period)
+        mostProminent_index = np.argmax(spect_ett_5sec)
+        mostProminent_freq = freq[mostProminent_index] 
+        mostProminent_spect = spect_ett_5sec[mostProminent_index]
+        klass_freq.append(mostProminent_freq)
+        klass_spect.append(mostProminent_spect)
         
-        sum_spl += 10**(spl_second/10)
-
-    L_eq_total = 10*np.log10(sum_spl/num_of_seconds_in_bin)
+    klass_dBA = dBA(klass_freq, klass_spect, dBA_dict)
     
-    return L_eq_total
+    return klass_freq, klass_dBA
     
 
 
@@ -92,6 +98,8 @@ def L_eq_and_fft (sample_period, data):
 # Generate frequency axis and take FFT
 #freq = np.fft.fftfreq(n=num_of_samples, d=sample_period)
 #spectrum = np.fft.fft(data, axis=0)  # takes FFT of all channels
+
+
 
 
 
@@ -221,3 +229,60 @@ plt.legend()
 
 plt.show()
 
+
+
+#så krysskorelasjon mellom dataen og finn største verdi
+
+# mic_12 = np.correlate(mic_1, mic_2, 'full')
+# mic_13 = np.correlate(mic_1, mic_3, 'full')
+# mic_23 = np.correlate(mic_2, mic_3, 'full')
+# mic_11 = np.correlate(mic_1, mic_1, 'full')
+
+# fig = plt.figure()
+# ax1 = fig.add_subplot(411)
+# ax1.xcorr(mic_1, mic_2, usevlines=True, maxlags=29)
+# ax1.grid(True)
+
+# ax2 = fig.add_subplot(412)
+# ax2.xcorr(mic_1, mic_3, usevlines=True, maxlags=29)
+# ax2.grid(True)
+
+# ax3 = fig.add_subplot(413)
+# ax3.xcorr(mic_2, mic_3, usevlines=True, maxlags=29)
+# ax3.grid(True)
+
+
+# ax3 = fig.add_subplot(414)
+# ax3.xcorr(mic_1, mic_1, usevlines=True, maxlags=29)
+# ax3.grid(True)
+
+# plt.show()
+
+# max_11 = np.argmax(mic_11)
+# max_1 = np.argmax(mic_12) - max_11
+# max_2 = np.argmax(mic_13) - max_11
+# max_3 = np.argmax(mic_23) - max_11
+
+# print(max_1)
+# print(max_2)
+# print(max_3)
+# print(max_11)
+
+# t_delta_1 = max_1/31250
+# t_delta_2 = max_2/31250
+# t_delta_3 = max_3/31250
+
+# #mattematisk formel for vinkel basert på matten
+# d = 0.055
+# c = 343
+# #cos(vinkel) = (t_delta * c)/d
+# vinkel_1 = math.degrees(np.arccos((t_delta_1*c)/d))
+# vinkel_2 = math.degrees(np.arccos((t_delta_2*c)/d))
+# vinkel_3 = math.degrees(np.arccos((t_delta_3*c)/d))
+
+# vinkel = math.degrees(np.arctan2(np.sqrt(3)*(max_1 + max_2),(max_1 - max_2 - 2*max_3)))
+
+# print(vinkel_1)
+# print(vinkel_2)
+# print(vinkel_3)
+# print(vinkel)
