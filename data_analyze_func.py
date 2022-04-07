@@ -225,7 +225,7 @@ for filename in arr:
             plt.plot(freq, dBA_plott, color='pink')
             lagre()
         '''
-
+        #Ekvivalentnivå skal være for 20 minutter
         T = num_of_samples * sample_period
         L = ekvivalentniva_mv0(data, v0)
         

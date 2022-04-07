@@ -6,6 +6,10 @@ import pull_and_remove
 import data_analyze_func
 import binary_files_treatment
 
+'''
+Denne filen skal kjøre alle funksjonene fra data_analyze_func. Programmet begynner med en time_sleep fram til gitt tidspunkt. Da er raspi og server synkronisert.
+Henter ny data fra git. Så behandler man data. Sletter så data (bin filene - rådata). Så time_sleep i 6 timer minus hvor lang tid det tok å behandle dataen. Syklys på ny
+'''
 
 ##### Variabler #####
 elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
@@ -38,8 +42,9 @@ if __name__ == '__main__':
         pull_and_remove.pullFromGit(elsysProsjektMappeServer)
         binary_files_treatment.mergeBinFilesToHour(elsysProsjektOpptaksfilerMappeServer, elsysProsjektOpptaksfilerTimerMappeServer) # Lager nye binærfiler som omfatter all info for hver relevante time (i tillegg til å beholde filene på X ant. min.)
         
-        # for-løkke for alle binærfilene i Opptaksfiler-mappen:
-            # Behandling av data:
+        #Behandling av data:
+        #Funk for plotting av most prom frek
+        #Funk for plotting av ekvniv
             
         # Fjerner ferdigbehandlede opptaksfiler:
         pull_and_remove.removeBinaryFiles(elsysProsjektMappeServer, elsysProsjektOpptaksfilerMappeServer)
