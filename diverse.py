@@ -13,14 +13,13 @@ import os
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
 
-<<<<<<<< Updated upstream:diverse.py
 '''
 Her er kode som vi ikke bruker til noe, men som vi ikke vil slette i tilfelle vi trenger det. Her finnes diverse filtere.
 '''
 
-========
+
 # MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
->>>>>>>> Stashed changes:raspi_analyze.py
+
 
 def raspi_import(path, channels=1):
     """
@@ -550,13 +549,6 @@ plt.show()
 '''
 
 '''
-=======
-plt.show()
-
-my_path = os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Bilder') # Figures out the absolute path for you in case your working directory moves around.
-my_file = 'graph.png'
-plt.savefig(os.path.join(my_path, my_file))
->>>>>>> 60573d5935e6381c55ad3a357da9b52da5c4fd3f
 
 plt.show()
 
