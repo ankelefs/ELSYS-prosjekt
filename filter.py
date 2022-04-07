@@ -3,6 +3,10 @@ import numpy as np
 from scipy import signal
 import matplotlib.pyplot as plt
 
+'''
+Diverse forsøk på filter. Dette fikk vi ikke helt til å funke. 
+'''
+
 
 
 def octavefilter(x, fs, fraction=1, order=6, limits=None, show=0, sigbands =0):

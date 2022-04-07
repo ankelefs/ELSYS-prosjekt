@@ -10,13 +10,9 @@ from scipy import signal
 import scipy.signal as signal
 from scipy.signal import butter, lfilter, freqz
 import os
-#import acoustics 
-#import acoustics.octave
-#import acoustics.bands
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
 
-#MÅ LEGGE INN MAPPE-PATH TIL DER HVOR FIGURENE SKAL LAGRES
 
 def raspi_import(path, channels=1):
     """
@@ -72,12 +68,12 @@ print(len(spectrum))
 
 
 '#########Kode som finner mest fremtredende frekvens i fft-bilde###########'
-
+'''
 mostProminentFreq = np.argmax(spectrum) #Variabelen holder posisjonen i arrayet til den frekvensen som er mest fremtredende.
 print('Mest fremtredende Frekvens:',freq[mostProminentFreq])
 print(mostProminentFreq)
 print('Amplitude til mest fremtredende frekvens: ', (20*np.log10(np.abs(2*(spectrum[mostProminentFreq]))))-60, 'dB')
-
+'''
 '########################################################################'
 
 

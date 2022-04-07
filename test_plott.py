@@ -12,6 +12,12 @@ from scipy.signal import butter, lfilter, freqz
 import os
 #import acoustics 
 
+
+'''
+Denne filen ble brukt til testing av kode. Inneholder også noen funskjoner som skal brukes i data_analyze.
+'''
+
+
 def raspi_import(path, channels=1):
     """
     Import data produced using adc_sampler.c.
