@@ -156,22 +156,28 @@ def plot_frekvens():
             antall_filer += 1 
             print(os.path.join("./Opptaksfiler/OpptaksfilerTimer", filename))
             sample_period, data = raspi_import(os.path.join("./Opptaksfiler/OpptaksfilerTimer", filename))
-            sample_period *= 1e-6  # change unit to micro seconds
-            #num_of_samples = data.shape[0]
-            freq, dBA_plott = Prominent_freq(sample_period, data)
+            sample_period *= 1e-6 
+            freq, dBA_plott = Prominent_freq(sample_period, data)  
             plt.title("Mest fremtredende frekvens")
-            plt.xlabel("Frequency [Hz]")
+            plt.xlabel("Frekvens [Hz]")
             plt.ylabel("Antall")
             for i in range(len(freq)):
-                plt.stem(freq[i], dBA_plott[i])
+                plt.stem(freq[i], dBA_plott[i])    
+            with open("fignummer.txt", "r") as file:
+                k = file.read()
+                j = int(k)
+            if j >= 24:
+                with open("fignummer.txt", "w") as file:
+                    file.write(str(0))
+                j = 0        
+            j += 1
+            plt.savefig(plottName('graph' + str(j)))
             plt.show()
-
-            plt.savefig(plottName('graph' + str(antall_filer)))
-        
             continue
         else:
             continue
-            
+    with open("fignummer.txt", "w") as file:
+        file.write(str(j))
 plot_frekvens()
 
 'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
@@ -204,14 +210,14 @@ def plott_ekvivalens():
     plt.clf()
     plt.title("Ekvivalentnivå")
     plt.xlabel("Tid [s]")
-    plt.ylabel("Power [dB]")
+    plt.ylabel("L_eq [dB]") #ekvivalent lydnivå
     plt.plot(t, L)
-  #  with open("fignummer.txt", "r") as file:
-  #          k = file.read()
-   # plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
+    with open("fignummer.txt", "r") as file:
+        k = file.read()
+    plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
     plt.show()
 
-#plott_ekvivalens()
+plott_ekvivalens()
 
 
 def lagre():
