@@ -88,10 +88,13 @@ def dBA(frekvens, spect, dBA_dict): #tar i rfft av signalet
     return dBA_vector
 
 
-def Prominent_freq(sample_period, data):
 
+
+def Prominent_freq(sample_period, data):
+    freq_dict = {}
     klass_freq = []
     klass_spect = []
+    klass_n = []
     num_of_samples_in_bin = data.shape[0]  # returns shape of matrix
     
     #Finner hvor mange sekunder det er i binær-filen
@@ -111,13 +114,22 @@ def Prominent_freq(sample_period, data):
         dBA_temp = dBA(freq, spect_5sec, dBA_dict)
         mostProminent_index = np.argmax(dBA_temp)
         mostProminent_freq = freq[mostProminent_index]
-        mostProminent_spect = spect_5sec[mostProminent_index]
-        klass_freq.append(mostProminent_freq)
-        klass_spect.append(mostProminent_spect)
+        if(mostProminent_freq in freq_dict):
+            freq_dict[mostProminent_freq] += 1
+        else:
+            freq_dict[mostProminent_freq] = 0
         
-    klass_dBA = dBA(klass_freq, klass_spect, dBA_dict)
+
+        #mostProminent_spect = spect_5sec[mostProminent_index]
+        #klass_freq.append(mostProminent_freq)
+        #klass_spect.append(mostProminent_spect)
+        
+    #klass_dBA = dBA(klass_freq, klass_spect, dBA_dict)
+    for k,v in freq_dict:
+        klass_freq.append(k)
+        klass_n.append(v)
     
-    return klass_freq, klass_dBA
+    return klass_freq, klass_n
     
 
 
