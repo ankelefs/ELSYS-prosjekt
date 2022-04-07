@@ -589,7 +589,6 @@ x_Leq = ekvivalentnivå_mv0(data, v0)
 
 
 '''
-
 plt.subplot(2, 1, 1)
 plt.title("data")
 plt.grid(True)
