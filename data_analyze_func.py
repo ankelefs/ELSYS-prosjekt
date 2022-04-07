@@ -32,6 +32,8 @@ dBA_key_list = list(dBA_dict.keys()) #inneholder alle keys fra dBA_dict
 
 dBA_value_list = list(dBA_dict.values()) #inneholder alle values fra dBA_dict
 
+fs = 31250 #samplingfrek, må være en satt variabel
+
 
 
 #FUNKSJONER
@@ -171,14 +173,12 @@ def lagre():
 def behandleData():
     for filename in arr:
         if filename.endswith(".bin"): 
-            dBA_plott = 0
             antall_filer += 1
             print(os.path.join("./Lydfiler/Lydprøver", filename))
             sample_period, data = raspi_import(os.path.join("./Lydfiler/Lydprøver", filename))
+            sample_period *= 1e-6  # change unit to micro seconds
             num_of_samples = data.shape[0]
-            freq = np.fft.rfftfreq(n=num_of_samples, d=sample_period)
-            spectrum = np.fft.rfft(data, axis=0) 
-            dBA_plott = dBA(freq, spectrum, dBA_dict)
+            freq, dBA_plott = Prominent_freq(sample_period, data)
 
             if antall_filer == 1 or antall_filer == 2 or antall_filer == 3:
                 plt.title("dBA spectrum of signal")
