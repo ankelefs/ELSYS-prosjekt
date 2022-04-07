@@ -172,13 +172,14 @@ def plot_frekvens():
                 j = 0        
             j += 1
             plt.savefig(plottName('graph' + str(j)))
-            plt.show()
+            
             continue
         else:
             continue
     with open("fignummer.txt", "w") as file:
         file.write(str(j))
-#plot_frekvens()
+
+plot_frekvens()
 
 'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
 
@@ -217,97 +218,7 @@ def plott_ekvivalens():
     plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
     plt.show()
 
-plott_ekvivalens()
-
-
-
-
-'''
-for filename in arr:
-    if filename.endswith(".bin"): 
-        antall_filer += 1
-        print(os.path.join("./Opptaksfiler", filename))
-        sample_period, data = raspi_import(os.path.join("./Opptaksfiler", filename))
-        sample_period *= 1e-6  # change unit to micro seconds
-        num_of_samples = data.shape[0]
-        freq, dBA_plott = Prominent_freq(sample_period, data)
-        plt.title("dBA spectrum of signal")
-        plt.xlabel("Frequency [Hz]")
-        plt.ylabel("Power [dBA]")
-        print(len(freq))
-        print(len(dBA_plott))
-        for i in range(len(freq)):
-            plt.stem(freq[i], dBA_plott[i])
-        plt.show()
-        
-        
-        if antall_filer == 1 or antall_filer == 2 or antall_filer == 3:
-            plt.title("dBA spectrum of signal")
-            plt.xlabel("Frequency [Hz]")
-            plt.ylabel("Power [dBA]")
-            plt.plot(freq, dBA_plott, color='black')
-            lagre()
-        if antall_filer == 4 or antall_filer == 5 or antall_filer == 6:
-            plt.title("dBA spectrum of signal")
-            plt.xlabel("Frequency [Hz]")
-            plt.ylabel("Power [dBA]")
-            plt.plot(freq, dBA_plott, color='blue')
-            lagre()
-        if antall_filer == 7 or antall_filer == 8 or antall_filer == 9:
-            plt.title("dBA spectrum of signal")
-            plt.xlabel("Frequency [Hz]")
-            plt.ylabel("Power [dBA]")
-            plt.plot(freq, dBA_plott, color='red')
-            lagre()
-        if antall_filer == 10 or antall_filer == 11 or antall_filer == 12:
-            plt.title("dBA spectrum of signal")
-            plt.xlabel("Frequency [Hz]")
-            plt.ylabel("Power [dBA]")
-            plt.plot(freq, dBA_plott, color='green')
-            lagre()
-        if antall_filer == 13 or antall_filer == 14 or antall_filer == 15:
-            plt.title("dBA spectrum of signal")
-            plt.xlabel("Frequency [Hz]")
-            plt.ylabel("Power [dBA]")
-            plt.plot(freq, dBA_plott, color='yellow')
-            lagre()
-        if antall_filer == 16 or antall_filer == 17 or antall_filer == 18:
-            plt.title("dBA spectrum of signal")
-            plt.xlabel("Frequency [Hz]")
-            plt.ylabel("Power [dBA]")
-            plt.plot(freq, dBA_plott, color='pink')
-            lagre()
-        
-        
-        #Ekvivalentnivå skal være for 20 minutter
-        T = num_of_samples * sample_period
-        L = ekvivalentniva_mv0(data, v0)
-        
-    # L_kalib = kalibrering(2, freq, spectrum, dBA_dict)
-        tid += 0.3
-        tid_vec.append(tid)
-
-        
-        #a = plt.stem(tid, L)
-        L_eq.append(L)
-        
-        continue
-        
-    else:
-        continue
-
-
-plt.clf()
-plt.title("Ekvivalentnivå")
-plt.xlabel("Tid [s]")
-plt.ylabel("Power [dB]")
-plt.plot(tid_vec, L_eq)
-with open("fignummer.txt", "r") as file:
-        k = file.read()
-plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
-plt.show()
-
-'''
+#plott_ekvivalens()
 
 
 
