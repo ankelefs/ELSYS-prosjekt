@@ -52,40 +52,70 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
 # Import data from bin file
 sample_period, data = raspi_import('Y2022-M04-D06-H16-M39-S01.bin')
 
-data = signal.detrend(data, axis=0) # removes DC component for each channel
-sample_period *= 1e-6  # change unit to micro seconds
+
+def L_eq_and_fft (sample_period, data):
+    
+    num_of_samples_in_bin = data.shape[0]  # returns shape of matrix
+    
+    #Finner hvor mange sekunder det er i binær-filen
+    num_of_seconds_in_bin = int(num_of_samples_in_bin/fs)
+
+    #list_of_seconds er et array som inneholder like mange arrays som det
+    #er sekunder i data-arrayet. Hvert av disse arrayene inneholder fs=31250 samplinger. 
+    list_of_seconds = np.split(data,num_of_seconds_in_bin)
+    
+   
+    #Variabelen holder summen av 10^(spl_second/10)
+    sum_spl = 0
+
+    for each_second in list_of_seconds:
+        
+        num_of_samples_per_second = each_second.shape[0]  # returns shape of matrix
+        #NB! BRUKER NAVNET ekvivalentniva med a i stedet for å
+        spl_second = ekvivalentniva_mv0(each_second, v0)
+        
+        sum_spl += 10**(spl_second/10)
+
+    L_eq_total = 10*np.log10(sum_spl/num_of_seconds_in_bin)
+    
+    return L_eq_total
+    
+
+
+#data = signal.detrend(data, axis=0) # removes DC component for each channel
+#sample_period *= 1e-6  # change unit to micro seconds
 
 # Generate time axis
-num_of_samples = data.shape[0]  # returns shape of matrix
-t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
+#num_of_samples = data.shape[0]  # returns shape of matrix
+#t = np.linspace(start=0, stop=num_of_samples*sample_period, num=num_of_samples)
 
 # Generate frequency axis and take FFT
-freq = np.fft.fftfreq(n=num_of_samples, d=sample_period)
-spectrum = np.fft.fft(data, axis=0)  # takes FFT of all channels
+#freq = np.fft.fftfreq(n=num_of_samples, d=sample_period)
+#spectrum = np.fft.fft(data, axis=0)  # takes FFT of all channels
 
 
 
 
 
-#Finner hvor mange sekunder det er i binær-filen
-num_of_seconds_in_bin = int(num_of_samples/fs)
+#    #Finner hvor mange sekunder det er i binær-filen
+#    num_of_seconds_in_bin = int(num_of_samples/fs)
 
-#list_of_seconds er et array som inneholder like mange arrays som det
-#er sekunder i data-arrayet. Hvert av disse arrayene inneholder fs=31250 samplinger. 
-list_of_seconds = np.split(data,num_of_seconds_in_bin)
+    #list_of_seconds er et array som inneholder like mange arrays som det
+    #er sekunder i data-arrayet. Hvert av disse arrayene inneholder fs=31250 samplinger. 
+#    list_of_seconds = np.split(data,num_of_seconds_in_bin)
 
 
-#Variabelen holder summen av 10^(spl_second/10)
-sum_spl = 0
+    #Variabelen holder summen av 10^(spl_second/10)
+#    sum_spl = 0
 
-for each_second in list_of_seconds:
-    
-    #NB! BRUKER NAVNET ekvivalentniva med a i stedet for å
-    spl_second = ekvivalentniva_mv0(each_second, v0)
-    
-    sum_spl += 10**(spl_second/10)
+#    for each_second in list_of_seconds:
 
-L_eq_total = 10*np.log10(sum_spl/num_of_seconds_in_bin)
+        #NB! BRUKER NAVNET ekvivalentniva med a i stedet for å
+#        spl_second = ekvivalentniva_mv0(each_second, v0)
+
+#        sum_spl += 10**(spl_second/10)
+
+#    L_eq_total = 10*np.log10(sum_spl/num_of_seconds_in_bin)
 
 
     
