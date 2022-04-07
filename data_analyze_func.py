@@ -145,18 +145,18 @@ def plottName(name):
 
 
 
+
 def plot_frekvens():
     for filename in arr_time:
         if filename.endswith(".bin"): 
-            antall_filer_time += 1
             print(os.path.join("./Opptaksfiler/OpptaksfilerTimer", filename))
             sample_period, data = raspi_import(os.path.join("./Opptaksfiler/OpptaksfilerTimer", filename))
             sample_period *= 1e-6  # change unit to micro seconds
-            num_of_samples = data.shape[0]
+            #num_of_samples = data.shape[0]
             freq, dBA_plott = Prominent_freq(sample_period, data)
-            plt.title("dBA spectrum of signal")
+            plt.title("Mest fremtredende frekvens")
             plt.xlabel("Frequency [Hz]")
-            plt.ylabel("Power [dBA]")
+            plt.ylabel("Antall")
             for i in range(len(freq)):
                 plt.stem(freq[i], dBA_plott[i])
             plt.show()
@@ -165,14 +165,14 @@ def plot_frekvens():
         else:
             continue
             
-
+plot_frekvens()
 
 'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
 
 
 
 
-
+''''''
 
 def lagre():
     with open("fignummer.txt", "r") as file:
