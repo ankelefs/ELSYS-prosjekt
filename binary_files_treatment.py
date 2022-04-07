@@ -1,8 +1,12 @@
 import os
 
-elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
-elsysProsjektOpptaksfilerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler'
-elsysProsjektOpptaksfilerTimerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
+"""
+Denne filen inneholder kode som slår sammen alle binærfiler som har med en spesifikk time å gjøre. Koden er skrevet for å importeres i en annen fil.
+"""
+
+# elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
+# elsysProsjektOpptaksfilerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler'
+# elsysProsjektOpptaksfilerTimerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
 
 def mergeBinFilesToHour(elsysProsjektMappeServer, elsysProsjektOpptaksfilerMappeServer):
     hoursInDay = ["H00", "H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09", "H10", "H11", "H12", "H13", "H14", "H15", "H16", "H17", "H18", "H19", "H20", "H21", "H22", "H23"] # Oversikt over alle timene i døgnet (med format)
@@ -32,4 +36,4 @@ def mergeBinFilesToHour(elsysProsjektMappeServer, elsysProsjektOpptaksfilerMappe
             
         os.system(f'cd {elsysProsjektMappeServer} && mv {globalFile} Opptaksfiler/OpptaksfilerTimer')
         
-mergeBinFilesToHour(elsysProsjektMappeServer, elsysProsjektOpptaksfilerMappeServer)
+# mergeBinFilesToHour(elsysProsjektMappeServer, elsysProsjektOpptaksfilerMappeServer)
