@@ -157,7 +157,8 @@ def plot_frekvens():
             print(os.path.join("./Opptaksfiler/OpptaksfilerTimer", filename))
             sample_period, data = raspi_import(os.path.join("./Opptaksfiler/OpptaksfilerTimer", filename))
             sample_period *= 1e-6 
-            freq, dBA_plott = Prominent_freq(sample_period, data)  
+            freq, dBA_plott = Prominent_freq(sample_period, data) 
+            plt.clf() 
             plt.title("Mest fremtredende frekvens")
             plt.xlabel("Frekvens [Hz]")
             plt.ylabel("Antall")
@@ -171,15 +172,16 @@ def plot_frekvens():
                     file.write(str(0))
                 j = 0        
             j += 1
+            with open("fignummer.txt", "w") as file:
+                file.write(str(j))
             plt.savefig(plottName('graph' + str(j)))
-            
             continue
         else:
             continue
-    with open("fignummer.txt", "w") as file:
-        file.write(str(j))
+    
+    
 
-#plot_frekvens()
+plot_frekvens()
 
 'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
 
