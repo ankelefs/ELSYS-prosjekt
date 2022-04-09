@@ -200,7 +200,7 @@ def find_ekvivalens():
             tempLeq = ekvivalentniva_mv0(data, v0)
 
             Leq_vec.append(tempLeq)
-            t += 0.33
+            t += 1/3
             time.append(t)
 
             continue
@@ -212,15 +212,25 @@ def plott_ekvivalens():
     L, t = find_ekvivalens()
     plt.clf()
     plt.title("Ekvivalentnivå")
-    plt.xlabel("Tid [s]")
+    plt.xlabel("Klokkeslett")
     plt.ylabel("L_eq [dB]") #ekvivalent lydnivå
     plt.plot(t, L)
+    x_ticks = [0, 1, 2, 3, 4, 5, 6]
     with open("fignummer.txt", "r") as file:
         k = file.read()
+    if int(k) == 6:
+        x_labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00']
+    if int(k) == 12:
+        x_labels = ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00']
+    if int(k) == 18:
+        x_labels = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
+    if int(k) == 24:
+        x_labels = ['18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00']
+    plt.xticks(ticks=x_ticks, labels=x_labels)
     plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
-    
+    #plt.show()
 
-plott_ekvivalens()
+#plott_ekvivalens()
 
 
 
