@@ -218,9 +218,9 @@ def plott_ekvivalens():
     with open("fignummer.txt", "r") as file:
         k = file.read()
     plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
-    plt.show()
+    
 
-#plott_ekvivalens()
+plott_ekvivalens()
 
 
 
