@@ -148,6 +148,8 @@ def plottName(name):
 
 
 
+'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
+
 
 def plot_frekvens():
     antall_filer = 0
@@ -181,9 +183,7 @@ def plot_frekvens():
     
     
 
-plot_frekvens()
-
-'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
+#plot_frekvens()
 
 
 
