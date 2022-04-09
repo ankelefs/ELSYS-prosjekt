@@ -179,7 +179,7 @@ def plot_frekvens():
     with open("fignummer.txt", "w") as file:
         file.write(str(j))
 
-plot_frekvens()
+#plot_frekvens()
 
 'ITERERER GJENNOM FILER + LAGRER BILDENE I NETTTSIDEMAPPEN'
 

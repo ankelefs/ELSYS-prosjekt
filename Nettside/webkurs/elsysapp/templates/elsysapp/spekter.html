@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2021.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-2020.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-hover-2021.css">
     
     <!-- JS scrip -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -38,7 +39,7 @@
   <div class="w3-content" style="max-width:1100px;margin-top:0px;margin-bottom:0px"></div>
 
 <!-- Header -->
-  <header class="w3-container w3-padding-32 w3-2021-inkwell w3-center ">
+  <header class="w3-container w3-padding-16 w3-2021-inkwell w3-center">
     <h1>Sonus Captura</h1>
       <p class="w3-opacity">Støymåling i Trondheim</p>
   </header>
@@ -46,123 +47,116 @@
 <!-- Meny -->
   <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
     <div class="w3-col s3">
-        <a href="/elsysapp/" class="w3-button w3-block w3-xlarge">Hjem</a>
+        <a href="/elsysapp/" class="w3-button w3-block w3-xlarge w3-hover-blue-grey">Hjem</a>
       </div>
       <div class="w3-col s3">
-        <a href="/elsysapp/diagram" class="w3-button w3-block w3-xlarge">Støynivå</a>
+        <a href="/elsysapp/diagram" class="w3-button w3-block w3-xlarge w3-hover-blue-grey">Støynivå</a>
       </div>
       <div class="w3-col s3">
-        <a href="" class="w3-button w3-block w3-xlarge">Klassifisering</a>
+        <a href="" class="w3-button w3-block w3-xlarge w3-hover-blue-grey">Klassifisering</a>
       </div>
       <div class="w3-col s3">
-        <a href="/elsysapp/kart" class="w3-button w3-block w3-xlarge">Kart</a>
+        <a href="/elsysapp/kart" class="w3-button w3-block w3-xlarge w3-hover-blue-grey">Kart</a>
       </div>
   </div>
 
 <!-- Innhold --> 
-  <div class="w3-center w3-padding-16 w3-panel" >  
-    <h1><b>Velg et tidsintervall</b></h1>
-    <div class="w3-quarter w3-center w3-padding-16" style="margin-top: 25px; margin-bottom: 25px"> 
-      <div class="w3-col w3-large w3-2021-inkwell w3-col-patting">
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('1').style.display='block'" >0:00 - 1:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('2').style.display='block'">1:00 - 2:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('3').style.display='block'">2:00 - 3:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('4').style.display='block'">3:00 - 4:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('5').style.display='block'">4:00 - 5:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('6').style.display='block'">5:00 - 6:00</button>
-        </div>
-      </div>  
+<div class="w3-container w3-xlarge" style="margin-bottom:120px;" id="menu">
+  <div class="w3-content">
+    <h1 class="w3-center w3-xxxlarge" style="margin-bottom:40px; margin-top: 40px"><b>Velg et tidsintervall</b></h1>
+
+    <div class="w3-col w3-center  w3-half w3-large w3-col-patting">
+      <div class="w3-row w3-2021-inkwell">
+        <a href="javascript:void(0)" onclick="openMenu(event, 'fir');" id="myLink">
+          <div class="w3-row tablink w3-border-black w3-hover-blue-grey" style="padding: 25px 50px 25px 50px;"><h1>0:00 - 6:00</h1></div>
+        </a>
+      </div>
+      <div class="w3-row w3-2021-inkwell">
+        <a href="javascript:void(0)" onclick="openMenu(event, 'sec');">
+          <div class="w3-row tablink w3-hover-blue-grey" style="padding: 25px 50px 25px 50px;"><h1>6:00 - 12:00</h1></div>
+        </a>
+      </div>
+      <div class="w3-row w3-2021-inkwell">
+        <a href="javascript:void(0)" onclick="openMenu(event, 'thi');">
+          <div class="w3-row tablink w3-hover-blue-grey" style="padding: 25px 50px 25px 50px;"><h1>12:00 - 18:00</h1></div>
+        </a>
+      </div>
+      <div class="w3-row w3-2021-inkwell">
+        <a href="javascript:void(0)" onclick="openMenu(event, 'fou');">
+          <div class="w3-row tablink  w3-hover-blue-grey" style="padding: 25px 50px 25px 50px;"><h1>18:00 - 24:00</h1></div>
+        </a>
+      </div>
+    </div> 
+
+
+    <div id="fir" class="menu w3-col w3-half w3-large w3-padding-12 w3-col-patting w3-2021-inkwell" >
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('1').style.display='block'"><h2>0:00 - 1:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('2').style.display='block'"><h2>1:00 - 2:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('3').style.display='block'"><h2>2:00 - 3:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('4').style.display='block'"><h2>3:00 - 4:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('5').style.display='block'"><h2>4:00 - 5:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('6').style.display='block'"><h2>5:00 - 6:00</h2></button>
     </div>
-    <div class="w3-quarter w3-center w3-padding-16" style="margin-top: 25px; margin-bottom: 25px" > 
-      <div class="w3-col w3-large w3-2021-inkwell w3-col-patting">
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('7').style.display='block'">6:00 - 7:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('8').style.display='block'">7:00 - 8:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('9').style.display='block'">8:00 - 9:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('10').style.display='block'">9:00 - 10:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('11').style.display='block'" >10:00 - 11:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('12').style.display='block'" >11:00 - 12:00</button>
-        </div>
-      </div>  
+
+    <div id="sec" class="menu w3-col w3-half w3-large w3-padding-12 w3-col-patting w3-2021-inkwell">
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('7').style.display='block'"><h2>6:00 - 7:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('8').style.display='block'"><h2>7:00 - 8:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('9').style.display='block'"><h2>8:00 - 9:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('10').style.display='block'"><h2>9:00 - 10:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('11').style.display='block'"><h2>10:00 - 11:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('12').style.display='block'"><h2>11:00 - 12:00</h2></button>
     </div>
-    <div class="w3-quarter w3-center w3-padding-16" style="margin-top: 25px; margin-bottom: 25px" > 
-      <div class="w3-col w3-large w3-2021-inkwell w3-col-patting">
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('13').style.display='block'">12:00 - 13:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('14').style.display='block'">13:00 - 14:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('15').style.display='block'">14:00 - 15:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('16').style.display='block'">15:00 - 16:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('17').style.display='block'" >16:00 - 17:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('18').style.display='block'" >17:00 - 18:00</button>
-        </div>
-      </div>  
+
+    <div id="thi" class="menu w3-col w3-half w3-large w3-padding-12 w3-col-patting w3-2021-inkwell">
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('13').style.display='block'"><h2>12:00 - 13:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('14').style.display='block'"><h2>13:00 - 14:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('15').style.display='block'"><h2>14:00 - 15:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('16').style.display='block'"><h2>15:00 - 16:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('17').style.display='block'"><h2>16:00 - 17:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('18').style.display='block'"><h2>17:00 - 18:00</h2></button>
     </div>
-    <div class="w3-quarter w3-center w3-padding-16" style="margin-top: 25px; margin-bottom: 25px" > 
-      <div class="w3-col w3-large w3-2021-inkwell w3-col-patting">
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('19').style.display='block'">18:00 - 19:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('20').style.display='block'">19:00 - 20:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('21').style.display='block'">20:00 - 21:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('22').style.display='block'">21:00 - 22:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('23').style.display='block'" >22:00 - 23:00</button>
-        </div>
-        <div class="w3-row s4">
-          <button class="w3-button w3-block w3-large" onclick="document.getElementById('24').style.display='block'" >23:00 - 24:00</button>
-        </div>
-      </div>  
+
+    <div id="fou" class="menu w3-col w3-half w3-large w3-padding-12 w3-col-patting w3-2021-inkwell">
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('19').style.display='block'"><h2>18:00 - 19:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('20').style.display='block'"><h2>19:00 - 20:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('21').style.display='block'"><h2>20:00 - 21:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('22').style.display='block'"><h2>21:00 - 22:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('23').style.display='block'"><h2>22:00 - 23:00</h2></button>
+      <button class="w3-button w3-block w3-hover-blue-grey" style="padding: 9.75px 50px 9.75px 50px;" onclick="document.getElementById('24').style.display='block'"><h2>23:00 - 24:00</h2></button>
     </div>
   </div>
+</div>
+
+<script>
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+     tablinks[i].className = tablinks[i].className.replace(" w3-blue-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-blue-grey";
+}
+document.getElementById("myLink").click();
+</script>
+
     
-  <div id="1" class="w3-modal">
-    <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+  <div id="1" class="w3-modal " >
+    <div class="w3-modal-content w3-animate-opacity w3-card-4" >
+      <header class="w3-container w3-blue-grey w3-center w3-padding-48"> 
         <span onclick="document.getElementById('1').style.display='none'" 
-      class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
+      class="w3-button w3-blue-grey w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 0:00 - 1:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph1.png" alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph1.png" alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
-      <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
+      <div class="w3-row w3-large w3-blue-grey w3-col-patting">
         <div class="w3-col s6">
           <div class=" w3-container w3-block w3-half"></div>
         </div>
@@ -175,13 +169,13 @@
 
   <div id="2" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('2').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 1:00 - 2:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph2.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph2.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -196,13 +190,13 @@
 
   <div id="3" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('3').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 2:00 - 3:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph3.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph3.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -217,13 +211,13 @@
 
   <div id="4" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('4').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 3:00 - 4:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph4.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph4.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -238,13 +232,13 @@
 
   <div id="5" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('5').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 4:00 - 5:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph5.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph5.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -259,13 +253,13 @@
 
   <div id="6" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('6').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 5:00 - 6:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph6.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph6.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -280,13 +274,13 @@
 
   <div id="7" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('7').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 6:00 - 7:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph7.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph7.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -301,13 +295,13 @@
 
   <div id="8" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('8').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 7:00 - 8:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph8.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph8.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -322,13 +316,13 @@
 
   <div id="9" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('9').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 8:00 - 9:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph9.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph9.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -343,13 +337,13 @@
 
   <div id="10" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('10').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 9:00 - 10:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph10.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph10.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -364,13 +358,13 @@
 
   <div id="11" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('11').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 10:00 - 11:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph11.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph11.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -384,13 +378,13 @@
   </div>
   <div id="12" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('12').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 11:00 - 12:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph12.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph12.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -405,13 +399,13 @@
 
   <div id="13" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('13').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 12:00 - 13:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph13.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph13.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -426,13 +420,13 @@
 
   <div id="14" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('14').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 13:00 - 14:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph14.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph14.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -447,13 +441,13 @@
 
   <div id="15" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('15').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 14:00 - 15:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph15.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph15.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -468,13 +462,13 @@
 
   <div id="16" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('16').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 15:00 - 16:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph16.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph16.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -489,13 +483,13 @@
 
   <div id="17" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('17').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 16:00 - 17:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph17.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph17.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -510,13 +504,13 @@
 
   <div id="18" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('18').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 17:00 - 18:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph18.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph18.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -530,13 +524,13 @@
 
   <div id="19" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('19').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 18:00 - 19:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph19.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph19.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -551,13 +545,13 @@
 
   <div id="20" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('20').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 19:00 - 20:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph20.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph20.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -572,13 +566,13 @@
 
   <div id="21" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('21').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 20:00 - 21:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph21.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph21.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -593,13 +587,13 @@
 
   <div id="22" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('22').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 21:00 - 22:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph22.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph22.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -614,13 +608,13 @@
 
   <div id="23" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('23').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 22:00 - 23:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph23.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph23.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
@@ -635,13 +629,13 @@
 
   <div id="24" class="w3-modal">
     <div class="w3-modal-content w3-animate-opacity w3-card-4">
-      <header class="w3-container w3-2021-inkwell w3-center w3-padding-32"> 
+      <header class="w3-container w3-2021-inkwell w3-center w3-padding-48"> 
         <span onclick="document.getElementById('24').style.display='none'" 
       class="w3-button w3-2021-inkwell w3-xlarge w3-display-topright">×</span>
         <h2 class="w3-wide">Frekvensspekter 23:00 - 24:00</h2>
       </header>
       <div class="w3-container">
-        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph24.png"  alt="My image" style="width:50%; transform: translate(50%,0">
+        <img src="https://raw.githubusercontent.com/ankelefs/elsys-prosjekt/main/Nettside/webkurs/elsysapp/static/Frekvensspekter/graph24.png"  alt="My image" style="width:70%; display: block; margin-left: auto; margin-right: auto;">
       </div>
       <div class="w3-row w3-large w3-2021-inkwell w3-col-patting">
         <div class="w3-col s6">
