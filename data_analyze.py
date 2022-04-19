@@ -32,7 +32,7 @@ if __name__ == '__main__':
     # Synkronisering:
     # Antall sekunder til første databehandling = synkronisering mellom enhetene
     sekunder_til_behandlingsstart = buffer_to_first_analysis.synCRON_maximus() 
-    time.sleep(sekunder_til_behandlingsstart)
+    #time.sleep(sekunder_til_behandlingsstart)
 
     while True: # Skal kjøres i uendelig tid
         
@@ -40,8 +40,8 @@ if __name__ == '__main__':
         time_before_analysis = datetime.datetime.now()
         
         # Henter nye opptaksfiler:
-        pull_and_remove.pullFromGit(elsysProsjektMappeServer)
-        binary_files_treatment.mergeBinFilesToHour(elsysProsjektOpptaksfilerMappeServer, elsysProsjektOpptaksfilerTimerMappeServer) # Lager nye binærfiler som omfatter all info for hver relevante time (i tillegg til å beholde filene på X ant. min.)
+        #pull_and_remove.pullFromGit(elsysProsjektMappeServer)
+        #binary_files_treatment.mergeBinFilesToHour(elsysProsjektOpptaksfilerMappeServer, elsysProsjektOpptaksfilerTimerMappeServer) # Lager nye binærfiler som omfatter all info for hver relevante time (i tillegg til å beholde filene på X ant. min.)
         
         # Behandling av data:
         # Funk for plotting av most prom frek

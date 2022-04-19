@@ -182,7 +182,6 @@ def plot_frekvens():
         else:
             continue
     
-    
 
 #plot_frekvens()
 
@@ -216,9 +215,9 @@ def plott_ekvivalens():
     plt.xlabel("Klokkeslett")
     plt.ylabel("L_eq [dB]") #ekvivalent lydnivå
     plt.plot(t, L)
-    x_ticks = [0, 1, 2, 3, 4, 5, 6]
     with open("fignummer.txt", "r") as file:
         k = file.read()
+    x_ticks = [0, 1, 2, 3, 4, 5, 6]
     if int(k) == 6:
         x_labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00']
     if int(k) == 12:
@@ -227,9 +226,12 @@ def plott_ekvivalens():
         x_labels = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
     if int(k) == 24:
         x_labels = ['18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00']
+    else:
+        x_labels = ['0', '1', '2', '3', '4', '5', '6']
     plt.xticks(ticks=x_ticks, labels=x_labels)
-    plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
     #plt.show()
+    plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
+    
 
 #plott_ekvivalens()
 
