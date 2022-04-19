@@ -13,6 +13,7 @@ from scipy.signal import butter, lfilter, freqz
 import os
 from scipy.signal import butter, lfilter, freqz, filtfilt, sosfilt
 
+
 '''
 Denne koden iterer gjennom alle lydfilene som finnes i en mappe og lagrer plottene og sender til nettsiden. 
 '''
@@ -231,8 +232,5 @@ def plott_ekvivalens():
     #plt.show()
 
 #plott_ekvivalens()
-
-
-
 
 
