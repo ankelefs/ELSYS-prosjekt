@@ -49,7 +49,7 @@ if __name__ == '__main__':
         data_analyze_func.plott_ekvivalens()
             
         # Fjerner ferdigbehandlede opptaksfiler:
-        pull_and_remove.removeBinaryFiles(elsysProsjektMappeServer, elsysProsjektOpptaksfilerMappeServer)
+        #pull_and_remove.removeBinaryFiles(elsysProsjektMappeServer, elsysProsjektOpptaksfilerMappeServer)
         
         # Pause i seks timer minus tiden databehandlingen tok:
         time_after_analysis = datetime.datetime.now()
