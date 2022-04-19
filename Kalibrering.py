@@ -25,7 +25,7 @@ kalib_fil = "Y2022-M04-D07-H12_M56-S14.bin"
 
 def finn_v0(kalib_fil, målt_verdi_Leq):
     sample_period, data = diverse.raspi_import(kalib_fil)
-    num_of_samples = 62500 #data.shape[0]
+    num_of_samples = data.shape[0]
     T = num_of_samples  * sample_period
     sum_V = 0
     for i in range(0, len(data)):
