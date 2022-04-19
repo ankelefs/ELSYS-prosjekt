@@ -12,13 +12,9 @@ Henter ny data fra git. Så behandler man data. Sletter så data (bin filene - r
 '''
 
 ##### Variabler #####
-# elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
-# elsysProsjektOpptaksfilerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler'
-# elsysProsjektOpptaksfilerTimerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
-
-elsysProsjektMappeServer = '/Volumes/GoogleDrive/Min disk/Utdanning/Elektronisk systemdesign - prosjekt TTT4270 /Sonus Captura/elsys-prosjekt'
-elsysProsjektOpptaksfilerMappeServer = '/Volumes/GoogleDrive/Min disk/Utdanning/Elektronisk systemdesign - prosjekt TTT4270 /Sonus Captura/elsys-prosjekt/Opptaksfiler'
-elsysProsjektOpptaksfilerTimerMappeServer = '/Volumes/GoogleDrive/Min disk/Utdanning/Elektronisk systemdesign - prosjekt TTT4270 /Sonus Captura/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
+elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
+elsysProsjektOpptaksfilerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler'
+elsysProsjektOpptaksfilerTimerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
 
 hours = 6 # Må være synkront med RPi-opplastinger
 time_sleep = hours * 3600 # Antall timer i sekund
@@ -26,14 +22,16 @@ time_sleep = hours * 3600 # Antall timer i sekund
 
 ##### Funksjoner #####
 def analysisRuntimeDuration(time_after_analysis, time_before_analysis):
-     return int((time_after_analysis - time_before_analysis).total_seconds()) # Henter ut differansen i antall sekund fra time_before_analysis og time_after_analysis
+    # Henter ut differansen i antall sekund fra time_before_analysis og time_after_analysis
+    return int((time_after_analysis - time_before_analysis).total_seconds()) 
 
 
 ##### PROGRAMMET #####
 if __name__ == '__main__':
     
     # Synkronisering:
-    sekunder_til_behandlingsstart = buffer_to_first_analysis.synCRON_maximus() # Antall sekunder til første databehandling = synkronisering mellom enhetene
+    # Antall sekunder til første databehandling = synkronisering mellom enhetene
+    sekunder_til_behandlingsstart = buffer_to_first_analysis.synCRON_maximus() 
     time.sleep(sekunder_til_behandlingsstart)
 
     while True: # Skal kjøres i uendelig tid
@@ -45,10 +43,10 @@ if __name__ == '__main__':
         pull_and_remove.pullFromGit(elsysProsjektMappeServer)
         binary_files_treatment.mergeBinFilesToHour(elsysProsjektOpptaksfilerMappeServer, elsysProsjektOpptaksfilerTimerMappeServer) # Lager nye binærfiler som omfatter all info for hver relevante time (i tillegg til å beholde filene på X ant. min.)
         
-        #Behandling av data:
-        #Funk for plotting av most prom frek
+        # Behandling av data:
+        # Funk for plotting av most prom frek
         data_analyze_func.plot_frekvens()
-        #Funk for plotting av ekvniv
+        # Funk for plotting av ekvniv
         data_analyze_func.plott_ekvivalens()
             
         # Fjerner ferdigbehandlede opptaksfiler:
