@@ -53,4 +53,6 @@ if __name__ == '__main__':
         
         # Pause i seks timer minus tiden databehandlingen tok:
         time_after_analysis = datetime.datetime.now()
-        time.sleep(time_sleep - analysisRuntimeDuration(time_after_analysis, time_before_analysis))
+        pause_time = time_sleep - analysisRuntimeDuration(time_after_analysis, time_before_analysis)
+        time.sleep(pause_time)
+        print(pause_time)
