@@ -28,6 +28,7 @@ def finn_v0(kalib_fil, målt_verdi_Leq):
     num_of_samples = data.shape[0]
     T = num_of_samples  * sample_period
     sum_V = 0
+    # for-løkke
     for i in range(0, len(data)):
         sum_V += (data[i])**2
 
