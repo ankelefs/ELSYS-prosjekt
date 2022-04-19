@@ -12,10 +12,13 @@ Henter ny data fra git. Så behandler man data. Sletter så data (bin filene - r
 '''
 
 ##### Variabler #####
-elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
-elsysProsjektOpptaksfilerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler'
-elsysProsjektOpptaksfilerTimerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
+# elsysProsjektMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt'
+# elsysProsjektOpptaksfilerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler'
+# elsysProsjektOpptaksfilerTimerMappeServer = '/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
 
+elsysProsjektMappeServer = '/Volumes/GoogleDrive/Min disk/Utdanning/Elektronisk systemdesign - prosjekt TTT4270 /Sonus Captura/elsys-prosjekt'
+elsysProsjektOpptaksfilerMappeServer = '/Volumes/GoogleDrive/Min disk/Utdanning/Elektronisk systemdesign - prosjekt TTT4270 /Sonus Captura/elsys-prosjekt/Opptaksfiler'
+elsysProsjektOpptaksfilerTimerMappeServer = '/Volumes/GoogleDrive/Min disk/Utdanning/Elektronisk systemdesign - prosjekt TTT4270 /Sonus Captura/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
 
 hours = 6 # Må være synkront med RPi-opplastinger
 time_sleep = hours * 3600 # Antall timer i sekund
