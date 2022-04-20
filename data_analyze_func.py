@@ -19,7 +19,7 @@ Denne koden iterer gjennom alle lydfilene som finnes i en mappe og lagrer plotte
 '''
 
 #VARIABLER
-v0 = 0.00011561 #Kan være denne er feil. Finn i så fall ny verdi vhja. kalibrering.
+v0 = 0.00866916 #Kan være denne er feil. Finn i så fall ny verdi vhja. kalibrering.
 directory = 'Opptaksfiler'
 directory_time = 'Opptaksfiler/OpptaksfilerTimer'
 
