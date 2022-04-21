@@ -20,10 +20,12 @@ def finn_kalibrering(kalib_fil, målt_verdi):
     diff = np.argmax(spectrum) - målt_verdi
     return diff
 '''
-vv0 = 0.068
+vv0 = 0.068 #testvariabel
 referansenivaa = 75   #referansenivå = målt_verdi_Leq = 75
 
-kalib_fil = "Opptaksfiler\\Lydfiler-fra-kalibrering-på-lab\\Y2022-M04-D07-H12-M56-S14.bin"
+#kalib_fil = "Opptaksfiler\\Lydfiler-fra-kalibrering-på-lab\\Y2022-M04-D07-H12-M56-S14.bin" #for windows
+
+kalib_fil = "Opptaksfiler/Lydfiler-fra-kalibrering-på-lab/Y2022-M04-D07-H12-M56-S14.bin" #for mac
 
 def finn_v0(kalib_fil, målt_verdi_Leq):
     sample_period, data = daf.raspi_import(kalib_fil)
@@ -39,10 +41,6 @@ def finn_v0(kalib_fil, målt_verdi_Leq):
     print(len(data))
     # for x in data:
     #     print(x)
-    
-    
-    
-    
     
     # T = num_of_samples  * sample_period
     T = 62500
