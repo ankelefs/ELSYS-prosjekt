@@ -23,13 +23,9 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 vv0 = 0.068 #testvariabel
 referansenivaa = 75   #referansenivå = målt_verdi_Leq = 75
 
-<<<<<<< HEAD
 #kalib_fil = "Opptaksfiler\\Lydfiler-fra-kalibrering-på-lab\\Y2022-M04-D07-H12-M56-S14.bin" #for windows
 
 kalib_fil = "Opptaksfiler/Lydfiler-fra-kalibrering-på-lab/Y2022-M04-D07-H12-M56-S14.bin" #for mac
-=======
-kalib_fil = "Opptaksfiler/Lydfiler-fra-kalibrering-på-lab/Y2022-M04-D07-H12-M56-S14.bin"
->>>>>>> 4e79396295fe8e298aa6671fd2cb32b3e9ad90cb
 
 def finn_v0(kalib_fil, målt_verdi_Leq):
     sample_period, data = daf.raspi_import(kalib_fil)
