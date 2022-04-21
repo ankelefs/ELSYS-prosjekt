@@ -23,7 +23,7 @@ def finn_kalibrering(kalib_fil, målt_verdi):
 vv0 = 0.068
 referansenivaa = 75   #referansenivå = målt_verdi_Leq = 75
 
-kalib_fil = "Opptaksfiler\\Lydfiler-fra-kalibrering-på-lab\\Y2022-M04-D07-H12-M56-S14.bin"
+kalib_fil = "Opptaksfiler/Lydfiler-fra-kalibrering-på-lab/Y2022-M04-D07-H12-M56-S14.bin"
 
 def finn_v0(kalib_fil, målt_verdi_Leq):
     sample_period, data = daf.raspi_import(kalib_fil)
@@ -50,13 +50,17 @@ def finn_v0(kalib_fil, målt_verdi_Leq):
     sum_datavektor = 0
     # for-løkke
     for i in range(0, T):
-        sum_V += (data[i]-790)**2
-        temp = float(data[i]-790)
+        if(data[i] < 791):
+            temp = float(-790 + data[i]) 
+        else:
+            temp = float(data[i]-790)
+
+        sum_V += (temp)**2
         print(temp)
-        
+   
     #Finn ut hvilken som gir riktig resultat for v0:    
     # utregnet_v0 = np.sqrt(1/(T * 1/(10**(målt_verdi_Leq/20))) * sum_V) #(målt_verdi_Leq = 75)
-    utregnet_v0 = np.sqrt(sum_V/(T*10**(målt_verdi_Leq/20)))
+    utregnet_v0 = np.sqrt(sum_V/(T*10**(målt_verdi_Leq/10)))
     return utregnet_v0
 
 referanseverdi = finn_v0(kalib_fil, referansenivaa)
@@ -80,7 +84,7 @@ plt.xlabel("Time [us]")
 plt.ylabel("Voltage")
 plt.plot(t, data)
 
-plt.show()
+#plt.show()
 plt.savefig('TesterInnholdIData')
     
 ########SLUTT PLOTTING###############
