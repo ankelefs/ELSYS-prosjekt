@@ -1,3 +1,3 @@
-Lydfil **: Stille
-Lydfil **: Snakking med varierende intensitet
-Lydfil **: Snakking med samme intensitet, men jeg går nærmere og nærmere
+Lydfil Y2022-M04-D23-H18-M34-S57: Stille
+Lydfil Y2022-M04-D23-H18-M38-S29: Snakking med varierende intensitet
+Lydfil Y2022-M04-D23-H18-M39-S09: Snakking med samme intensitet, men jeg går nærmere og nærmere
