@@ -29,4 +29,4 @@ def sample(sampleTime = 31250, numSamples = 1, elsysProsjektMappeRPi = '/home/pi
     os.system(f'cd {elsysProsjektMappeRPi} && mv *.bin Opptaksfiler')
     print('Program moved files successfully. Total success')
     
-sample(sampleTime, numSamples)
+# sample(sampleTime, numSamples)
