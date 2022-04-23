@@ -23,8 +23,12 @@ def finn_kalibrering(kalib_fil, målt_verdi):
     diff = np.argmax(spectrum) - målt_verdi
     return diff
 '''
+<<<<<<< HEAD
 vv0 = 0.05586528 #Referansenivå
 T = 62500   #Antall samples i 2 sekund lydfil
+=======
+vv0 = 0.05597
+>>>>>>> ed4f3ab684ccf849d5a57daf1c3fa0774ab2b8e5
 referansenivaa = 75   #referansenivå = målt_verdi_Leq = 75
 
 #kalib_fil = "Opptaksfiler\\Lydfiler-fra-kalibrering-på-lab\\Y2022-M04-D07-H12-M56-S14.bin" #for windows
@@ -50,6 +54,7 @@ def finn_v0(kalib_fil, målt_verdi_Leq):
     
     # for-løkke
     for i in range(0, T):
+<<<<<<< HEAD
         
         ##sum_V inneholder summen av samplingene kvadrert.
         sum_V += (data[i])**2
@@ -64,6 +69,18 @@ def finn_v0(kalib_fil, målt_verdi_Leq):
         # # print(temp)
         """sentrertData.append(data[i])"""
         
+=======
+        if(data[i] < 791):
+            temp = float(-790 + data[i]) 
+        else:
+            temp = float(data[i]-790)
+
+        sum_V += (temp)**2
+        #print(temp)
+   
+    #Finn ut hvilken som gir riktig resultat for v0:    
+    # utregnet_v0 = np.sqrt(1/(T * 1/(10**(målt_verdi_Leq/20))) * sum_V) #(målt_verdi_Leq = 75)
+>>>>>>> ed4f3ab684ccf849d5a57daf1c3fa0774ab2b8e5
     utregnet_v0 = np.sqrt(sum_V/(T*10**(målt_verdi_Leq/10)))
     return utregnet_v0
         
@@ -106,8 +123,12 @@ plt.ylabel("Voltage")
 plt.plot(t, data)
 
 plt.show()
+<<<<<<< HEAD
 
 # plt.savefig('TesterInnholdIData')
+=======
+plt.savefig('TesterInnholdIData')
+>>>>>>> ed4f3ab684ccf849d5a57daf1c3fa0774ab2b8e5
     
 ########SLUTT PLOTTING###############
 
