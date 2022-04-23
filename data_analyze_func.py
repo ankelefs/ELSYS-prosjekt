@@ -229,8 +229,8 @@ def plott_ekvivalens():
     #else:
         #x_labels = ['0', '1', '2', '3', '4', '5', '6']
     plt.xticks(ticks=x_ticks, labels=x_labels)
-    #plt.show()
-    plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
+    plt.show()
+    #plt.savefig(os.path.abspath('/Users/mariabolme/Desktop/Elsys/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Ekvivalentnivå/ekvivalentnivå'+ k))
     
 
 plott_ekvivalens()
