@@ -1,15 +1,13 @@
 #! /usr/bin/env python
 import datetime
-import buffer_to_first_analysis
 import time
 import pull_and_remove
 import data_analyze_func
-import binary_files_treatment
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy.signal as signal
 from PIL import Image, ImageFont, ImageDraw
+
 
 ##### Variabler #####
 elsys_prosjekt = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt'
@@ -19,7 +17,7 @@ mappe_opptaksfiler = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosje
 mappe_midlertidig_plassering = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Opptaksfiler/Midlertidig-plassering'
 
 # Ti minutter
-time_sleep = 60*10
+time_sleep = 60 * 2
 # time_sleep = 10
 # Fra kalibrering
 v0 = 0.00770143
@@ -34,13 +32,11 @@ def cleanup():
     os.system(f'cd {mappe_opptaksfiler} && mv *.bin Midlertidig-plassering')
 
 
-##### PROGRAMMET #####
+##### Programmet #####
 if __name__ == '__main__':
-    
-    ##### Synkronisering #####
-    # Ingen synkronisering i demoen. Hard, manuell start av begge program samtidig.
+    # Synkronisering med RPi
+    time.sleep(2*time_sleep)
 
-    # Skal kjøres i uendelig tid
     while True: 
         print('##### KJØRING #####')
         
@@ -76,7 +72,8 @@ if __name__ == '__main__':
                 # Henter tidspunkt fra filnavnet
                 filename_comp = filename.split('-')
         
-        # Lag plott
+        
+        ##### Plott #####
         print('>>> Lager plott ...')
         # Lydopptaket
         plt.plot(t[100:(31250+100)*10], data[100:(31250+100)*10], color="#BDD545")
@@ -103,6 +100,8 @@ if __name__ == '__main__':
             # im.save('HVOR?/fig-info.png')
             print('==> Info lagret')
             
+            
+        ##### Avslutning #####
         # Flytt ferdigbehandlede opptaksfiler til Midlertidig-plassering-mappen
         cleanup()
         print('==> Flyttet opptaksfilen')
