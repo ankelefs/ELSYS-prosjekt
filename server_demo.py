@@ -33,7 +33,7 @@ def cleanup():
 ##### Programmet #####
 if __name__ == '__main__':
     # Synkronisering med RPi
-    time.sleep(2*time_sleep)
+    time.sleep(time_sleep + 60)
 
     while True: 
         print('##### KJØRING #####')

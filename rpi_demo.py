@@ -26,7 +26,7 @@ def move_to_folder():
     print('==> Flyttet filer til Opptaksfiler')
     
 def send_to_github():
-    print('>>> Opplaster til GitHub ...')
+    print('>>> Opplasting til GitHub ...')
     os.system(f'cd {rpi_wd} && git add . && git commit -m "Nye opptak (.bin)" && git pull && git push')
     print('==> Opplasting ferdig')
 
@@ -51,4 +51,4 @@ if __name__ == '__main__':
         time_after = datetime.datetime.now()
         pause_time = time_sleep - analysisRuntimeDuration(time_after, time_before)
         print(f'==> Sekunder til neste kjøring: {pause_time}')
-        time.sleep(pause_time)
+        time.sleep(pause_time + 30)
