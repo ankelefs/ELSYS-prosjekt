@@ -4,11 +4,12 @@ import os
 
 
 ##### Variabler #####
+minutes = 2
 rpi_wd = '/home/pi/Documents/elsys-prosjekt'
 samples = 31250
 # Ti minutter sampling
-sampling_time = samples * 60 * 10
-time_sleep = 60 * 2
+sampling_time = samples * 60 * minutes
+time_sleep = 60 * minutes
 
 
 ##### Funksjoner ####

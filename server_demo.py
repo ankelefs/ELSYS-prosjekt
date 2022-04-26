@@ -11,13 +11,11 @@ from PIL import Image, ImageFont, ImageDraw
 
 ##### Variabler #####
 elsys_prosjekt = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt'
- 
 mappe_opptaksfiler = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Opptaksfiler'
-
 mappe_midlertidig_plassering = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Opptaksfiler/Midlertidig-plassering'
-
+minutes = 2
 # Ti minutter
-time_sleep = 60 * 2
+time_sleep = 60 * minutes
 # time_sleep = 10
 # Fra kalibrering
 v0 = 0.00770143
