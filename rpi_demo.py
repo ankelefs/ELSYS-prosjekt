@@ -9,7 +9,7 @@ rpi_wd = '/home/pi/Documents/elsys-prosjekt'
 samples = 31250
 # Ti minutter sampling
 sampling_time = samples * 60 * minutes
-time_sleep = 60 * minutes
+time_sleep = (60 * minutes) + 30
 
 
 ##### Funksjoner ####
@@ -51,4 +51,4 @@ if __name__ == '__main__':
         time_after = datetime.datetime.now()
         pause_time = time_sleep - analysisRuntimeDuration(time_after, time_before)
         print(f'==> Sekunder til neste kjøring: {pause_time}')
-        time.sleep(pause_time + 30)
+        time.sleep(pause_time)
