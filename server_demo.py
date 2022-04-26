@@ -21,7 +21,7 @@ minutes = 2
 time_sleep = (60 * minutes) + 30
 # time_sleep = 10
 # Fra kalibrering
-v0 = 0.00550143
+v0 = 0.05586528
 
 
 ##### Funksjoner #####
