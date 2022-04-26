@@ -31,6 +31,7 @@ L_eq = []
 tid = 0
 tid_vec = []
 
+
 # HAR KOMMENTERT UT FOR DEMO
 # arr = sorted(os.listdir(directory))
 # arr_time = sorted(os.listdir(directory_time))
