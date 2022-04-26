@@ -7,6 +7,8 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image, ImageFont, ImageDraw
+from scipy import signal
+import scipy.signal as signal
 
 
 ##### Variabler #####
@@ -62,6 +64,8 @@ if __name__ == '__main__':
             if filename.endswith(".bin"):
                 # Hent info fra opptaksfil
                 sample_period, data = data_analyze_func.raspi_import(os.path.join("./Opptaksfiler/", filename))
+                
+                data = signal.detrend(data, axis=0)
                 
                 num_of_samples = data.shape[0]
                 
