@@ -15,7 +15,7 @@ mappe_opptaksfiler = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosje
 mappe_midlertidig_plassering = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Opptaksfiler/Midlertidig-plassering'
 minutes = 2
 # Ti minutter
-time_sleep = 60 * minutes
+time_sleep = (60 * minutes) + 30
 # time_sleep = 10
 # Fra kalibrering
 v0 = 0.00770143
@@ -38,7 +38,7 @@ def send_to_github():
 ##### Programmet #####
 if __name__ == '__main__':
     # Synkronisering med RPi
-    time.sleep(time_sleep + 30)
+    time.sleep(time_sleep)
 
     while True: 
         print('##### KJØRING #####')
@@ -83,7 +83,7 @@ if __name__ == '__main__':
         plt.xlim(0, 10)
         plt.xlabel('Tid [s]')
         plt.ylabel('Spenning [mV]')
-        plt.title('Utdrag fra støymålingen')
+        plt.title('Støymåling')
         plt.tight_layout()
         # plt.show()
         # plt.savefig('HVOR?/fig.png')
