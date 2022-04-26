@@ -13,6 +13,7 @@ from PIL import Image, ImageFont, ImageDraw
 elsys_prosjekt = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt'
 mappe_opptaksfiler = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Opptaksfiler'
 mappe_midlertidig_plassering = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Opptaksfiler/Midlertidig-plassering'
+app_fig_path = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Nettside/webkurs/elsysapp/static/Demo'
 minutes = 2
 # Ti minutter
 time_sleep = (60 * minutes) + 30
@@ -86,7 +87,7 @@ if __name__ == '__main__':
         plt.title('Støymåling')
         plt.tight_layout()
         # plt.show()
-        # plt.savefig('HVOR?/fig.png')
+        plt.savefig(f'{app_fig_path}/fig.png')
         print('==> Plott lagret')
         
         # Annen info
@@ -100,7 +101,7 @@ if __name__ == '__main__':
             draw_im.text((50, 50), f'Ekvivalentnivå siste 5 minutter:   {tempLeq:.2f} dB\nNår målingen ble tatt:                    {filename_comp[3].strip("H")}:{filename_comp[4].strip("M")}:{filename_comp[5].strip("S").split(".")[0]}', fill = (66, 102, 122), font=my_font)
             
             # im.show()
-            # im.save('HVOR?/fig-info.png')
+            im.save(f'{app_fig_path}/fig-info.png')
             print('==> Info lagret')
             
             
