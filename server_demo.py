@@ -28,12 +28,17 @@ def analysisRuntimeDuration(time_after_analysis, time_before_analysis):
 
 def cleanup():
     os.system(f'cd {mappe_opptaksfiler} && mv *.bin Midlertidig-plassering')
+    
+def send_to_github():
+    print('>>> Opplasting til GitHub ...')
+    os.system(f'cd {elsys_prosjekt} && git pull && git add . && git commit -m "Opprydding" && git push')
+    print('==> Opplasting ferdig')
 
 
 ##### Programmet #####
 if __name__ == '__main__':
     # Synkronisering med RPi
-    time.sleep(time_sleep + 60)
+    # time.sleep(time_sleep + 60)
 
     while True: 
         print('##### KJØRING #####')
@@ -103,6 +108,8 @@ if __name__ == '__main__':
         # Flytt ferdigbehandlede opptaksfiler til Midlertidig-plassering-mappen
         cleanup()
         print('==> Flyttet opptaksfilen')
+        # Oppdaterer Github
+        send_to_github()
         
         # Pause i ti minutter minus tiden databehandlingen tok
         time_after_analysis = datetime.datetime.now()

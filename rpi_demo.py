@@ -27,7 +27,7 @@ def move_to_folder():
     
 def send_to_github():
     print('>>> Opplasting til GitHub ...')
-    os.system(f'cd {rpi_wd} && git add . && git commit -m "Nye opptak (.bin)" && git pull && git push')
+    os.system(f'cd {rpi_wd} && git pull && git add . && git commit -m "Nye opptak (.bin)" && git push')
     print('==> Opplasting ferdig')
 
 def analysisRuntimeDuration(time_after_analysis, time_before_analysis):
