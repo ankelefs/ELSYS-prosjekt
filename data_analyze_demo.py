@@ -7,21 +7,22 @@ import data_analyze_func
 import binary_files_treatment
 import os
 import matplotlib.pyplot as plt
+import numpy as np
+import scipy.signal as signal
+from PIL import Image, ImageFont, ImageDraw
 
 ##### Variabler #####
-elsysProsjektMappeServer_path = '/Volumes/GoogleDrive/Min\ disk/Utdanning/Elektronisk\ systemdesign\ -\ prosjekt\ TTT4270\ /Sonus\ Captura/elsys-prosjekt'
-elsysProsjektMappeServer= os.path.normpath(elsysProsjektMappeServer_path)
+elsys_prosjekt = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt'
+ 
+mappe_opptaksfiler = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Opptaksfiler'
 
-elsysProsjektOpptaksfilerMappeServer_path = '/Volumes/GoogleDrive/Min\ disk/Utdanning/Elektronisk\ systemdesign\ -\ prosjekt\ TTT4270\ /Sonus\ Captura/elsys-prosjekt/Opptaksfiler'
-elsysProsjektOpptaksfilerMappeServer= os.path.normpath(elsysProsjektOpptaksfilerMappeServer_path)
-
-elsysProsjektOpptaksfilerTimerMappeServer_path = '/Volumes/GoogleDrive/Min\ disk/Utdanning/Elektronisk\ systemdesign\ -\ prosjekt\ TTT4270\ /Sonus\ Captura/elsys-prosjekt/Opptaksfiler/OpptaksfilerTimer'
-elsysProsjektOpptaksfilerTimerMappeServer = elsysProsjektOpptaksfilerMappeServer= os.path.normpath(elsysProsjektOpptaksfilerTimerMappeServer_path)
+mappe_midlertidig_plassering = '/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Opptaksfiler/Midlertidig-plassering'
 
 # Ti minutter
 time_sleep = 60*10
 # Fra kalibrering
 v0 = 0.00770143
+
 
 ##### Funksjoner #####
 def analysisRuntimeDuration(time_after_analysis, time_before_analysis):
@@ -47,30 +48,51 @@ if __name__ == '__main__':
         # Vil produsere ETT plott med all informasjon som skal vises på hjemmesiden
         
         # Liste med alle filer i mappen
-        arr = sorted(os.listdir(elsysProsjektOpptaksfilerMappeServer))
+        arr = sorted(os.listdir(mappe_opptaksfiler))
         # Iterer gjennom alle filene
         for filename in arr:
             if filename.endswith(".bin"):
                 # Hent info fra opptaksfil
-                sample_period, data = data_analyze_func.raspi_import(os.path.join("./Opptaksfiler/OpptaksfilerTimer", filename))
+                sample_period, data = data_analyze_func.raspi_import(os.path.join("./Opptaksfiler/", filename))
                 
-                # Analyser opptaksfil
+                num_of_samples = data.shape[0]
+                
                 sample_period *= 1e-6 
                 
-                freq, dBA_plott = data_analyze_func.Prominent_freq(sample_period, data)
+                t = np.linspace(start=0, stop=num_of_samples * sample_period, num=num_of_samples)
                 
+                # Analyser opptaksfil
                 tempLeq = data_analyze_func.ekvivalentniva_mv0(data, v0)
-        
-        # Ekvivalentnivå
-        l_eq = data_analyze_func.ekvivalentniva_mv0()
+                
+                # Henter tidspunkt fra filnavnet
+                filename_comp = filename.split('-')
         
         # Lag plott
-        plt.clf() 
-        plt.title("Mest fremtredende frekvens")
-        plt.xlabel("Frekvens [Hz]")
-        plt.ylabel("Antall")
-        plt.stem(freq, dBA_plott)
+        # Lydopptaket
+        plt.plot(t[100:(31250+100)*10], data[100:(31250+100)*10])
+        plt.xlim(0, 10)
+        plt.xlabel('Tid [s]')
+        plt.ylabel('Spenning [mV]')
+        plt.title('Utdrag på ti sekund fra en ti minutters støymåling')
+        
+        # Tiden opptaket ble gjort
+        my_image = Image.open("white-background.png")
+
+        image_editable = ImageDraw.Draw(my_image)
+        image_editable.text((15,15), f'Tid: {filename_comp[4]}:{filename_comp[5]}', (237, 230, 211))
+
+        my_image.save("fig-info.png")
+        
+        # plt.text(0, 0, ')
+        # plt.text(10, 10, ) f'Mest fremtredende frekvens: {tempLeq}'
+        
+        # Frekvensspekteret
+        # Ingen plotting
+
+        # fig.tight_layout()
         plt.show()
+        plt.savefig('fig.png')
+    
             
         # Flytt ferdigbehandlede opptaksfiler til Midlertidig-plassering-mappen
         # pull_and_remove.removeBinaryFiles(elsysProsjektMappeServer, elsysProsjektOpptaksfilerMappeServer)
