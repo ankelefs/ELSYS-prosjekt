@@ -98,7 +98,7 @@ if __name__ == '__main__':
             my_font = ImageFont.truetype('/Users/ankerlefstad/Desktop/sonuscaptura-demo/elsys-prosjekt/Roboto/Roboto-Medium.ttf', 60)
             
             # Ikke endre whitespace. Dette er formatet
-            draw_im.text((50, 50), f'             Ekvivalentnivå siste 5 minutter:   {tempLeq:.2f} dB\n             Når målingen ble tatt:                    {filename_comp[3].strip("H")}:{filename_comp[4].strip("M")}:{filename_comp[5].strip("S").split(".")[0]}', fill = (66, 102, 122), font=my_font)
+            draw_im.text((50, 50), f'             Ekvivalentnivå siste 2 minutter:   {tempLeq:.2f} dB\n             Når målingen ble tatt:                    {filename_comp[3].strip("H")}:{filename_comp[4].strip("M")}:{filename_comp[5].strip("S").split(".")[0]}', fill = (66, 102, 122), font=my_font)
             
             # im.show()
             im.save(f'{app_fig_path}/fig-info.png')
