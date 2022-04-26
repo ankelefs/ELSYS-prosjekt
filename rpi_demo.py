@@ -14,7 +14,7 @@ time_sleep = 60 * 2
 ##### Funksjoner ####
 def sampling():
     print('>>> Sampler ...')
-    now = datetime.now()
+    now = datetime.datetime.now()
     dt_string = now.strftime("Y%Y-M%m-D%d-H%H-M%M-S%S") # YY-mm-dd-H-M-S
     
     os.system(f'cd {rpi_wd} && sudo ./adc_sampler {sampling_time} {dt_string}.bin')
