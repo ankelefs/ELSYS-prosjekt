@@ -42,7 +42,7 @@ def send_to_github():
 ##### Programmet #####
 if __name__ == '__main__':
     # Synkronisering med RPi
-    # time.sleep(time_sleep)
+    time.sleep(time_sleep)
 
     while True: 
         print('##### KJØRING #####')
